@@ -1,0 +1,17 @@
+TODO:
+
+Known Issues:
+
+
+2009.4.18	K.L.	<xxxK.L.xxx@gmail.com>
+
+	|	Game: framework based on OGRE set up.
+
+	+	Billiards: project created.
+	+	Game: project created.
+
+	|	Pool set up.
+	+	ChangeLog.txt: created.
+
+
+--------------------------------------------- Pool ChangeLog ---------------------------------------------
