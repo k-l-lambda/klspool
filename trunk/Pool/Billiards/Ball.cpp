@@ -5,15 +5,10 @@
 **	This program is free software without any warranty.
 */
 
-#include "StableHeaders.h"
+#include "Ball.h"
+#include <assert.h>
 
-#include "Billiards.h"
-
-void Billiards::createPhysicsScene()
-{
-	// TODO
-}
+hkpWorld* Ball::m_hkpWorld = 0;
+Ogre::SceneManager* Ball::m_SceneMgr = 0;
 
 //TODO
-
-__declspec(dllexport) int a_test_for_export_library_generation;
