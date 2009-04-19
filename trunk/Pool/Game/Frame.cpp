@@ -229,6 +229,13 @@ void Frame::createScene()
 	mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
 	mCamera->lookAt(0,0,0);
 
+	createSphere("Sphere", 12, 12, 3);
+	m_nodeGame = m_nodeCameraRoot->createChildSceneNode();
+
+	// only a sample
+	SceneNode* aball = m_nodeGame->createChildSceneNode();
+	aball->attachObject(mSceneMgr->createEntity("aball", "Sphere"));
+
 	mSceneMgr->setSkyBox(true, "Pool/SkyBox");
 
 	mWindow->getViewport(0)->setBackgroundColour(ColourValue(0.2, 0.2, 0.2));
