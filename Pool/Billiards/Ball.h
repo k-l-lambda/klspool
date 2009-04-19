@@ -18,11 +18,14 @@
 class Ball
 {
 public:
+
+	void setPos(Ogre::Vector3 pos);
+
 	bool isInHole();
 	bool isStill();
 	void update();
 
-	static setupStatics(Ogre::SceneNode* sn, hkpWorld* kw);
+	static void setupStatics(Ogre::SceneNode* sn, hkpWorld* kw);
 
 private:
 	Ogre::SceneNode* m_OgreNode;

@@ -6,6 +6,8 @@
 */
 
 #include "Ball.h"
+#include "StableHeaders.h"
+
 #include <assert.h>
 
 hkpWorld* Ball::m_hkpWorld = 0;
