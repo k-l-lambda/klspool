@@ -7,6 +7,8 @@
 
 #include "HavokSystem.h"
 
+#include "StableHeaders.h"
+
 //´íÎó´¦Àíº¯Êı
 static void HK_CALL errorReport(const char* msg,void*)
 {
