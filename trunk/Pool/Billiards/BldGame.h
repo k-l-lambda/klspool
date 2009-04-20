@@ -29,7 +29,7 @@ namespace Billiards
 		// give some impuse to the designated ball
 		void applyForceOnBall(hkVector4& dir, hkVector4& pos, hkReal val, int number);
 
-		void addBall(hkReal x, hkReal y, hkReal z);
+		void addBall(hkReal x, hkReal y, hkReal z, hkReal mass, hkReal radius);
 		void deleteBall(int number);
 
 		void setPosOfBall(hkReal x, hkReal y, hkReal z, int number);

@@ -10,11 +10,15 @@
 #include "Ball.h"
 
 #include <assert.h>
+#include <iostream>
 
 
 namespace Billiards
 {
 	hkpWorld* Ball::m_hkpWorld = 0;
+
+	Ball::Ball(const hkVector4& pos, hkReal mass, hkReal radius) : m_mass(mass), m_radius(radius), m_position(pos), m_havokRigid(0)
+	{}
 
 	void Ball::creatRigidBody()
 	{
@@ -44,7 +48,6 @@ namespace Billiards
 
 		m_hkpWorld->unmarkForWrite();
 
-		m_havokRigid->removeReference();
 		shape->removeReference();
 	}
 
@@ -92,11 +95,9 @@ namespace Billiards
 		return q;
 	}
 
-	void Ball::setupStatic(hkpWorld *kw)
+	void Ball::setupStatic(hkpWorld *hw)
 	{
-		assert(!kw);
-
-		m_hkpWorld = kw;	
+		m_hkpWorld = hw;	
 	}
 
 	Ball::~Ball()

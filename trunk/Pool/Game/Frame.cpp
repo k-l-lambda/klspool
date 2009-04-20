@@ -235,8 +235,25 @@ void Frame::createScene()
 	m_nodeGame = m_nodeCameraRoot->createChildSceneNode();
 
 	// only a sample
-	SceneNode* aball = m_nodeGame->createChildSceneNode();
-	m_nodeBall->attachObject(mSceneMgr->createEntity("aball", "Sphere"));
+	{
+		m_nodeBall_1 = m_nodeGame->createChildSceneNode();
+		m_nodeBall_1->attachObject(mSceneMgr->createEntity("aball1", "Sphere"));
+		Ogre::Vector3 position(0, 0, 0);
+		m_nodeBall_1->setPosition(position);
+
+		m_nodeBall_2 = m_nodeGame->createChildSceneNode();
+		m_nodeBall_2->attachObject(mSceneMgr->createEntity("aball2", "Sphere"));
+		m_nodeBall_2->setPosition(position);
+
+		Ogre::Entity* entGround = mSceneMgr->createEntity("ground","floor200x200.mesh");
+		Ogre::SceneNode* groundNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("groundnode");
+
+		groundNode->scale(1,0.2,1);
+
+		groundNode->attachObject(entGround);
+
+		groundNode->setPosition(Ogre::Vector3(0, 0, 0));
+	}
 
 	mSceneMgr->setSkyBox(true, "Pool/SkyBox");
 
@@ -244,6 +261,7 @@ void Frame::createScene()
 
 	// init physics system
 	m_billiards = new Billiards::BldGame();
+	m_billiards->setup();
 }
 
 void Frame::onIdle(wxIdleEvent& e)
@@ -277,6 +295,29 @@ void Frame::frameStarted(const FrameEvent& evt)
 	const Real elapsed = std::min(evt.timeSinceLastFrame, 0.2f);
 
 	{
+		// step the world
+		m_billiards->simulate();
+
+		{
+			hkVector4 pos = m_billiards->getPosOfBall(0);
+			hkQuaternion angle = m_billiards->getgetRotationOfBall(0);
+			
+			m_nodeBall_1->setPosition(Ogre::Vector3(pos(0), pos(1), pos(2)) );
+			m_nodeBall_1->setOrientation(Ogre::Quaternion(angle.getReal(), 
+			                                        angle.getImag()(0), 
+													angle.getImag()(1),
+													angle.getImag()(2)) );
+
+			pos = m_billiards->getPosOfBall(1);
+			angle = m_billiards->getgetRotationOfBall(1);
+			
+			m_nodeBall_2->setPosition(Ogre::Vector3(pos(0), pos(1), pos(2)) );
+			m_nodeBall_2->setOrientation(Ogre::Quaternion(angle.getReal(), 
+			                                        angle.getImag()(0), 
+													angle.getImag()(1),
+													angle.getImag()(2)) );
+		}
+
 		Radian delta = Radian(elapsed * SKYBOX_ROTATE_SPEED);
 		m_SkyBoxAngle += delta;
 
@@ -286,7 +327,7 @@ void Frame::frameStarted(const FrameEvent& evt)
 
 		// rotate camera
 		m_nodeCameraRoot->setOrientation(Quaternion(m_SkyBoxAngle, Vector3::UNIT_Y));
-		mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
+		mCamera->setPosition(m_nodeCamera->_getDerivedPosition() + 50);
 		//mCamera->lookAt(m_nodeGame->_getDerivedPosition());
 		mCamera->lookAt(0,0,0);
 	}
