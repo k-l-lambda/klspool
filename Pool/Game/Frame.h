@@ -79,7 +79,8 @@ private:
 	SceneNode*							m_nodeCameraRoot;
 	SceneNode*							m_nodeCamera;
 
-	SceneNode*                          m_nodeBall;
+	SceneNode*                          m_nodeBall_1;
+	SceneNode*                          m_nodeBall_2;
 
 	boost::shared_ptr<CEGUI::Renderer>	m_GuiRenderer;
 	boost::shared_ptr<CEGUI::System>	m_GuiSystem;
@@ -92,7 +93,7 @@ private:
 
 	int									m_FocusDialog;
 
-	Billiards::BldGame*							m_billiards;
+	Billiards::BldGame*					m_billiards;
 
 	DECLARE_EVENT_TABLE()
 };

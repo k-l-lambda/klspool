@@ -36,12 +36,15 @@ namespace Billiards
 		shape->removeReference();
 
 		m_World->unmarkForWrite();
+		
+		addBall(0, 50, 2, 100, 3);
+		addBall(0, 60, 0, 100, 3);
 	}
 
-	void BldGame::addBall(hkReal x, hkReal y, hkReal z)
+	void BldGame::addBall(hkReal x, hkReal y, hkReal z, hkReal mass, hkReal radius)
 	{
-		Ball* ball = new Ball();
-		ball->setPos(hkVector4(x, y, z));
+		Ball* ball = new Ball(hkVector4(x, y, z) , mass , radius);
+	
 		ball->creatRigidBody();
 
 		m_ballList.push_back(ball);
@@ -49,28 +52,28 @@ namespace Billiards
 
 	void BldGame::setPosOfBall(hkReal x, hkReal y, hkReal z, int number)
 	{
-		assert(number < (int)m_ballList.size());
+		//assert(number > (int)m_ballList.size());
 
 		m_ballList[number]->setPos(hkVector4(x, y, z));
 	}
 
 	hkVector4 BldGame::getPosOfBall(int number)
 	{
-		assert(number < (int)m_ballList.size());
+		//assert(number > (int)m_ballList.size());
 
 		return m_ballList[number]->getPos();
 	}
 
 	hkQuaternion BldGame::getgetRotationOfBall(int number)
 	{
-		assert(number < (int)m_ballList.size());
+		//assert(number > (int)m_ballList.size());
 
 		return m_ballList[number]->getRotation();
 	}
 
 	void BldGame::deleteBall(int number)
 	{
-		assert(number < (int)m_ballList.size());
+		//assert(number > (int)m_ballList.size());
 
 		delete m_ballList[number];
 

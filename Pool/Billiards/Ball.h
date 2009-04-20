@@ -21,6 +21,8 @@ namespace Billiards
 	class Ball
 	{
 	public:
+		Ball();
+		Ball(const hkVector4& pos, hkReal mass, hkReal radius);
 
 		void creatRigidBody();
 
@@ -34,7 +36,7 @@ namespace Billiards
 
 		~Ball();
 
-		static void setupStatic(hkpWorld* kw);
+		static void setupStatic(hkpWorld* hw);
 
 	private:
 			
