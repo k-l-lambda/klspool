@@ -5,9 +5,9 @@
 **	This program is free software without any warranty.
 */
 
-#include "HavokSystem.h"
-
 #include "StableHeaders.h"
+
+#include "HavokSystem.h"
 
 //´íÎó´¦Àíº¯Êý
 static void HK_CALL errorReport(const char* msg,void*)

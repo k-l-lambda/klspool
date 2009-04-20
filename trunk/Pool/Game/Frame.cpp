@@ -7,6 +7,8 @@
 
 #include "StableHeaders.h"
 
+#include "../Billiards/Billiards.h"
+
 #include <Commdlg.h>
 #include <mmsystem.h>
 #pragma comment(lib,"winmm.lib")
@@ -234,11 +236,14 @@ void Frame::createScene()
 
 	// only a sample
 	SceneNode* aball = m_nodeGame->createChildSceneNode();
-	aball->attachObject(mSceneMgr->createEntity("aball", "Sphere"));
+	m_nodeBall->attachObject(mSceneMgr->createEntity("aball", "Sphere"));
 
 	mSceneMgr->setSkyBox(true, "Pool/SkyBox");
 
 	mWindow->getViewport(0)->setBackgroundColour(ColourValue(0.2, 0.2, 0.2));
+
+	// init physics system
+	m_billiards = new Billiards();
 }
 
 void Frame::onIdle(wxIdleEvent& e)

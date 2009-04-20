@@ -10,8 +10,6 @@
 
 #include "StableHeaders.h"
 
-#include <Ogre.h>
-
 // This class synchronizes the graphic and the phsix of the ball,
 // and supports some tests and sets funtions
 
@@ -19,21 +17,29 @@ class Ball
 {
 public:
 
-	void setPos(Ogre::Vector3 pos);
+	void creatRigidBody();
+
+	void setPos(hkVector4& pos);
 
 	bool isInHole();
 	bool isStill();
-	void update();
 
-	static void setupStatics(Ogre::SceneNode* sn, hkpWorld* kw);
+	hkVector4 getPos();
+	hkQuaternion getRotation();
+
+	~Ball();
+
+	static void setupStatic(hkpWorld* kw);
 
 private:
-	Ogre::SceneNode* m_OgreNode;
+		
+	hkReal m_radius;
+	hkReal m_mass;
+	hkVector4 m_position;
 
-	hkpRigidBody* m_HavokRigid;
+	hkpRigidBody* m_havokRigid;
 
 	static hkpWorld* m_hkpWorld;
-	static Ogre::SceneManager* m_SceneMgr;
 };
 
 #endif

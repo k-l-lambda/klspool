@@ -45,19 +45,17 @@
 #include <Physics/Utilities/VisualDebugger/hkpPhysicsContext.h>				
 
 // Classlists
-//#define INCLUDE_HAVOK_PHYSICS_CLASSES
-//#define HK_CLASSES_FILE <Common/Serialize/Classlist/hkClasses.h>
-//#include <Common/Serialize/Util/hkBuiltinTypeRegistry.cxx>
+#define INCLUDE_HAVOK_PHYSICS_CLASSES
+#define HK_CLASSES_FILE <Common/Serialize/Classlist/hkClasses.h>
+#include <Common/Serialize/Util/hkBuiltinTypeRegistry.cxx>
 
 // Generate a custom list to trim memory requirements
-//#define HK_COMPAT_FILE <Common/Compat/hkCompatVersions.h>
-//#include <Common/Compat/hkCompat_None.cxx>
-
-#include <Ogre.h>
+#define HK_COMPAT_FILE <Common/Compat/hkCompatVersions.h>
+#include <Common/Compat/hkCompat_None.cxx>
 
 //#include <stdio.h>
-//#include <vector>
-//#include <assert.h>
+#include <vector>
+#include <assert.h>
 
 #include "Billiards.h"
 #include "HavokSystem.h"
