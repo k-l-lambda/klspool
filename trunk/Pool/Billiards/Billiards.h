@@ -8,41 +8,94 @@
 #ifndef	__BILLIARDS_H__
 #define	__BILLIARDS_H__
 
-#include "HavokSystem.h"
-#include "Ball.h"
+
+
+#ifdef	_MSC_VER
+#	pragma warning(push)
+#	pragma warning(disable: 4710)	// 'function' : function not inlined
+#	pragma warning(disable: 4711)	// function 'function' selected for inline expansion
+#endif
+
+#ifdef	_MSC_VER
+#	pragma warning(push)
+#	pragma warning(disable: 4820)	// 'bytes' bytes padding added after construct 'member_name'
+#	include <wchar.h>
+#	pragma warning(pop)
+#endif
 
 #include <vector>
-#include <assert.h>
+#if	_MSC_VER == 1400	// tolerant warnings
+#	pragma warning(push)
+#	pragma warning(disable: 4510)	// 'class' : default constructor could not be generated
+#	pragma warning(disable: 4571)	// Informational: catch(...) semantics changed since Visual C++ 7.1; structured exceptions (SEH) are no longer caught
+#	pragma warning(disable: 4610)	// object 'class' can never be instantiated - user-defined constructor required
+#	pragma warning(disable: 4820)	// 'bytes' bytes padding added after construct 'member_name'
+#endif	// _MSC_VER == 1400
+#include <list>
+#if	_MSC_VER == 1400
+#	pragma warning(pop)
+#endif	// _MSC_VER == 1400
+#include <set>
+#include <map>
+#include <stack>
 
-class Billiards : public HavokSystem
+
+// Havok library
+
+// Math and base include
+#include <Common/Base/hkBase.h>
+#include <Common/Base/System/hkBaseSystem.h>
+#include <Common/Base/Memory/hkThreadMemory.h>
+#include <Common/Base/Memory/Memory/Pool/hkPoolMemory.h>
+#include <Common/Base/System/Error/hkDefaultError.h>
+#include <Common/Base/Monitor/hkMonitorStream.h>
+
+// Dynamics includes
+#include <Physics/Collide/hkpCollide.h>										
+#include <Physics/Collide/Agent/ConvexAgent/SphereBox/hkpSphereBoxAgent.h>	
+#include <Physics/Collide/Shape/Convex/Box/hkpBoxShape.h>					
+#include <Physics/Collide/Shape/Convex/Sphere/hkpSphereShape.h>				
+#include <Physics/Collide/Dispatch/hkpAgentRegisterUtil.h>					
+
+#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastInput.h>			
+#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastOutput.h>			
+
+#include <Physics/Dynamics/World/hkpWorld.h>								
+#include <Physics/Dynamics/Entity/hkpRigidBody.h>							
+#include <Physics/Utilities/Dynamics/Inertia/hkpInertiaTensorComputer.h>	
+
+#include <Common/Base/Thread/Job/ThreadPool/Cpu/hkCpuJobThreadPool.h>
+#include <Common/Base/Thread/Job/ThreadPool/Spu/hkSpuJobThreadPool.h>
+#include <Common/Base/Thread/JobQueue/hkJobQueue.h>
+
+// Visual Debugger includes
+#include <Common/Visualize/hkVisualDebugger.h>
+#include <Physics/Utilities/VisualDebugger/hkpPhysicsContext.h>				
+
+// Classlists
+#define INCLUDE_HAVOK_PHYSICS_CLASSES
+#define HK_CLASSES_FILE <Common/Serialize/Classlist/hkClasses.h>
+#include <Common/Serialize/Util/hkBuiltinTypeRegistry.cxx>
+
+// Generate a custom list to trim memory requirements
+#define HK_COMPAT_FILE <Common/Compat/hkCompatVersions.h>
+#include <Common/Compat/hkCompat_None.cxx>
+
+
+#ifdef	_BILLIARDSDLL
+#	define	BILLIARDS_API	__declspec(dllexport)
+#else
+#	define	BILLIARDS_API	__declspec(dllimport)
+#endif	// defined(_GRIDDLL)
+
+
+namespace Billiards
 {
-public:
-	virtual void createPhysicsScene();
+	class Ball;
+	class BldGame;
+	class HavokSystem;
+}
 
-	// test if all the balls is still
-	bool isStill();
-
-	// give some impuse to the designated ball
-	void applyForceOnBall(hkVector4& dir, hkVector4& pos, hkReal val, int number);
-
-	void addBall(hkReal x, hkReal y, hkReal z);
-	void deleteBall(int number);
-
-	void setPosOfBall(hkReal x, hkReal y, hkReal z, int number);
-
-	hkVector4 getPosOfBall(int number);
-	hkQuaternion getgetRotationOfBall(int number);
-
-	// set the designated ball stilled
-	void disableBall(int number);
-
-	~Billiards();
-
-private:
-
-	std::vector<Ball*> m_ballList;
-	hkpRigidBody* m_table;
-};
 
 
 #endif	// !defined(__BILLIARDS_H__)

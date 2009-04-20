@@ -3,6 +3,11 @@ TODO:
 Known Issues:
 
 
+2009.4.20	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Billiards: refined code organization.
+
+
 2009.4.18	K.L.	<xxxK.L.xxx@gmail.com>
 
 	|	Game: framework based on OGRE set up.

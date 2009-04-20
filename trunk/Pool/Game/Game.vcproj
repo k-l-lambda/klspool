@@ -40,7 +40,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm161"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_WXWIDGETS)\include&quot;;&quot;$(SDKDIR_WXWIDGETS)\include\msvc&quot;;&quot;$(SDKDIR_OGRE)\OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)\Samples\Common\CEGUIRenderer\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_WXWIDGETS)\include&quot;;&quot;$(SDKDIR_WXWIDGETS)\include\msvc&quot;;&quot;$(SDKDIR_OGRE)\OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)\Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(SDKDIR_BOOST)\bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)\lib\vc_lib&quot;;&quot;$(SDKDIR_OGRE)\lib&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\lib\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(SDKDIR_HAVOK)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;;&quot;$(SDKDIR_BOOST)\bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)\lib\vc_lib&quot;;&quot;$(SDKDIR_OGRE)\lib&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -117,7 +117,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm148"
-				AdditionalIncludeDirectories="&quot;$(HAVOK_HOME)\Source&quot;;&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_WXWIDGETS)\include&quot;;&quot;$(SDKDIR_WXWIDGETS)\include\msvc&quot;;&quot;$(SDKDIR_OGRE)\OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)\Samples\Common\CEGUIRenderer\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_WXWIDGETS)\include&quot;;&quot;$(SDKDIR_WXWIDGETS)\include\msvc&quot;;&quot;$(SDKDIR_OGRE)\OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)\Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StableHeaders.h"
@@ -137,7 +137,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="hkBase.lib hkSerialize.lib hkSceneData.lib hkInternal.lib hkGeometryUtilities.lib hkVisualize.lib hkCompat.lib hkpCollide.lib hkpConstraintSolver.lib hkpDynamics.lib hkpInternal.lib hkpUtilities.lib hkpVehicle.lib"
-				AdditionalLibraryDirectories="&quot;$(HAVOK_HOME)\Lib\win32_net_8-0\release_multithreaded&quot;;&quot;$(SDKDIR_BOOST)\bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)\lib\vc_lib&quot;;&quot;$(SDKDIR_OGRE)\lib&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\lib\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(SDKDIR_HAVOK)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;;&quot;$(SDKDIR_BOOST)\bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)\lib\vc_lib&quot;;&quot;$(SDKDIR_OGRE)\lib&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
