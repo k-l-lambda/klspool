@@ -8,11 +8,12 @@
 #ifndef	__FRAME_H__
 #define	__FRAME_H__
 
-
-
 #include "ExampleApplication.h"
 #include "OgreCEGUIRenderer.h"
 
+#include <vector>
+
+class Billiards;
 
 class Frame
 	: public wxFrame
@@ -73,6 +74,8 @@ private:
 	SceneNode*							m_nodeCameraRoot;
 	SceneNode*							m_nodeCamera;
 
+	SceneNode*                          m_nodeBall;
+
 	boost::shared_ptr<CEGUI::Renderer>	m_GuiRenderer;
 	boost::shared_ptr<CEGUI::System>	m_GuiSystem;
 
@@ -84,6 +87,7 @@ private:
 
 	int									m_FocusDialog;
 
+	Billiards*							m_billiards;
 
 	DECLARE_EVENT_TABLE()
 };
