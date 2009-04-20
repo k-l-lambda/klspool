@@ -7,7 +7,7 @@
 
 #include "StableHeaders.h"
 
-#include "../Billiards/Billiards.h"
+#include "../Billiards/BldGame.h"
 
 #include <Commdlg.h>
 #include <mmsystem.h>
@@ -243,7 +243,7 @@ void Frame::createScene()
 	mWindow->getViewport(0)->setBackgroundColour(ColourValue(0.2, 0.2, 0.2));
 
 	// init physics system
-	m_billiards = new Billiards();
+	m_billiards = new Billiards::BldGame();
 }
 
 void Frame::onIdle(wxIdleEvent& e)

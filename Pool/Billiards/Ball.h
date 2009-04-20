@@ -5,41 +5,49 @@
 **	This program is free software without any warranty.
 */
 
-#ifndef _BALL_H_
-#define _BALL_H_
+#ifndef __BALL_H__
+#define __BALL_H__
 
-#include "StableHeaders.h"
 
-// This class synchronizes the graphic and the phsix of the ball,
-// and supports some tests and sets funtions
 
-class Ball
+#include "Billiards.h"
+
+
+namespace Billiards
 {
-public:
+	// This class synchronizes the graphic and the phsix of the ball,
+	// and supports some tests and sets funtions
 
-	void creatRigidBody();
+	class Ball
+	{
+	public:
 
-	void setPos(hkVector4& pos);
+		void creatRigidBody();
 
-	bool isInHole();
-	bool isStill();
+		void setPos(hkVector4& pos);
 
-	hkVector4 getPos();
-	hkQuaternion getRotation();
+		bool isInHole();
+		bool isStill();
 
-	~Ball();
+		hkVector4 getPos();
+		hkQuaternion getRotation();
 
-	static void setupStatic(hkpWorld* kw);
+		~Ball();
 
-private:
-		
-	hkReal m_radius;
-	hkReal m_mass;
-	hkVector4 m_position;
+		static void setupStatic(hkpWorld* kw);
 
-	hkpRigidBody* m_havokRigid;
+	private:
+			
+		hkReal m_radius;
+		hkReal m_mass;
+		hkVector4 m_position;
 
-	static hkpWorld* m_hkpWorld;
-};
+		hkpRigidBody* m_havokRigid;
 
-#endif
+		static hkpWorld* m_hkpWorld;
+	};
+}
+
+
+
+#endif	// !defined(__BALL_H__)

@@ -40,8 +40,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm118"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(HAVOK_HOME)\Source&quot;"
-				PreprocessorDefinitions="HK_DEBUG"
+				AdditionalIncludeDirectories="&quot;$(HAVOK_HOME)\Source&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				PreprocessorDefinitions="HK_DEBUG;_BILLIARDSDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -63,7 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="hkBase.lib hkSerialize.lib hkSceneData.lib hkInternal.lib hkGeometryUtilities.lib hkVisualize.lib hkCompat.lib hkpCollide.lib hkpConstraintSolver.lib hkpDynamics.lib hkpInternal.lib hkpUtilities.lib hkpVehicle.lib "
-				AdditionalLibraryDirectories="&quot;$(HAVOK_HOME)\Lib\win32_net_8-0\debug_multithreaded&quot;"
+				AdditionalLibraryDirectories="&quot;$(HAVOK_HOME)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;;&quot;$(SDKDIR_HAVOK)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				GenerateDebugInformation="true"
@@ -119,7 +119,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(HAVOK_HOME)\Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(HAVOK_HOME)\Source&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				PreprocessorDefinitions="_BILLIARDSDLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StableHeaders.h"
@@ -140,7 +141,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="hkBase.lib hkSerialize.lib hkSceneData.lib hkInternal.lib hkGeometryUtilities.lib hkVisualize.lib hkCompat.lib hkpCollide.lib hkpConstraintSolver.lib hkpDynamics.lib hkpInternal.lib hkpUtilities.lib hkpVehicle.lib"
-				AdditionalLibraryDirectories="&quot;$(HAVOK_HOME)\Lib\win32_net_8-0\release_multithreaded&quot;"
+				AdditionalLibraryDirectories="&quot;$(HAVOK_HOME)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;;&quot;$(SDKDIR_HAVOK)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				GenerateDebugInformation="true"
@@ -191,6 +192,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BldGame.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\HavokSystem.cpp"
 				>
 			</File>
@@ -226,6 +231,10 @@
 			</File>
 			<File
 				RelativePath=".\Billiards.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BldGame.h"
 				>
 			</File>
 			<File

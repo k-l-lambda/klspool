@@ -8,12 +8,17 @@
 #ifndef	__FRAME_H__
 #define	__FRAME_H__
 
+
+
 #include "ExampleApplication.h"
 #include "OgreCEGUIRenderer.h"
 
-#include <vector>
 
-class Billiards;
+namespace Billiards
+{
+	class BldGame;
+}
+
 
 class Frame
 	: public wxFrame
@@ -87,7 +92,7 @@ private:
 
 	int									m_FocusDialog;
 
-	Billiards*							m_billiards;
+	Billiards::BldGame*							m_billiards;
 
 	DECLARE_EVENT_TABLE()
 };
