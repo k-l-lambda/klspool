@@ -21,7 +21,7 @@ namespace Billiards
 
 		// create the ground
 		hkVector4 groundSize;
-		groundSize.set(100.0f,2.0f,100.0f);
+		groundSize.set(200.0f,2.0f,200.0f);
 		hkpConvexShape* shape = new hkpBoxShape(groundSize, 0.05f);
 
 		hkpRigidBodyCinfo ci;
@@ -37,6 +37,7 @@ namespace Billiards
 
 		m_World->unmarkForWrite();
 		
+		// add balls
 		addBall(0, 50, 2, 100, 3);
 		addBall(0, 60, 0, 100, 3);
 	}
@@ -57,14 +58,21 @@ namespace Billiards
 		m_ballList[number]->setPos(hkVector4(x, y, z));
 	}
 
-	hkVector4 BldGame::getPosOfBall(int number)
+	void BldGame::applyForceOnBall(const hkVector4& force, const hkVector4& pos, hkReal deltaTime, int number)
+	{
+		//assert(number > (int)m_ballList.size());
+
+		m_ballList[number]->applyForce(force, pos, deltaTime);
+	}
+
+	hkVector4 BldGame::getPosOfBall(int number) const
 	{
 		//assert(number > (int)m_ballList.size());
 
 		return m_ballList[number]->getPos();
 	}
 
-	hkQuaternion BldGame::getgetRotationOfBall(int number)
+	hkQuaternion BldGame::getgetRotationOfBall(int number) const
 	{
 		//assert(number > (int)m_ballList.size());
 
@@ -79,6 +87,19 @@ namespace Billiards
 
 		std::vector<Ball*>::iterator iter = m_ballList.begin() + number;
 		m_ballList.erase(iter);
+	}
+
+	void BldGame::updateAllBalls()
+	{
+		for(int i = 0; i < (int)m_ballList.size(); ++i)
+			m_ballList[i]->update();
+	}
+
+	void BldGame::simulate()
+	{
+		HavokSystem::simulate();
+
+		updateAllBalls();
 	}
 
 	BldGame::~BldGame()

@@ -26,13 +26,17 @@ namespace Billiards
 
 		void creatRigidBody();
 
-		void setPos(hkVector4& pos);
+		void applyForce(const hkVector4& force, const hkVector4& pos, hkReal deltaTime);
 
-		bool isInHole();
-		bool isStill();
+		void setPos(const hkVector4& pos);
 
-		hkVector4 getPos();
-		hkQuaternion getRotation();
+		bool isInHole() const;
+		bool isStill() const;
+
+		hkVector4 getPos() const;
+		hkQuaternion getRotation() const;
+
+		void update();
 
 		~Ball();
 
@@ -43,6 +47,7 @@ namespace Billiards
 		hkReal m_radius;
 		hkReal m_mass;
 		hkVector4 m_position;
+		hkQuaternion m_rotation;
 
 		hkpRigidBody* m_havokRigid;
 

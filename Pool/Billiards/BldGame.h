@@ -27,18 +27,22 @@ namespace Billiards
 		bool isStill();
 
 		// give some impuse to the designated ball
-		void applyForceOnBall(hkVector4& dir, hkVector4& pos, hkReal val, int number);
+		void applyForceOnBall(const hkVector4& force, const hkVector4& pos, hkReal deltaTime, int number);
 
 		void addBall(hkReal x, hkReal y, hkReal z, hkReal mass, hkReal radius);
 		void deleteBall(int number);
 
 		void setPosOfBall(hkReal x, hkReal y, hkReal z, int number);
 
-		hkVector4 getPosOfBall(int number);
-		hkQuaternion getgetRotationOfBall(int number);
+		hkVector4 getPosOfBall(int number) const;
+		hkQuaternion getgetRotationOfBall(int number) const;
 
 		// set the designated ball stilled
 		void disableBall(int number);
+
+		void updateAllBalls();
+
+		void simulate();
 
 		~BldGame();
 

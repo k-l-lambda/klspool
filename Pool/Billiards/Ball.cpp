@@ -37,7 +37,7 @@ namespace Billiards
 		sphereInfo.m_mass = massProperties.m_mass;
 		sphereInfo.m_centerOfMass = massProperties.m_centerOfMass;
 		sphereInfo.m_inertiaTensor = massProperties.m_inertiaTensor;
-		sphereInfo.m_solverDeactivation = sphereInfo.SOLVER_DEACTIVATION_MEDIUM;
+		sphereInfo.m_solverDeactivation = sphereInfo.SOLVER_DEACTIVATION_LOW;
 		sphereInfo.m_shape = shape;
 		sphereInfo.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA;
 		sphereInfo.m_position = m_position;
@@ -51,7 +51,16 @@ namespace Billiards
 		shape->removeReference();
 	}
 
-	void Ball::setPos(hkVector4 &pos)
+	void Ball::applyForce(const hkVector4& force, const hkVector4& pos, hkReal deltaTime)
+	{
+		m_hkpWorld->markForWrite();
+
+		m_havokRigid->applyForce(deltaTime, force, pos);
+
+		m_hkpWorld->unmarkForWrite();
+	}
+
+	void Ball::setPos(const hkVector4 &pos)
 	{
 		m_position = pos;
 
@@ -65,39 +74,30 @@ namespace Billiards
 		}
 	}
 
-	hkVector4 Ball::getPos()
+	hkVector4 Ball::getPos() const
 	{
-		if(m_havokRigid)
-		{
-			m_hkpWorld->markForRead();
-
-			m_position = m_havokRigid->getPosition();
-
-			m_hkpWorld->unmarkForRead();
-		}
-
 		return m_position;
 	}
 
-	hkQuaternion Ball::getRotation()
+	hkQuaternion Ball::getRotation() const
 	{
-		hkQuaternion q;
-
-		if(m_havokRigid)
-		{
-			m_hkpWorld->markForRead();
-
-			q = m_havokRigid->getRotation();
-
-			m_hkpWorld->unmarkForRead();
-		}
-
-		return q;
+		return m_rotation;
 	}
 
 	void Ball::setupStatic(hkpWorld *hw)
 	{
 		m_hkpWorld = hw;	
+	}
+
+	void Ball::update()
+	{
+		m_hkpWorld->markForRead();
+
+		m_position = m_havokRigid->getPosition();
+
+		m_rotation = m_havokRigid->getRotation();
+
+		m_hkpWorld->unmarkForRead();
 	}
 
 	Ball::~Ball()
