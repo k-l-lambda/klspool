@@ -75,7 +75,7 @@ namespace Billiards
 		worldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_REMOVE_ENTITY;
 		//ÉèÖÃworld³ß´ç
 		worldInfo.setBroadPhaseWorldSize(worldsize);
-		//worldInfo.m_gravity = hkVector4(0.0f,-20.0f,0.0f);
+		worldInfo.m_gravity = hkVector4(0.0f,-100.0f,0.0f);
 
 		m_World = new hkpWorld(worldInfo);
 		m_World->m_wantDeactivation = false;
@@ -115,12 +115,12 @@ namespace Billiards
 		stopWatch.start();
 		hkReal lastTime = stopWatch.getElapsedSeconds();
 
-		hkReal timestep = 1.0f/30.0f;
+		hkReal timestep = 1.0f/90.0f;
 
 		m_World->stepMultithreaded(m_JobQueue,m_ThreadPool,timestep);
 
-			m_Context->syncTimers(m_ThreadPool);
-			m_Vdb->step();
+		m_Context->syncTimers(m_ThreadPool);
+		m_Vdb->step();
 		
 
 		hkMonitorStream::getInstance().reset();
