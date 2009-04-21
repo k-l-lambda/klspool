@@ -40,7 +40,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm118"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(HAVOK_HOME)\Source&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_HAVOK)Source&quot;"
 				PreprocessorDefinitions="HK_DEBUG;_BILLIARDSDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,9 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="hkBase.lib hkSerialize.lib hkSceneData.lib hkInternal.lib hkGeometryUtilities.lib hkVisualize.lib hkCompat.lib hkpCollide.lib hkpConstraintSolver.lib hkpDynamics.lib hkpInternal.lib hkpUtilities.lib hkpVehicle.lib "
-				AdditionalLibraryDirectories="&quot;$(HAVOK_HOME)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;;&quot;$(SDKDIR_HAVOK)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
-				IgnoreAllDefaultLibraries="false"
+				AdditionalLibraryDirectories="&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -119,7 +117,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(HAVOK_HOME)\Source&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_HAVOK)Source&quot;"
 				PreprocessorDefinitions="_BILLIARDSDLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -140,9 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="hkBase.lib hkSerialize.lib hkSceneData.lib hkInternal.lib hkGeometryUtilities.lib hkVisualize.lib hkCompat.lib hkpCollide.lib hkpConstraintSolver.lib hkpDynamics.lib hkpInternal.lib hkpUtilities.lib hkpVehicle.lib"
-				AdditionalLibraryDirectories="&quot;$(HAVOK_HOME)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;;&quot;$(SDKDIR_HAVOK)\Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
-				IgnoreAllDefaultLibraries="false"
+				AdditionalLibraryDirectories="&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"

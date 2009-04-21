@@ -3,6 +3,11 @@ TODO:
 Known Issues:
 
 
+2009.4.21	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Frame: camera rotation implemented.
+
+
 2009.4.20	K.L.	<xxxK.L.xxx@gmail.com>
 
 	>	Billiards: refined code organization.

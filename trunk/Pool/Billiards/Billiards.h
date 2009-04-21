@@ -81,12 +81,26 @@
 #define HK_COMPAT_FILE <Common/Compat/hkCompatVersions.h>
 #include <Common/Compat/hkCompat_None.cxx>
 
+#pragma comment(lib, "hkBase.lib")
+#pragma comment(lib, "hkSerialize.lib")
+#pragma comment(lib, "hkSceneData.lib")
+#pragma comment(lib, "hkInternal.lib")
+#pragma comment(lib, "hkGeometryUtilities.lib")
+#pragma comment(lib, "hkVisualize.lib")
+#pragma comment(lib, "hkCompat.lib")
+#pragma comment(lib, "hkpCollide.lib")
+#pragma comment(lib, "hkpConstraintSolver.lib")
+#pragma comment(lib, "hkpDynamics.lib")
+#pragma comment(lib, "hkpInternal.lib")
+#pragma comment(lib, "hkpUtilities.lib")
+#pragma comment(lib, "hkpVehicle.lib")
+
 
 #ifdef	_BILLIARDSDLL
 #	define	BILLIARDS_API	__declspec(dllexport)
 #else
 #	define	BILLIARDS_API	__declspec(dllimport)
-#endif	// defined(_GRIDDLL)
+#endif	// defined(_BILLIARDSDLL)
 
 
 namespace Billiards

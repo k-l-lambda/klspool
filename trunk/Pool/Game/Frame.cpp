@@ -22,14 +22,14 @@ static const Real SKYBOX_ROTATE_SPEED = 0.003f;
 
 static CEGUI::MouseButton convertOISMouseButtonToCegui(int buttonID)
 {
-    switch (buttonID)
-    {
+	switch (buttonID)
+	{
 	case 0: return CEGUI::LeftButton;
 	case 1: return CEGUI::RightButton;
 	case 2:	return CEGUI::MiddleButton;
 	case 3: return CEGUI::X1Button;
 	default: return CEGUI::LeftButton;
-    }
+	}
 }
 
 
@@ -169,22 +169,22 @@ private:
 
 
 BEGIN_EVENT_TABLE(Frame, wxFrame)
-	EVT_IDLE(Frame::onIdle)
-	EVT_CLOSE(Frame::onClose)
+EVT_IDLE(Frame::onIdle)
+EVT_CLOSE(Frame::onClose)
 END_EVENT_TABLE()
 
 
 Frame::Frame(const OnCloseFunctor& fnOnClose)
-	: wxFrame(NULL, -1, "Pool", wxDefaultPosition, wxSize(800, 640), wxDEFAULT_FRAME_STYLE)
-	, m_nodeLight(NULL)
-	, m_nodeLight2(NULL)
-	, m_nodeGame(NULL)
-	, m_nodeCameraRoot(NULL)
-	, m_nodeCamera(NULL)
-	, m_fnOnClose(fnOnClose)
-	, m_RotatingGame(false)
-	, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
-	, m_FocusDialog(wxID_ANY)
+: wxFrame(NULL, -1, "Pool", wxDefaultPosition, wxSize(800, 640), wxDEFAULT_FRAME_STYLE)
+, m_nodeLight(NULL)
+, m_nodeLight2(NULL)
+, m_nodeGame(NULL)
+, m_nodeCameraRoot(NULL)
+, m_nodeCamera(NULL)
+, m_fnOnClose(fnOnClose)
+, m_RotatingGame(false)
+, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
+, m_FocusDialog(wxID_ANY)
 {
 }
 
@@ -227,26 +227,31 @@ void Frame::createScene()
 	setupGui();
 
 	m_nodeCameraRoot->setOrientation(Quaternion(m_SkyBoxAngle, Vector3::UNIT_Y));
-	m_nodeCamera = m_nodeCameraRoot->createChildSceneNode(Vector3(0, 0, 120));
+	m_nodeCamera = m_nodeCameraRoot->createChildSceneNode(Vector3(0, 120, 90));
 	mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
 	mCamera->lookAt(0,0,0);
 
 	createSphere("Sphere", 12, 12, 3);
-	m_nodeGame = m_nodeCameraRoot->createChildSceneNode();
+	m_nodeGame = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 	// only a sample
 	{
+		Ogre::Entity* ball1 = mSceneMgr->createEntity("ball1","Sphere");
+		ball1->getSubEntity(0)->setMaterialName("Pool/Balls/P1");
 		m_nodeBall_1 = m_nodeGame->createChildSceneNode();
-		m_nodeBall_1->attachObject(mSceneMgr->createEntity("aball1", "Sphere"));
+		m_nodeBall_1->attachObject(ball1);
 		Ogre::Vector3 position(0, 0, 0);
 		m_nodeBall_1->setPosition(position);
 
+		Ogre::Entity* ball2 = mSceneMgr->createEntity("ball2","Sphere");
+		ball2->getSubEntity(0)->setMaterialName("Pool/Balls/P2");
 		m_nodeBall_2 = m_nodeGame->createChildSceneNode();
-		m_nodeBall_2->attachObject(mSceneMgr->createEntity("aball2", "Sphere"));
+		m_nodeBall_2->attachObject(ball2);
 		m_nodeBall_2->setPosition(position);
 
 		Ogre::Entity* entGround = mSceneMgr->createEntity("ground","floor200x200.mesh");
-		Ogre::SceneNode* groundNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("groundnode");
+		entGround->getSubEntity(0)->setMaterialName("Pool/Table/RedGrass");
+		Ogre::SceneNode* groundNode = m_nodeGame->createChildSceneNode("groundnode");
 
 		groundNode->scale(1,0.2,1);
 
@@ -301,21 +306,21 @@ void Frame::frameStarted(const FrameEvent& evt)
 		{
 			hkVector4 pos = m_billiards->getPosOfBall(0);
 			hkQuaternion angle = m_billiards->getgetRotationOfBall(0);
-			
-			m_nodeBall_1->setPosition(Ogre::Vector3(pos(0), pos(1), pos(2)) );
+
+			m_nodeBall_1->setPosition(Ogre::Vector3(pos(0), pos(1), pos(2)));
 			m_nodeBall_1->setOrientation(Ogre::Quaternion(angle.getReal(), 
-			                                        angle.getImag()(0), 
-													angle.getImag()(1),
-													angle.getImag()(2)) );
+				angle.getImag()(0), 
+				angle.getImag()(1),
+				angle.getImag()(2)) );
 
 			pos = m_billiards->getPosOfBall(1);
 			angle = m_billiards->getgetRotationOfBall(1);
-			
-			m_nodeBall_2->setPosition(Ogre::Vector3(pos(0), pos(1), pos(2)) );
+
+			m_nodeBall_2->setPosition(Ogre::Vector3(pos(0), pos(1), pos(2)));
 			m_nodeBall_2->setOrientation(Ogre::Quaternion(angle.getReal(), 
-			                                        angle.getImag()(0), 
-													angle.getImag()(1),
-													angle.getImag()(2)) );
+				angle.getImag()(0), 
+				angle.getImag()(1),
+				angle.getImag()(2)) );
 		}
 
 		Radian delta = Radian(elapsed * SKYBOX_ROTATE_SPEED);
@@ -326,10 +331,10 @@ void Frame::frameStarted(const FrameEvent& evt)
 		//m_nodeLight->yaw(delta);
 
 		// rotate camera
-		m_nodeCameraRoot->setOrientation(Quaternion(m_SkyBoxAngle, Vector3::UNIT_Y));
-		mCamera->setPosition(m_nodeCamera->_getDerivedPosition() + 50);
-		//mCamera->lookAt(m_nodeGame->_getDerivedPosition());
-		mCamera->lookAt(0,0,0);
+		//m_nodeCameraRoot->setOrientation(Quaternion(m_SkyBoxAngle, Vector3::UNIT_Y));
+		mCamera->setPosition(m_nodeCamera->_getDerivedPosition()/* + 50*/);
+		mCamera->lookAt(m_nodeGame->_getDerivedPosition());
+		//mCamera->lookAt(0, 0, 0);
 	}
 }
 
@@ -355,23 +360,43 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 	if(m_RotatingGame)
 	{
 		// rotate magic cube
-		m_nodeGame->yaw(Radian(e.state.X.rel * 0.01f), Node::TS_PARENT);
-		m_nodeGame->pitch(Radian(e.state.Y.rel * 0.01f), Node::TS_PARENT);
+		m_nodeCameraRoot->yaw(Radian(-e.state.X.rel * 0.01f), Node::TS_PARENT);
+		//m_nodeCamera->pitch(Radian(e.state.Y.rel * 0.01f), Node::TS_PARENT);
 	}
 
-	if(e.state.Z.rel)
+	// update camera
 	{
 		static const Real NEAR_DISTANCE = 24;
 		static const Real FAR_DISTANCE = 1200;
 
-		Vector3 camera = m_nodeCamera->getPosition() - m_nodeGame->getPosition();
-		camera *= exp(-e.state.Z.rel / 1600.0);
-		if(camera.length() < NEAR_DISTANCE)
-			camera = camera.normalisedCopy() * NEAR_DISTANCE;
-		else if(camera.length() > FAR_DISTANCE)
-			camera = camera.normalisedCopy() * FAR_DISTANCE;
+		Vector3 camera = m_nodeCamera->getPosition();
+		if(m_RotatingGame && e.state.Y.rel)
+		{
+			/*const Real x0 = camera.x, z0 = camera.z;
+			const Real yaw = e.state.X.rel * 0.01f;
+			const Real cos_yaw = std::cos(yaw), sin_yaw = std::sin(yaw);
+			camera.x = x0 * cos_yaw - z0 * sin_yaw;
+			camera.z = z0 * cos_yaw + x0 * sin_yaw;*/
+			const Real pitch = e.state.Y.rel * 0.01f;
+			const Real cos_pitch = std::cos(pitch), sin_pitch = std::sin(pitch);
+			const Real z = camera.z * cos_pitch - camera.y * sin_pitch;
+			const Real y = camera.y * cos_pitch + camera.z * sin_pitch;
+			if(z > 0)
+			{
+				camera.z = z;
+				camera.y = y;
+			}
+		}
+		if(e.state.Z.rel)
+		{
+			camera *= exp(-e.state.Z.rel / 1600.0);
+			if(camera.length() < NEAR_DISTANCE)
+				camera = camera.normalisedCopy() * NEAR_DISTANCE;
+			else if(camera.length() > FAR_DISTANCE)
+				camera = camera.normalisedCopy() * FAR_DISTANCE;
+		}
 
-		m_nodeCamera->setPosition(m_nodeGame->getPosition() + camera);
+		m_nodeCamera->setPosition(camera);
 	}
 
 	CEGUI::System::getSingleton().injectMouseMove(e.state.X.rel, e.state.Y.rel);
@@ -382,6 +407,14 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 bool Frame::mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id)
 {
 	CEGUI::System::getSingleton().injectMouseButtonDown(convertOISMouseButtonToCegui(id));
+
+	switch(id)
+	{
+	case OIS::MB_Left:
+		m_RotatingGame = true;
+
+		break;
+	}
 
 	return true;
 }
