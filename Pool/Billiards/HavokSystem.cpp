@@ -75,7 +75,7 @@ namespace Billiards
 		worldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_REMOVE_ENTITY;
 		//ÉèÖÃworld³ß´ç
 		worldInfo.setBroadPhaseWorldSize(worldsize);
-		worldInfo.m_gravity = hkVector4(0.0f,-100.0f,0.0f);
+		worldInfo.m_gravity = hkVector4(0.0f,-9.8f,0.0f);
 
 		m_World = new hkpWorld(worldInfo);
 		m_World->m_wantDeactivation = false;
@@ -111,24 +111,22 @@ namespace Billiards
 
 	void HavokSystem::simulate()
 	{
-		hkStopwatch stopWatch;
-		stopWatch.start();
-		hkReal lastTime = stopWatch.getElapsedSeconds();
+		//hkStopwatch stopWatch;
+		//stopWatch.start();
+		//hkReal lastTime = stopWatch.getElapsedSeconds();
 
-		hkReal timestep = 1.0f/90.0f;
+		hkReal timestep = 1.0f/60.0f;
 
 		m_World->stepMultithreaded(m_JobQueue,m_ThreadPool,timestep);
 
-		m_Context->syncTimers(m_ThreadPool);
-		m_Vdb->step();
+		//m_Context->syncTimers(m_ThreadPool);
+		//m_Vdb->step();
 		
 
-		hkMonitorStream::getInstance().reset();
-		m_ThreadPool->clearTimerData();
+		//hkMonitorStream::getInstance().reset();
+		//m_ThreadPool->clearTimerData();
 
-		while(stopWatch.getElapsedSeconds()<lastTime+timestep);
-		lastTime += timestep;
-		//step the graphics display here
+		//while(stopWatch.getElapsedSeconds()<lastTime+timestep);
 	}
 
 	void HavokSystem::setup()

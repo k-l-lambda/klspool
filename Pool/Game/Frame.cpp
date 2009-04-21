@@ -11,6 +11,7 @@
 
 #include <Commdlg.h>
 #include <mmsystem.h>
+
 #pragma comment(lib,"winmm.lib")
 
 #include "Frame.h"
@@ -295,6 +296,8 @@ void Frame::onClose(wxCloseEvent&)
 
 void Frame::frameStarted(const FrameEvent& evt)
 {
+	m_timer.reset();
+
 	CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
 
 	// restrict elapsed time by a upper limit
@@ -330,8 +333,11 @@ void Frame::frameStarted(const FrameEvent& evt)
 void Frame::frameEnded(const FrameEvent& evt)
 {
 	// yield CPU when not busy
-	if(!static_cast<const OgreListener*>(mFrameListener)->mouseIsMoving())
-		Sleep(15);
+	//if(!static_cast<const OgreListener*>(mFrameListener)->mouseIsMoving())
+	//	Sleep(15);
+
+	while(m_timer.getMilliseconds() < 1000/60)
+		Sleep(5);
 }
 
 bool Frame::keyPressed(const OIS::KeyEvent& e)
