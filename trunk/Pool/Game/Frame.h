@@ -95,6 +95,8 @@ private:
 
 	Billiards::BldGame*					m_billiards;
 
+	Ogre::Timer                         m_timer;
+
 	DECLARE_EVENT_TABLE()
 };
 
