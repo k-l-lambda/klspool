@@ -12,12 +12,38 @@
 
 namespace Billiards
 {
+	BldGame::BldGame()
+	{
+		hkSystem = new HavokSystem();
+	}
+
+	void BldGame::setup()
+	{
+		if(hkSystem)
+		{
+			hkSystem->setup();
+
+			createPhysicsScene();
+		}
+	}
+
+	BldGame::~BldGame()
+	{
+		if(hkSystem)
+			delete hkSystem;
+
+		for(std::vector<Ball*>::iterator iter = m_ballList.begin();
+			iter != m_ballList.end();
+			++iter)
+			delete *iter;
+	}
+
 	void BldGame::createPhysicsScene()
 	{
 		// set the world pointer in ball
-		Ball::setupStatic(m_World);
+		Ball::setupStatic(hkSystem->m_World);
 
-		m_World->markForWrite();
+		hkSystem->m_World->markForWrite();
 
 		// create the ground
 		hkVector4 groundSize;
@@ -32,10 +58,10 @@ namespace Billiards
 		ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
 
 		m_table = new hkpRigidBody(ci);
-		m_World->addEntity(m_table);
+		hkSystem->m_World->addEntity(m_table);
 		shape->removeReference();
 
-		m_World->unmarkForWrite();
+		hkSystem->m_World->unmarkForWrite();
 		
 		// add balls
 		addBall(0, 50, 2, 100, 3);
@@ -72,7 +98,7 @@ namespace Billiards
 		return m_ballList[number]->getPos();
 	}
 
-	hkQuaternion BldGame::getgetRotationOfBall(int number) const
+	hkQuaternion BldGame::getRotationOfBall(int number) const
 	{
 		//assert(number > (int)m_ballList.size());
 
@@ -97,16 +123,8 @@ namespace Billiards
 
 	void BldGame::simulate()
 	{
-		HavokSystem::simulate();
+		hkSystem->simulate();
 
 		updateAllBalls();
-	}
-
-	BldGame::~BldGame()
-	{
-		for(std::vector<Ball*>::iterator iter = m_ballList.begin();
-			iter != m_ballList.end();
-			++iter)
-			delete *iter;
 	}
 }

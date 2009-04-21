@@ -8,7 +8,6 @@
 #include "StableHeaders.h"
 
 #include "../Billiards/BldGame.h"
-#include "mathTypeConvert.h"
 
 #include <Commdlg.h>
 #include <mmsystem.h>
@@ -16,6 +15,7 @@
 
 #include "Frame.h"
 #include "Geometries.h"
+#include "mathTypeConvert.h"
 
 
 static const Real SKYBOX_ROTATE_SPEED = 0.003f;
@@ -306,10 +306,10 @@ void Frame::frameStarted(const FrameEvent& evt)
 
 		{			
 			m_nodeBall_1->setPosition(hkVector4ToOgre( m_billiards->getPosOfBall(0) ) );
-			m_nodeBall_1->setOrientation( hkQuatToOgre( m_billiards->getgetRotationOfBall(0) ) );
+			m_nodeBall_1->setOrientation( hkQuatToOgre( m_billiards->getRotationOfBall(0) ) );
 			
 			m_nodeBall_2->setPosition(hkVector4ToOgre( m_billiards->getPosOfBall(1) ) );
-			m_nodeBall_2->setOrientation( hkQuatToOgre( m_billiards->getgetRotationOfBall(1) ) );
+			m_nodeBall_2->setOrientation( hkQuatToOgre( m_billiards->getRotationOfBall(1) ) );
 		}
 
 		Radian delta = Radian(elapsed * SKYBOX_ROTATE_SPEED);
