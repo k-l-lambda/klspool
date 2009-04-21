@@ -88,6 +88,10 @@ namespace Billiards
 		return true;
 	}
 
+	void HavokSystem::createPhysicsScene()
+	{
+	}
+
 	bool HavokSystem::InitVDB()
 	{
 

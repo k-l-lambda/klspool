@@ -27,7 +27,7 @@ namespace Billiards
 		//初始化VDB
 		virtual bool InitVDB();
 		//创建物理场景
-		virtual void createPhysicsScene() = 0;
+		virtual void createPhysicsScene();
 
 		//step simulation
 		virtual void simulate();

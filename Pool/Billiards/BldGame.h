@@ -9,8 +9,6 @@
 #define	__BLDGAME_H__
 
 
-
-#include "Billiards.h"
 #include "HavokSystem.h"
 #include "Ball.h"
 
@@ -18,9 +16,14 @@
 namespace Billiards
 {
 	class BILLIARDS_API	BldGame
-		: public HavokSystem
 	{
 	public:
+		BldGame();
+
+		~BldGame();
+
+		void setup();
+
 		virtual void createPhysicsScene();
 
 		// test if all the balls is still
@@ -35,7 +38,7 @@ namespace Billiards
 		void setPosOfBall(hkReal x, hkReal y, hkReal z, int number);
 
 		hkVector4 getPosOfBall(int number) const;
-		hkQuaternion getgetRotationOfBall(int number) const;
+		hkQuaternion getRotationOfBall(int number) const;
 
 		// set the designated ball stilled
 		void disableBall(int number);
@@ -44,12 +47,15 @@ namespace Billiards
 
 		void simulate();
 
-		~BldGame();
-
 	private:
+		// forbid copy
+		BldGame(const BldGame& game);
+
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		std::vector<Ball*> m_ballList;
 		hkpRigidBody* m_table;
+
+		HavokSystem* hkSystem;
 	};
 }
 
