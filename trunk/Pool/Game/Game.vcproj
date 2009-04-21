@@ -229,6 +229,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\mathTypeConvert.h"
+				>
+			</File>
+			<File
 				RelativePath=".\StableHeaders.h"
 				>
 			</File>

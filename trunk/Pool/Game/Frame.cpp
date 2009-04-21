@@ -8,6 +8,7 @@
 #include "StableHeaders.h"
 
 #include "../Billiards/BldGame.h"
+#include "mathTypeConvert.h"
 
 #include <Commdlg.h>
 #include <mmsystem.h>
@@ -303,24 +304,12 @@ void Frame::frameStarted(const FrameEvent& evt)
 		// step the world
 		m_billiards->simulate();
 
-		{
-			hkVector4 pos = m_billiards->getPosOfBall(0);
-			hkQuaternion angle = m_billiards->getgetRotationOfBall(0);
-
-			m_nodeBall_1->setPosition(Ogre::Vector3(pos(0), pos(1), pos(2)));
-			m_nodeBall_1->setOrientation(Ogre::Quaternion(angle.getReal(), 
-				angle.getImag()(0), 
-				angle.getImag()(1),
-				angle.getImag()(2)) );
-
-			pos = m_billiards->getPosOfBall(1);
-			angle = m_billiards->getgetRotationOfBall(1);
-
-			m_nodeBall_2->setPosition(Ogre::Vector3(pos(0), pos(1), pos(2)));
-			m_nodeBall_2->setOrientation(Ogre::Quaternion(angle.getReal(), 
-				angle.getImag()(0), 
-				angle.getImag()(1),
-				angle.getImag()(2)) );
+		{			
+			m_nodeBall_1->setPosition(hkVector4ToOgre( m_billiards->getPosOfBall(0) ) );
+			m_nodeBall_1->setOrientation( hkQuatToOgre( m_billiards->getgetRotationOfBall(0) ) );
+			
+			m_nodeBall_2->setPosition(hkVector4ToOgre( m_billiards->getPosOfBall(1) ) );
+			m_nodeBall_2->setOrientation( hkQuatToOgre( m_billiards->getgetRotationOfBall(1) ) );
 		}
 
 		Radian delta = Radian(elapsed * SKYBOX_ROTATE_SPEED);
