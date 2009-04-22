@@ -304,7 +304,7 @@ void Frame::frameStarted(const FrameEvent& evt)
 
 	{
 		// step the world
-		m_billiards->simulate();
+		m_billiards->simulate(elapsed);
 
 		{
 			m_nodeBall_1->setPosition(hkVector4ToOgre( m_billiards->getPosOfBall(0) ) );
@@ -335,8 +335,8 @@ void Frame::frameEnded(const FrameEvent& evt)
 	//if(!static_cast<const OgreListener*>(mFrameListener)->mouseIsMoving())
 	//	Sleep(15);
 
-	while(m_timer.getMilliseconds() < 1000/60)
-		Sleep(5);
+	//while(m_timer.getMilliseconds() < 1000/60)
+	//	Sleep(5);
 }
 
 bool Frame::keyPressed(const OIS::KeyEvent& e)

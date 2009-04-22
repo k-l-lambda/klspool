@@ -45,7 +45,7 @@ namespace Billiards
 
 		void updateAllBalls();
 
-		void simulate();
+		void simulate(hkReal elapsedTime);
 
 	private:
 		// forbid copy

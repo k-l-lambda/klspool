@@ -118,15 +118,15 @@ namespace Billiards
 		return true;
 	}
 
-	void HavokSystem::simulate()
+	void HavokSystem::simulate(hkReal elapsedTime)
 	{
 		//hkStopwatch stopWatch;
 		//stopWatch.start();
 		//hkReal lastTime = stopWatch.getElapsedSeconds();
 
-		hkReal timestep = 1.0f/60.0f;
+		//hkReal timestep = 1.0f/60.0f;
 
-		m_World->stepMultithreaded(m_JobQueue,m_ThreadPool,timestep);
+		m_World->stepMultithreaded(m_JobQueue,m_ThreadPool,elapsedTime);
 
 		//m_Context->syncTimers(m_ThreadPool);
 		//m_Vdb->step();

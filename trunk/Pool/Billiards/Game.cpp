@@ -121,9 +121,9 @@ namespace Billiards
 			m_ballList[i]->update();
 	}
 
-	void Game::simulate()
+	void Game::simulate(hkReal elapsedTime)
 	{
-		hkSystem->simulate();
+		hkSystem->simulate(elapsedTime);
 
 		updateAllBalls();
 	}

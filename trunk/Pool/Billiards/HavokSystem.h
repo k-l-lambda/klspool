@@ -31,7 +31,7 @@ namespace Billiards
 		virtual void createPhysicsScene();
 
 		//step simulation
-		virtual void simulate();
+		virtual void simulate(hkReal elapsedTime);
 
 		void setup();
 
