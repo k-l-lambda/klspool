@@ -1,33 +1,43 @@
+/*
+**	This source file is part of Pool.
+**
+**	Copyright (c) 2009	K.L.<xxxk.l.xxx@gmail.com>, Lazy<yinxiaozhou@gmail.com>
+**	This program is free software without any warranty.
+*/
+
+#ifndef	__MATHTYPECONVERT_H__
+#define	__MATHTYPECONVERT_H__
+
+
+
 #include <Ogre.h>
-#include <Common\Base\Math\hkMath.h>
 
-inline Ogre::Vector3 hkVector4ToOgre(const hkVector4& vec)
+#include "../Billiards/MathDef.h"
+
+
+inline Ogre::Vector3 hkVector4ToOgre(const Billiards::Vector& vec)
 {
-	Ogre::Vector3 q(vec(0),vec(1),vec(2));
-
-	return q;
+	return Ogre::Vector3(vec(0),vec(1),vec(2));
 }
 
-inline Ogre::Quaternion hkQuatToOgre(const hkQuaternion& quat)
+inline Ogre::Quaternion hkQuatToOgre(const Billiards::Quaternion& quat)
 {	
-	hkVector4 imgpart = quat.getImag();
-	hkReal realpart = quat.getReal();
+	Billiards::Vector imgpart = quat.getImag();
+	Billiards::Real realpart = quat.getReal();
 
-	Ogre::Quaternion q(realpart,imgpart(0),imgpart(1),imgpart(2));
-
-	return q;
+	return Ogre::Quaternion(realpart,imgpart(0),imgpart(1),imgpart(2));
 }
 
-inline hkVector4 OgreTohkVector4(const Ogre::Vector3& vec)
+inline Billiards::Vector OgreTohkVector4(const Ogre::Vector3& vec)
 {
-	hkVector4 v(vec.x, vec.y, vec.z);
-
-	return v;
+	return Billiards::Vector(vec.x, vec.y, vec.z);
 }
 
-inline hkQuaternion OgreTohkQuaternion(const Ogre::Quaternion& quat)
+inline Billiards::Quaternion OgreTohkQuaternion(const Ogre::Quaternion& quat)
 {
-	hkQuaternion q(quat.x, quat.y, quat.z, quat.w);
-
-	return q;
+	return Billiards::Quaternion(quat.x, quat.y, quat.z, quat.w);
 }
+
+
+
+#endif	// !defined(__MATHTYPECONVERT_H__)

@@ -235,6 +235,10 @@ void Frame::createScene()
 	createSphere("Sphere", 24, 24, 3);
 	m_nodeGame = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
+	Ogre::SceneNode* nodeTable = m_nodeGame->createChildSceneNode("table");
+	nodeTable->attachObject(mSceneMgr->createEntity("table", "table.mesh"));
+	nodeTable->setPosition(36, 8, 0);
+
 	// only a sample
 	{
 		Ogre::Entity* ball1 = mSceneMgr->createEntity("ball1","Sphere");
@@ -250,14 +254,12 @@ void Frame::createScene()
 		m_nodeBall_2->attachObject(ball2);
 		m_nodeBall_2->setPosition(position);
 
-		Ogre::Entity* entGround = mSceneMgr->createEntity("ground","floor200x200.mesh");
+		Ogre::Entity* entGround = mSceneMgr->createEntity("ground", "floor200x200.mesh");
 		entGround->getSubEntity(0)->setMaterialName("Pool/Table/RedGrass");
 		Ogre::SceneNode* groundNode = m_nodeGame->createChildSceneNode("groundnode");
 
-		groundNode->scale(1,0.2,1);
-
+		groundNode->scale(1, 0.2f, 1);
 		groundNode->attachObject(entGround);
-
 		groundNode->setPosition(Ogre::Vector3(0, 0, 0));
 	}
 
@@ -365,12 +367,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 
 		Vector3 camera = m_nodeCamera->getPosition();
 		if(m_RotatingGame && e.state.Y.rel)
-		{
-			/*const Real x0 = camera.x, z0 = camera.z;
-			const Real yaw = e.state.X.rel * 0.01f;
-			const Real cos_yaw = std::cos(yaw), sin_yaw = std::sin(yaw);
-			camera.x = x0 * cos_yaw - z0 * sin_yaw;
-			camera.z = z0 * cos_yaw + x0 * sin_yaw;*/
+		{	// pitch camera
 			const Real pitch = e.state.Y.rel * 0.01f;
 			const Real cos_pitch = std::cos(pitch), sin_pitch = std::sin(pitch);
 			const Real z = camera.z * cos_pitch - camera.y * sin_pitch;

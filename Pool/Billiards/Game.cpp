@@ -68,7 +68,7 @@ namespace Billiards
 		addBall(0, 60, 0, 100, 3);
 	}
 
-	void Game::addBall(hkReal x, hkReal y, hkReal z, hkReal mass, hkReal radius)
+	void Game::addBall(Real x, Real y, Real z, Real mass, Real radius)
 	{
 		Ball* ball = new Ball(Vector(x, y, z) , mass , radius);
 	
@@ -77,14 +77,14 @@ namespace Billiards
 		m_ballList.push_back(ball);
 	}
 
-	void Game::setPosOfBall(hkReal x, hkReal y, hkReal z, int number)
+	void Game::setPosOfBall(Real x, Real y, Real z, int number)
 	{
 		//assert(number > (int)m_ballList.size());
 
 		m_ballList[number]->setPos(Vector(x, y, z));
 	}
 
-	void Game::applyForceOnBall(const Vector& force, const Vector& pos, hkReal deltaTime, int number)
+	void Game::applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number)
 	{
 		//assert(number > (int)m_ballList.size());
 
@@ -121,7 +121,7 @@ namespace Billiards
 			m_ballList[i]->update();
 	}
 
-	void Game::simulate(hkReal elapsedTime)
+	void Game::simulate(Real elapsedTime)
 	{
 		hkSystem->simulate(elapsedTime);
 

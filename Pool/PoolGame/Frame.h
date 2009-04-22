@@ -102,5 +102,4 @@ private:
 
 
 
-
 #endif	// !defined(__FRAME_H__)

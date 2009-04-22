@@ -11,7 +11,7 @@
 
 
 #include "Billiards.h"
-#include "HavokRef.h"
+#include "MathDef.h"
 
 
 namespace Billiards
@@ -44,7 +44,6 @@ namespace Billiards
 		static void setupStatic(hkpWorld* hw);
 
 	private:
-			
 		Real m_radius;
 		Real m_mass;
 		Vector m_position;
