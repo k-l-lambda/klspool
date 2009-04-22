@@ -1,6 +1,15 @@
 TODO:
+	Ball agent
 
 Known Issues:
+
+
+2009.4.22	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards/MathDef.h: added.
+
+	>	rename: Game -> PoolGame.
+	>	rename: Billiards::BldGame -> Billiards::Game.
 
 
 2009.4.21	K.L.	<xxxK.L.xxx@gmail.com>

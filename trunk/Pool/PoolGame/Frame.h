@@ -16,7 +16,7 @@
 
 namespace Billiards
 {
-	class BldGame;
+	class Game;
 }
 
 
@@ -93,7 +93,7 @@ private:
 
 	int									m_FocusDialog;
 
-	Billiards::BldGame*					m_billiards;
+	Billiards::Game*					m_billiards;
 
 	Ogre::Timer                         m_timer;
 

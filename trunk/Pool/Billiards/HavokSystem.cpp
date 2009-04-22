@@ -9,6 +9,15 @@
 
 #include "HavokSystem.h"
 
+// Classlists
+#define INCLUDE_HAVOK_PHYSICS_CLASSES
+#define HK_CLASSES_FILE <Common/Serialize/Classlist/hkClasses.h>
+#include <Common/Serialize/Util/hkBuiltinTypeRegistry.cxx>
+
+// Generate a custom list to trim memory requirements
+#define HK_COMPAT_FILE <Common/Compat/hkCompatVersions.h>
+#include <Common/Compat/hkCompat_None.cxx>
+
 
 namespace Billiards
 {
@@ -75,7 +84,7 @@ namespace Billiards
 		worldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_REMOVE_ENTITY;
 		//ÉèÖÃworld³ß´ç
 		worldInfo.setBroadPhaseWorldSize(worldsize);
-		worldInfo.m_gravity = hkVector4(0.0f,-9.8f,0.0f);
+		worldInfo.m_gravity = Vector(0.0f,-9.8f,0.0f);
 
 		m_World = new hkpWorld(worldInfo);
 		m_World->m_wantDeactivation = false;

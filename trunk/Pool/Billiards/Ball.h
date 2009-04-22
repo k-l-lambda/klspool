@@ -11,6 +11,7 @@
 
 
 #include "Billiards.h"
+#include "HavokRef.h"
 
 
 namespace Billiards
@@ -22,19 +23,19 @@ namespace Billiards
 	{
 	public:
 		Ball();
-		Ball(const hkVector4& pos, hkReal mass, hkReal radius);
+		Ball(const Vector& pos, Real mass, Real radius);
 
 		void creatRigidBody();
 
-		void applyForce(const hkVector4& force, const hkVector4& pos, hkReal deltaTime);
+		void applyForce(const Vector& force, const Vector& pos, Real deltaTime);
 
-		void setPos(const hkVector4& pos);
+		void setPos(const Vector& pos);
 
 		bool isInHole() const;
 		bool isStill() const;
 
-		hkVector4 getPos() const;
-		hkQuaternion getRotation() const;
+		Vector getPos() const;
+		Quaternion getRotation() const;
 
 		void update();
 
@@ -44,10 +45,10 @@ namespace Billiards
 
 	private:
 			
-		hkReal m_radius;
-		hkReal m_mass;
-		hkVector4 m_position;
-		hkQuaternion m_rotation;
+		Real m_radius;
+		Real m_mass;
+		Vector m_position;
+		Quaternion m_rotation;
 
 		hkpRigidBody* m_havokRigid;
 

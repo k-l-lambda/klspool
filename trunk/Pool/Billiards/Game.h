@@ -15,12 +15,12 @@
 
 namespace Billiards
 {
-	class BILLIARDS_API	BldGame
+	class BILLIARDS_API	Game
 	{
 	public:
-		BldGame();
+		Game();
 
-		~BldGame();
+		~Game();
 
 		void setup();
 
@@ -30,15 +30,15 @@ namespace Billiards
 		bool isStill();
 
 		// give some impuse to the designated ball
-		void applyForceOnBall(const hkVector4& force, const hkVector4& pos, hkReal deltaTime, int number);
+		void applyForceOnBall(const Vector& force, const Vector& pos, hkReal deltaTime, int number);
 
 		void addBall(hkReal x, hkReal y, hkReal z, hkReal mass, hkReal radius);
 		void deleteBall(int number);
 
 		void setPosOfBall(hkReal x, hkReal y, hkReal z, int number);
 
-		hkVector4 getPosOfBall(int number) const;
-		hkQuaternion getRotationOfBall(int number) const;
+		Vector getPosOfBall(int number) const;
+		Quaternion getRotationOfBall(int number) const;
 
 		// set the designated ball stilled
 		void disableBall(int number);
@@ -49,7 +49,7 @@ namespace Billiards
 
 	private:
 		// forbid copy
-		BldGame(const BldGame& game);
+		Game(const Game& game);
 
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		std::vector<Ball*> m_ballList;

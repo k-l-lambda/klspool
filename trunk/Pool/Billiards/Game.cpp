@@ -7,17 +7,17 @@
 
 #include "StableHeaders.h"
 
-#include "BldGame.h"
+#include "Game.h"
 
 
 namespace Billiards
 {
-	BldGame::BldGame()
+	Game::Game()
 	{
 		hkSystem = new HavokSystem();
 	}
 
-	void BldGame::setup()
+	void Game::setup()
 	{
 		if(hkSystem)
 		{
@@ -27,7 +27,7 @@ namespace Billiards
 		}
 	}
 
-	BldGame::~BldGame()
+	Game::~Game()
 	{
 		if(hkSystem)
 			delete hkSystem;
@@ -38,7 +38,7 @@ namespace Billiards
 			delete *iter;
 	}
 
-	void BldGame::createPhysicsScene()
+	void Game::createPhysicsScene()
 	{
 		// set the world pointer in ball
 		Ball::setupStatic(hkSystem->m_World);
@@ -46,7 +46,7 @@ namespace Billiards
 		hkSystem->m_World->markForWrite();
 
 		// create the ground
-		hkVector4 groundSize;
+		Vector groundSize;
 		groundSize.set(200.0f,2.0f,200.0f);
 		hkpConvexShape* shape = new hkpBoxShape(groundSize, 0.05f);
 
@@ -54,7 +54,7 @@ namespace Billiards
 
 		ci.m_shape = shape;
 		ci.m_motionType = hkpMotion::MOTION_FIXED;
-		ci.m_position = hkVector4(0, 0, 0);
+		ci.m_position = Vector(0, 0, 0);
 		ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
 
 		m_table = new hkpRigidBody(ci);
@@ -68,44 +68,44 @@ namespace Billiards
 		addBall(0, 60, 0, 100, 3);
 	}
 
-	void BldGame::addBall(hkReal x, hkReal y, hkReal z, hkReal mass, hkReal radius)
+	void Game::addBall(hkReal x, hkReal y, hkReal z, hkReal mass, hkReal radius)
 	{
-		Ball* ball = new Ball(hkVector4(x, y, z) , mass , radius);
+		Ball* ball = new Ball(Vector(x, y, z) , mass , radius);
 	
 		ball->creatRigidBody();
 
 		m_ballList.push_back(ball);
 	}
 
-	void BldGame::setPosOfBall(hkReal x, hkReal y, hkReal z, int number)
+	void Game::setPosOfBall(hkReal x, hkReal y, hkReal z, int number)
 	{
 		//assert(number > (int)m_ballList.size());
 
-		m_ballList[number]->setPos(hkVector4(x, y, z));
+		m_ballList[number]->setPos(Vector(x, y, z));
 	}
 
-	void BldGame::applyForceOnBall(const hkVector4& force, const hkVector4& pos, hkReal deltaTime, int number)
+	void Game::applyForceOnBall(const Vector& force, const Vector& pos, hkReal deltaTime, int number)
 	{
 		//assert(number > (int)m_ballList.size());
 
 		m_ballList[number]->applyForce(force, pos, deltaTime);
 	}
 
-	hkVector4 BldGame::getPosOfBall(int number) const
+	Vector Game::getPosOfBall(int number) const
 	{
 		//assert(number > (int)m_ballList.size());
 
 		return m_ballList[number]->getPos();
 	}
 
-	hkQuaternion BldGame::getRotationOfBall(int number) const
+	Quaternion Game::getRotationOfBall(int number) const
 	{
 		//assert(number > (int)m_ballList.size());
 
 		return m_ballList[number]->getRotation();
 	}
 
-	void BldGame::deleteBall(int number)
+	void Game::deleteBall(int number)
 	{
 		//assert(number > (int)m_ballList.size());
 
@@ -115,13 +115,13 @@ namespace Billiards
 		m_ballList.erase(iter);
 	}
 
-	void BldGame::updateAllBalls()
+	void Game::updateAllBalls()
 	{
 		for(int i = 0; i < (int)m_ballList.size(); ++i)
 			m_ballList[i]->update();
 	}
 
-	void BldGame::simulate()
+	void Game::simulate()
 	{
 		hkSystem->simulate();
 
