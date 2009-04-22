@@ -5,17 +5,18 @@
 **	This program is free software without any warranty.
 */
 
-#ifndef _HAVOKSYSTEM_H_
-#define _HAVOKSYSTEM_H_
+#ifndef __HAVOKSYSTEM_H__
+#define __HAVOKSYSTEM_H__
 
 
 
 #include "Billiards.h"
+#include "HavokRef.h"
 
 
 namespace Billiards
 {
-	class BILLIARDS_API	HavokSystem
+	class HavokSystem
 	{
 	public:
 		HavokSystem(void);
@@ -63,4 +64,4 @@ namespace Billiards
 
 
 
-#endif
+#endif	// !defined(__HAVOKSYSTEM_H__)

@@ -7,9 +7,8 @@
 
 #include "StableHeaders.h"
 
-#include "../Billiards/BldGame.h"
+#include "../Billiards/Game.h"
 
-#include <Commdlg.h>
 #include <mmsystem.h>
 
 #pragma comment(lib,"winmm.lib")
@@ -177,16 +176,16 @@ END_EVENT_TABLE()
 
 
 Frame::Frame(const OnCloseFunctor& fnOnClose)
-: wxFrame(NULL, -1, "Pool", wxDefaultPosition, wxSize(800, 640), wxDEFAULT_FRAME_STYLE)
-, m_nodeLight(NULL)
-, m_nodeLight2(NULL)
-, m_nodeGame(NULL)
-, m_nodeCameraRoot(NULL)
-, m_nodeCamera(NULL)
-, m_fnOnClose(fnOnClose)
-, m_RotatingGame(false)
-, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
-, m_FocusDialog(wxID_ANY)
+	: wxFrame(NULL, -1, "Pool", wxDefaultPosition, wxSize(800, 640), wxDEFAULT_FRAME_STYLE)
+	, m_nodeLight(NULL)
+	, m_nodeLight2(NULL)
+	, m_nodeGame(NULL)
+	, m_nodeCameraRoot(NULL)
+	, m_nodeCamera(NULL)
+	, m_fnOnClose(fnOnClose)
+	, m_RotatingGame(false)
+	, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
+	, m_FocusDialog(wxID_ANY)
 {
 }
 
@@ -233,7 +232,7 @@ void Frame::createScene()
 	mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
 	mCamera->lookAt(0,0,0);
 
-	createSphere("Sphere", 12, 12, 3);
+	createSphere("Sphere", 24, 24, 3);
 	m_nodeGame = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 	// only a sample
@@ -267,7 +266,7 @@ void Frame::createScene()
 	mWindow->getViewport(0)->setBackgroundColour(ColourValue(0.2, 0.2, 0.2));
 
 	// init physics system
-	m_billiards = new Billiards::BldGame();
+	m_billiards = new Billiards::Game();
 	m_billiards->setup();
 }
 
@@ -307,7 +306,7 @@ void Frame::frameStarted(const FrameEvent& evt)
 		// step the world
 		m_billiards->simulate();
 
-		{			
+		{
 			m_nodeBall_1->setPosition(hkVector4ToOgre( m_billiards->getPosOfBall(0) ) );
 			m_nodeBall_1->setOrientation( hkQuatToOgre( m_billiards->getRotationOfBall(0) ) );
 			

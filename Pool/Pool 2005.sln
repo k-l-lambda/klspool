@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcproj", "{293B5B44-A9EA-4283-82B3-010F2740AD42}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PoolGame", "PoolGame\PoolGame.vcproj", "{293B5B44-A9EA-4283-82B3-010F2740AD42}"
 	ProjectSection(ProjectDependencies) = postProject
 		{60C50C7A-9964-4DC1-B809-49F0D9532D28} = {60C50C7A-9964-4DC1-B809-49F0D9532D28}
 	EndProjectSection

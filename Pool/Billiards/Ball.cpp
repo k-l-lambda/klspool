@@ -8,6 +8,7 @@
 #include "StableHeaders.h"
 
 #include "Ball.h"
+#include "HavokRef.h"
 
 #include <assert.h>
 #include <iostream>
@@ -17,8 +18,13 @@ namespace Billiards
 {
 	hkpWorld* Ball::m_hkpWorld = 0;
 
-	Ball::Ball(const hkVector4& pos, hkReal mass, hkReal radius) : m_mass(mass), m_radius(radius), m_position(pos), m_havokRigid(0)
-	{}
+	Ball::Ball(const Vector& pos, Real mass, Real radius)
+		: m_mass(mass)
+		, m_radius(radius)
+		, m_position(pos)
+		, m_havokRigid(0)
+	{
+	}
 
 	void Ball::creatRigidBody()
 	{
@@ -51,7 +57,7 @@ namespace Billiards
 		shape->removeReference();
 	}
 
-	void Ball::applyForce(const hkVector4& force, const hkVector4& pos, hkReal deltaTime)
+	void Ball::applyForce(const Vector& force, const Vector& pos, Real deltaTime)
 	{
 		m_hkpWorld->markForWrite();
 
@@ -60,7 +66,7 @@ namespace Billiards
 		m_hkpWorld->unmarkForWrite();
 	}
 
-	void Ball::setPos(const hkVector4 &pos)
+	void Ball::setPos(const Vector &pos)
 	{
 		m_position = pos;
 
@@ -74,12 +80,12 @@ namespace Billiards
 		}
 	}
 
-	hkVector4 Ball::getPos() const
+	Vector Ball::getPos() const
 	{
 		return m_position;
 	}
 
-	hkQuaternion Ball::getRotation() const
+	Quaternion Ball::getRotation() const
 	{
 		return m_rotation;
 	}
