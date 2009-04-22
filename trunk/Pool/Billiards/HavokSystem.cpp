@@ -77,7 +77,7 @@ namespace Billiards
 		hkBaseSystem::quit();
 	}
 
-	bool HavokSystem::createHavokWorld(hkReal worldsize)
+	bool HavokSystem::createHavokWorld(Real worldsize)
 	{
 		hkpWorldCinfo worldInfo;
 		worldInfo.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_MULTITHREADED;
@@ -118,13 +118,13 @@ namespace Billiards
 		return true;
 	}
 
-	void HavokSystem::simulate(hkReal elapsedTime)
+	void HavokSystem::simulate(Real elapsedTime)
 	{
 		//hkStopwatch stopWatch;
 		//stopWatch.start();
-		//hkReal lastTime = stopWatch.getElapsedSeconds();
+		//Real lastTime = stopWatch.getElapsedSeconds();
 
-		//hkReal timestep = 1.0f/60.0f;
+		//Real timestep = 1.0f/60.0f;
 
 		m_World->stepMultithreaded(m_JobQueue,m_ThreadPool,elapsedTime);
 

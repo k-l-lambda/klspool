@@ -10,9 +10,8 @@
 
 
 
-//#include <Common\Base\hkBase.h>
-//#include <Common\Base\Math\hkMath.h>
-#include <Common/Base/Types/hkBaseTypes.h>
+#include <Common\Base\hkBase.h>
+#include <Common\Base\Math\hkMath.h>
 
 class hkVector4;
 class hkQuaternion;

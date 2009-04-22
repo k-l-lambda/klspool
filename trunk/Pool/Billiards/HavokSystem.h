@@ -24,14 +24,14 @@ namespace Billiards
 
 		~HavokSystem(void);
 		//创建hkpWorld
-		virtual bool createHavokWorld(hkReal worldsize);
+		virtual bool createHavokWorld(Real worldsize);
 		//初始化VDB
 		virtual bool InitVDB();
 		//创建物理场景
 		virtual void createPhysicsScene();
 
 		//step simulation
-		virtual void simulate(hkReal elapsedTime);
+		virtual void simulate(Real elapsedTime);
 
 		void setup();
 

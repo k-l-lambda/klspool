@@ -6,6 +6,8 @@ Known Issues:
 
 2009.4.22	K.L.	<xxxK.L.xxx@gmail.com>
 
+	+	Table mesh added.
+
 	+	Billiards/MathDef.h: added.
 
 	>	rename: Game -> PoolGame.

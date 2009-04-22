@@ -30,12 +30,12 @@ namespace Billiards
 		bool isStill();
 
 		// give some impuse to the designated ball
-		void applyForceOnBall(const Vector& force, const Vector& pos, hkReal deltaTime, int number);
+		void applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number);
 
-		void addBall(hkReal x, hkReal y, hkReal z, hkReal mass, hkReal radius);
+		void addBall(Real x, Real y, Real z, Real mass, Real radius);
 		void deleteBall(int number);
 
-		void setPosOfBall(hkReal x, hkReal y, hkReal z, int number);
+		void setPosOfBall(Real x, Real y, Real z, int number);
 
 		Vector getPosOfBall(int number) const;
 		Quaternion getRotationOfBall(int number) const;
@@ -45,7 +45,7 @@ namespace Billiards
 
 		void updateAllBalls();
 
-		void simulate(hkReal elapsedTime);
+		void simulate(Real elapsedTime);
 
 	private:
 		// forbid copy
