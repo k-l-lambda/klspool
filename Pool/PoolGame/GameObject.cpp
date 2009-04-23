@@ -25,7 +25,7 @@ GameObject::GameObject(Ogre::SceneNode* parent, const Billiards::VisualObjectPar
 	m_nodeObject->attachObject(ent);
 }
 
-void GameObject::setTransform(const Billiards::Vector& position, const Billiards::Quaternion& orientation)
+void GameObject::updateTransform(const Billiards::Vector& position, const Billiards::Quaternion& orientation)
 {
 	m_nodeObject->setPosition(bld2Ogre(position));
 	m_nodeObject->setOrientation(bld2Ogre(orientation));

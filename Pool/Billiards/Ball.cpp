@@ -102,7 +102,7 @@ namespace Billiards
 		m_rotation = m_havokRigid->getRotation();
 
 		if(m_VisualObject)
-			m_VisualObject->setTransform(m_position, m_rotation);
+			m_VisualObject->updateTransform(m_position, m_rotation);
 	}
 
 	Ball::~Ball()
