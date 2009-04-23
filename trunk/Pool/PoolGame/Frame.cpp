@@ -358,7 +358,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 		}
 		if(e.state.Z.rel)
 		{
-			camera *= exp(-e.state.Z.rel / 1600.0);
+			camera *= std::exp(-e.state.Z.rel / 1600.0);
 			if(camera.length() < NEAR_DISTANCE)
 				camera = camera.normalisedCopy() * NEAR_DISTANCE;
 			else if(camera.length() > FAR_DISTANCE)

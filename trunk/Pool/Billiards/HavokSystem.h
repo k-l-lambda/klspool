@@ -37,7 +37,7 @@ namespace Billiards
 		//Physics
 		hkpWorld*					m_World;
 
-	protected:
+	private:
 		//成员变量
 		hkPoolMemory*				m_MemoryManager;
 		hkThreadMemory*				m_ThreadMemory;

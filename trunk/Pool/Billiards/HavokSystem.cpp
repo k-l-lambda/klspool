@@ -8,6 +8,7 @@
 #include "StableHeaders.h"
 
 #include "HavokSystem.h"
+#include "ThreadAccessLock.h"
 
 #include <iostream>
 
@@ -92,12 +93,13 @@ namespace Billiards
 
 		m_World = new hkpWorld(worldInfo);
 		m_World->m_wantDeactivation = false;
-		m_World->markForWrite();
-		//×¢²áÅö×²´úÀí
-		hkpAgentRegisterUtil::registerAllAgents(m_World->getCollisionDispatcher());
-		m_World->registerWithJobQueue(m_JobQueue);
+		{
+			WorldWritingLock wlock(m_World);
 
-		m_World->unmarkForWrite();
+			//×¢²áÅö×²´úÀí
+			hkpAgentRegisterUtil::registerAllAgents(m_World->getCollisionDispatcher());
+			m_World->registerWithJobQueue(m_JobQueue);
+		}
 		return true;
 	}
 

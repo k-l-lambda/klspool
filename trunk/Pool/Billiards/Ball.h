@@ -32,8 +32,8 @@ namespace Billiards
 		bool isInHole() const;
 		bool isStill() const;
 
-		Vector getPos() const;
-		Quaternion getRotation() const;
+		const Vector&		getPos() const;
+		const Quaternion&	getRotation() const;
 
 		void update();
 
@@ -51,7 +51,7 @@ namespace Billiards
 
 		VisualObjectPtr	m_VisualObject;
 
-		static hkpWorld* m_hkpWorld;
+		static hkpWorld* s_hkpWorld;
 	};
 }
 
