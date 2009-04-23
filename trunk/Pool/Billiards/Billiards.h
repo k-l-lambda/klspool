@@ -40,6 +40,16 @@
 #include <stack>
 
 
+#ifdef _MSC_VER
+#	pragma warning(push, 1)
+#endif
+#include <boost\shared_ptr.hpp>
+#include <boost\function.hpp>
+#ifdef _MSC_VER
+#	pragma warning(pop)
+#endif
+
+
 // Havok declarations
 class hkpPhysicsContext;
 class hkpRigidBody;
@@ -67,6 +77,12 @@ namespace Billiards
 	class Ball;
 	class Game;
 	class HavokSystem;
+
+	struct IVisualObject;
+	struct VisualObjectParameters;
+
+	typedef	boost::shared_ptr<IVisualObject>										VisualObjectPtr;
+	typedef	boost::function<VisualObjectPtr (const VisualObjectParameters&)>		VisualObjectCreationFunctor;
 }
 
 

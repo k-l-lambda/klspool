@@ -1,10 +1,13 @@
 TODO:
-	Ball agent
 
 Known Issues:
+	Havok cleanup errors.
 
 
 2009.4.23	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	PoolGame/GameObject: added, implemented.
+	+	Billiards::IVisualObject: added.
 
 	+	Ball.cpp/WorldAccessLock: added.
 

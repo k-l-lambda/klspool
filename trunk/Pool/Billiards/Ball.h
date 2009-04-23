@@ -11,7 +11,6 @@
 
 
 #include "Billiards.h"
-#include "MathDef.h"
 
 
 namespace Billiards
@@ -22,8 +21,7 @@ namespace Billiards
 	class Ball
 	{
 	public:
-		Ball();
-		Ball(const Vector& pos, Real mass, Real radius);
+		Ball(VisualObjectPtr vobj, const Vector& pos, Real mass, Real radius);
 
 		void creatRigidBody();
 
@@ -44,12 +42,14 @@ namespace Billiards
 		static void setupStatic(hkpWorld* hw);
 
 	private:
-		Real m_radius;
-		Real m_mass;
-		Vector m_position;
-		Quaternion m_rotation;
+		Real			m_radius;
+		Real			m_mass;
+		Vector			m_position;
+		Quaternion		m_rotation;
 
-		hkpRigidBody* m_havokRigid;
+		hkpRigidBody*	m_havokRigid;
+
+		VisualObjectPtr	m_VisualObject;
 
 		static hkpWorld* m_hkpWorld;
 	};

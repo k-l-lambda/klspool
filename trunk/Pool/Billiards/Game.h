@@ -9,17 +9,21 @@
 #define	__BLDGAME_H__
 
 
+
 #include "HavokSystem.h"
 #include "Ball.h"
+
+#include <boost\noncopyable.hpp>
 
 
 namespace Billiards
 {
 	class BILLIARDS_API	Game
+		: boost::noncopyable
+#pragma warning(suppress: 4275)	// non ¨C DLL-interface classkey 'identifier' used as base for DLL-interface classkey 'identifier'
 	{
 	public:
-		Game();
-
+		explicit Game(const VisualObjectCreationFunctor& fnCreateVisualObject);
 		~Game();
 
 		void setup();
@@ -32,7 +36,7 @@ namespace Billiards
 		// give some impuse to the designated ball
 		void applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number);
 
-		void addBall(Real x, Real y, Real z, Real mass, Real radius);
+		void addBall(const VisualObjectParameters& param, Real x, Real y, Real z, Real mass, Real radius);
 		void deleteBall(int number);
 
 		void setPosOfBall(Real x, Real y, Real z, int number);
@@ -48,14 +52,14 @@ namespace Billiards
 		void simulate(Real elapsedTime);
 
 	private:
-		// forbid copy
-		Game(const Game& game);
-
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		std::vector<Ball*> m_ballList;
 		hkpRigidBody* m_table;
 
-		HavokSystem* hkSystem;
+		HavokSystem* m_hkSystem;
+
+#pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
+		VisualObjectCreationFunctor		m_fnCreateVisualObject;
 	};
 }
 
