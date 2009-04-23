@@ -4,6 +4,11 @@ TODO:
 Known Issues:
 
 
+2009.4.23	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Ball.cpp/WorldAccessLock: added.
+
+
 2009.4.22	K.L.	<xxxK.L.xxx@gmail.com>
 
 	+	Table mesh added.

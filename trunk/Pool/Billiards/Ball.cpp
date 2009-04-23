@@ -16,7 +16,29 @@
 
 namespace Billiards
 {
+	template<typename T, T Mark, T Unmark>
+	struct WorldAccessLock
+	{
+		hkpWorld* pWorld;
+
+		explicit WorldAccessLock(hkpWorld* world)
+			: pWorld(world)
+		{
+			(pWorld->*Mark)();
+		};
+
+		~WorldAccessLock()
+		{
+			(pWorld->*Unmark)();
+		};
+	};
+
+	typedef	WorldAccessLock<void (hkpWorld::*)(), &hkpWorld::markForWrite, &hkpWorld::unmarkForWrite>		WorldWritingLock;
+	typedef	WorldAccessLock<void (hkpWorld::*)() const, &hkpWorld::markForRead, &hkpWorld::unmarkForRead>	WorldReadingLock;
+
+
 	hkpWorld* Ball::m_hkpWorld = 0;
+
 
 	Ball::Ball(const Vector& pos, Real mass, Real radius)
 		: m_mass(mass)
@@ -28,7 +50,7 @@ namespace Billiards
 
 	void Ball::creatRigidBody()
 	{
-		m_hkpWorld->markForWrite();
+		WorldWritingLock wlock(m_hkpWorld);
 
 		hkpConvexShape* shape = new hkpSphereShape(m_radius);
 
@@ -52,18 +74,14 @@ namespace Billiards
 		m_havokRigid = new hkpRigidBody(sphereInfo);
 		m_hkpWorld->addEntity(m_havokRigid);
 
-		m_hkpWorld->unmarkForWrite();
-
 		shape->removeReference();
 	}
 
 	void Ball::applyForce(const Vector& force, const Vector& pos, Real deltaTime)
 	{
-		m_hkpWorld->markForWrite();
+		WorldWritingLock wlock(m_hkpWorld);
 
 		m_havokRigid->applyForce(deltaTime, force, pos);
-
-		m_hkpWorld->unmarkForWrite();
 	}
 
 	void Ball::setPos(const Vector &pos)
@@ -72,11 +90,9 @@ namespace Billiards
 
 		if(m_havokRigid)
 		{
-			m_hkpWorld->markForWrite();
+			WorldWritingLock wlock(m_hkpWorld);
 
 			m_havokRigid->setPosition(pos);
-
-			m_hkpWorld->unmarkForWrite();
 		}
 	}
 
@@ -97,21 +113,17 @@ namespace Billiards
 
 	void Ball::update()
 	{
-		m_hkpWorld->markForRead();
+		WorldReadingLock rlock(m_hkpWorld);
 
 		m_position = m_havokRigid->getPosition();
 
 		m_rotation = m_havokRigid->getRotation();
-
-		m_hkpWorld->unmarkForRead();
 	}
 
 	Ball::~Ball()
 	{
-		m_hkpWorld->markForWrite();
+		WorldWritingLock wlock(m_hkpWorld);
 
 		m_hkpWorld->removeEntity(m_havokRigid);
-
-		m_hkpWorld->unmarkForWrite();
 	}
 }
