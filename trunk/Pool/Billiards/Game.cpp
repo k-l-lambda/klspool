@@ -11,11 +11,14 @@
 
 #include "Game.h"
 #include "VisualObject.h"
-#include "ThreadAccessLock.h"
 
 
 namespace Billiards
 {
+	const TableParams Game::m_tableParams = {5.36f, 12.7f, 25.4f,
+											 0.45f, 1.5f,
+											 0.55f};
+
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
 		: m_table(NULL)
 		, m_hkSystem(NULL)
@@ -61,25 +64,7 @@ namespace Billiards
 		// set the world pointer in ball
 		Ball::setupStatic(m_hkSystem->m_World);
 
-		{
-			WorldWritingLock wlock(m_hkSystem->m_World);
-
-			// create the ground
-			Vector groundSize;
-			groundSize.set(200.0f,2.0f,200.0f);
-			hkpConvexShape* shape = new hkpBoxShape(groundSize, 0.05f);
-
-			hkpRigidBodyCinfo ci;
-
-			ci.m_shape = shape;
-			ci.m_motionType = hkpMotion::MOTION_FIXED;
-			ci.m_position = Vector(0, 0, 0);
-			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-
-			m_table = new hkpRigidBody(ci);
-			m_hkSystem->m_World->addEntity(m_table);
-			shape->removeReference();
-		}
+		m_hkSystem->m_World->markForWrite();
 
 		// add 2 sample balls
 		{
@@ -93,9 +78,101 @@ namespace Billiards
 				"ball2", "Sphere",
 				boost::assign::map_list_of(0, "Pool/Balls/P2").to_container(VisualObjectParameters::MaterialNameMap_t()),
 			};
-			addBall(param1, 0, 50, 2, 100, 3);
-			addBall(param2, 0, 60, 0, 100, 3);
+			addBall(param1, 0, 50, 2, 100, 0.575);
+			addBall(param2, 0, 60, 0, 100, 0.575);
 		}
+	}
+
+	void Game::creatTable()
+	{
+		m_hkSystem->m_World->markForWrite();
+
+		// create the table shape
+		//
+		hkArray<hkpShape*> shapeArray;
+
+		// tableBoard
+
+		float boardHeight = 2.0f;
+		hkpBoxShape* tableBoard = new hkpBoxShape(hkVector4(m_tableParams.lenth/2, boardHeight/2, m_tableParams.width/2), 0);
+
+		hkTransform t ;
+		t = t.getIdentity();
+		hkVector4 trans = hkVector4(0.0f, 0.0f, 0.0f);
+		t.setTranslation( trans );
+		hkpTransformShape* tableBoardTrans = new hkpTransformShape( tableBoard , t);
+		shapeArray.pushBack(tableBoardTrans);
+
+		// vbaffles
+		float vbaffleLenth = m_tableParams.lenth - 3*2*m_tableParams.holeRadius;
+
+		hkpBoxShape* vbaffle = new hkpBoxShape( hkVector4(vbaffleLenth/2, 
+			                                    m_tableParams.baffleHeight/2, 
+											    m_tableParams.baffleWidth/2), 0);
+
+		float vX = vbaffleLenth/2 + m_tableParams.holeRadius/2;
+		float vY = boardHeight/2 + m_tableParams.baffleHeight/2;
+		float vZ = m_tableParams.width/2 - m_tableParams.baffleWidth/2;
+
+		trans = hkVector4(vX, vY, vZ);
+		t.setTranslation( trans );
+		hkpTransformShape* vbaffleTrans1 = new hkpTransformShape( vbaffle, t );
+		shapeArray.pushBack(vbaffleTrans1);
+
+		trans = hkVector4(vX, vY, -vZ);
+		t.setTranslation( trans );
+		hkpTransformShape* vbaffleTrans2 = new hkpTransformShape( vbaffle,  t );
+		shapeArray.pushBack(vbaffleTrans2);
+
+		trans = hkVector4(-vX, vY, vZ);
+		t.setTranslation( trans );
+		hkpTransformShape* vbaffleTrans3 = new hkpTransformShape( vbaffle,  t );
+		shapeArray.pushBack(vbaffleTrans3);
+
+		trans = hkVector4(-vX, vY, -vZ);
+		t.setTranslation( trans );
+		hkpTransformShape* vbaffleTrans4 = new hkpTransformShape( vbaffle,  t );
+		shapeArray.pushBack(vbaffleTrans4);
+
+		// nbaffles
+
+		float nbaffleLenth = m_tableParams.width - 2*2*m_tableParams.holeRadius;
+		hkpBoxShape* nbaffle = new hkpBoxShape(hkVector4(m_tableParams.baffleWidth/2, 
+			                                   m_tableParams.baffleHeight/2, 
+											   nbaffleLenth/2), 0);
+
+		float nX = m_tableParams.lenth/2 - m_tableParams.baffleWidth/2;
+		float nY = vY;
+		float nZ = 0;
+
+		trans = hkVector4(nX, nY, nZ);
+		t.setTranslation( trans );
+		hkpTransformShape* nbaffleTrans1 = new hkpTransformShape( nbaffle ,t);
+		shapeArray.pushBack(nbaffleTrans1);
+
+		trans = hkVector4(-nX, nY, nZ);
+		t.setTranslation( trans );
+		hkpTransformShape* nbaffleTrans2 = new hkpTransformShape( nbaffle ,t);
+		shapeArray.pushBack(nbaffleTrans2);
+
+		hkpListShape* table = new hkpListShape(&shapeArray[0], shapeArray.getSize());
+
+		// creat rigidBody
+
+		hkpRigidBodyCinfo ci;
+
+		ci.m_shape = table;
+		ci.m_motionType = hkpMotion::MOTION_FIXED;
+		ci.m_position = Vector(0, 0, 0);
+		ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
+
+		m_table = new hkpRigidBody(ci);
+		m_hkSystem->m_World->addEntity(m_table);
+
+		m_table->setPosition(hkVector4(0, m_tableParams.height,0));
+		table->removeReference();
+
+		m_hkSystem->m_World->unmarkForWrite();
 	}
 
 	void Game::addBall(const VisualObjectParameters& param, Real x, Real y, Real z, Real mass, Real radius)

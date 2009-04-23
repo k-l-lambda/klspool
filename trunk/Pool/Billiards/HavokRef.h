@@ -22,8 +22,10 @@
 #include <Physics/Collide/hkpCollide.h>										
 #include <Physics/Collide/Agent/ConvexAgent/SphereBox/hkpSphereBoxAgent.h>	
 #include <Physics/Collide/Shape/Convex/Box/hkpBoxShape.h>					
-#include <Physics/Collide/Shape/Convex/Sphere/hkpSphereShape.h>				
-#include <Physics/Collide/Dispatch/hkpAgentRegisterUtil.h>					
+#include <Physics/Collide/Shape/Convex/Sphere/hkpSphereShape.h>		
+#include <Physics/Collide/Shape/Misc/Transform/hkpTransformShape.h>
+#include <Physics/Collide/Shape/Compound/Collection/List/hkpListShape.h>
+#include <Physics/Collide/Dispatch/hkpAgentRegisterUtil.h>	
 
 #include <Physics/Collide/Query/CastUtil/hkpWorldRayCastInput.h>			
 #include <Physics/Collide/Query/CastUtil/hkpWorldRayCastOutput.h>			
