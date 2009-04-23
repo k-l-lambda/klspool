@@ -11,6 +11,7 @@
 
 #include "Game.h"
 #include "VisualObject.h"
+#include "ThreadAccessLock.h"
 
 
 namespace Billiards
@@ -60,25 +61,25 @@ namespace Billiards
 		// set the world pointer in ball
 		Ball::setupStatic(m_hkSystem->m_World);
 
-		m_hkSystem->m_World->markForWrite();
+		{
+			WorldWritingLock wlock(m_hkSystem->m_World);
 
-		// create the ground
-		Vector groundSize;
-		groundSize.set(200.0f,2.0f,200.0f);
-		hkpConvexShape* shape = new hkpBoxShape(groundSize, 0.05f);
+			// create the ground
+			Vector groundSize;
+			groundSize.set(200.0f,2.0f,200.0f);
+			hkpConvexShape* shape = new hkpBoxShape(groundSize, 0.05f);
 
-		hkpRigidBodyCinfo ci;
+			hkpRigidBodyCinfo ci;
 
-		ci.m_shape = shape;
-		ci.m_motionType = hkpMotion::MOTION_FIXED;
-		ci.m_position = Vector(0, 0, 0);
-		ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
+			ci.m_shape = shape;
+			ci.m_motionType = hkpMotion::MOTION_FIXED;
+			ci.m_position = Vector(0, 0, 0);
+			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
 
-		m_table = new hkpRigidBody(ci);
-		m_hkSystem->m_World->addEntity(m_table);
-		shape->removeReference();
-
-		m_hkSystem->m_World->unmarkForWrite();
+			m_table = new hkpRigidBody(ci);
+			m_hkSystem->m_World->addEntity(m_table);
+			shape->removeReference();
+		}
 
 		// add 2 sample balls
 		{

@@ -18,7 +18,7 @@
 
 namespace Billiards
 {
-	hkpWorld* Ball::m_hkpWorld = 0;
+	hkpWorld* Ball::s_hkpWorld = 0;
 
 
 	Ball::Ball(VisualObjectPtr vobj, const Vector& pos, Real mass, Real radius)
@@ -32,13 +32,13 @@ namespace Billiards
 
 	void Ball::creatRigidBody()
 	{
-		WorldWritingLock wlock(m_hkpWorld);
+		WorldWritingLock wlock(s_hkpWorld);
 
 		hkpConvexShape* shape = new hkpSphereShape(m_radius);
 
 		// compute necessary properties
 		hkpRigidBodyCinfo sphereInfo;
-		
+
 		sphereInfo.m_mass = m_mass;
 
 		hkpMassProperties massProperties;
@@ -51,17 +51,17 @@ namespace Billiards
 		sphereInfo.m_shape = shape;
 		sphereInfo.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA;
 		sphereInfo.m_position = m_position;
-			
+
 		//creat Havok hkpRigidBody
 		m_havokRigid = new hkpRigidBody(sphereInfo);
-		m_hkpWorld->addEntity(m_havokRigid);
+		s_hkpWorld->addEntity(m_havokRigid);
 
 		shape->removeReference();
 	}
 
 	void Ball::applyForce(const Vector& force, const Vector& pos, Real deltaTime)
 	{
-		WorldWritingLock wlock(m_hkpWorld);
+		WorldWritingLock wlock(s_hkpWorld);
 
 		m_havokRigid->applyForce(deltaTime, force, pos);
 	}
@@ -72,30 +72,30 @@ namespace Billiards
 
 		if(m_havokRigid)
 		{
-			WorldWritingLock wlock(m_hkpWorld);
+			WorldWritingLock wlock(s_hkpWorld);
 
 			m_havokRigid->setPosition(pos);
 		}
 	}
 
-	Vector Ball::getPos() const
+	const Vector& Ball::getPos() const
 	{
 		return m_position;
 	}
 
-	Quaternion Ball::getRotation() const
+	const Quaternion& Ball::getRotation() const
 	{
 		return m_rotation;
 	}
 
 	void Ball::setupStatic(hkpWorld *hw)
 	{
-		m_hkpWorld = hw;	
+		s_hkpWorld = hw;	
 	}
 
 	void Ball::update()
 	{
-		WorldReadingLock rlock(m_hkpWorld);
+		WorldReadingLock rlock(s_hkpWorld);
 
 		m_position = m_havokRigid->getPosition();
 
@@ -107,8 +107,8 @@ namespace Billiards
 
 	Ball::~Ball()
 	{
-		WorldWritingLock wlock(m_hkpWorld);
+		WorldWritingLock wlock(s_hkpWorld);
 
-		m_hkpWorld->removeEntity(m_havokRigid);
+		s_hkpWorld->removeEntity(m_havokRigid);
 	}
 }
