@@ -9,6 +9,8 @@
 
 #include "Ball.h"
 #include "HavokRef.h"
+#include "VisualObject.h"
+#include "ThreadAccessLock.h"
 
 #include <assert.h>
 #include <iostream>
@@ -16,35 +18,15 @@
 
 namespace Billiards
 {
-	template<typename T, T Mark, T Unmark>
-	struct WorldAccessLock
-	{
-		hkpWorld* pWorld;
-
-		explicit WorldAccessLock(hkpWorld* world)
-			: pWorld(world)
-		{
-			(pWorld->*Mark)();
-		};
-
-		~WorldAccessLock()
-		{
-			(pWorld->*Unmark)();
-		};
-	};
-
-	typedef	WorldAccessLock<void (hkpWorld::*)(), &hkpWorld::markForWrite, &hkpWorld::unmarkForWrite>		WorldWritingLock;
-	typedef	WorldAccessLock<void (hkpWorld::*)() const, &hkpWorld::markForRead, &hkpWorld::unmarkForRead>	WorldReadingLock;
-
-
 	hkpWorld* Ball::m_hkpWorld = 0;
 
 
-	Ball::Ball(const Vector& pos, Real mass, Real radius)
+	Ball::Ball(VisualObjectPtr vobj, const Vector& pos, Real mass, Real radius)
 		: m_mass(mass)
 		, m_radius(radius)
 		, m_position(pos)
 		, m_havokRigid(0)
+		, m_VisualObject(vobj)
 	{
 	}
 
@@ -118,6 +100,9 @@ namespace Billiards
 		m_position = m_havokRigid->getPosition();
 
 		m_rotation = m_havokRigid->getRotation();
+
+		if(m_VisualObject)
+			m_VisualObject->setTransform(m_position, m_rotation);
 	}
 
 	Ball::~Ball()

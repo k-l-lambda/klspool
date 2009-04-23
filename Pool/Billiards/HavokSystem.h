@@ -20,9 +20,9 @@ namespace Billiards
 	{
 	public:
 		HavokSystem(void);
-		
 
 		~HavokSystem(void);
+
 		//创建hkpWorld
 		virtual bool createHavokWorld(Real worldsize);
 		//初始化VDB
@@ -48,7 +48,7 @@ namespace Billiards
 		hkJobThreadPool*			m_ThreadPool;
 		int							m_TotalNumThreadUsed;
 		hkJobQueue*					m_JobQueue;
-		
+
 		//VDB相关
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		hkArray<hkProcessContext*>	m_Contexts;

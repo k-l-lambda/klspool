@@ -16,6 +16,7 @@
 #include "Frame.h"
 #include "Geometries.h"
 #include "mathTypeConvert.h"
+#include "GameObject.h"
 
 
 static const Real SKYBOX_ROTATE_SPEED = 0.003f;
@@ -170,8 +171,8 @@ private:
 
 
 BEGIN_EVENT_TABLE(Frame, wxFrame)
-EVT_IDLE(Frame::onIdle)
-EVT_CLOSE(Frame::onClose)
+	EVT_IDLE(Frame::onIdle)
+	EVT_CLOSE(Frame::onClose)
 END_EVENT_TABLE()
 
 
@@ -241,7 +242,7 @@ void Frame::createScene()
 
 	// only a sample
 	{
-		Ogre::Entity* ball1 = mSceneMgr->createEntity("ball1","Sphere");
+		/*Ogre::Entity* ball1 = mSceneMgr->createEntity("ball1","Sphere");
 		ball1->getSubEntity(0)->setMaterialName("Pool/Balls/P1");
 		m_nodeBall_1 = m_nodeGame->createChildSceneNode();
 		m_nodeBall_1->attachObject(ball1);
@@ -252,7 +253,7 @@ void Frame::createScene()
 		ball2->getSubEntity(0)->setMaterialName("Pool/Balls/P2");
 		m_nodeBall_2 = m_nodeGame->createChildSceneNode();
 		m_nodeBall_2->attachObject(ball2);
-		m_nodeBall_2->setPosition(position);
+		m_nodeBall_2->setPosition(position);*/
 
 		Ogre::Entity* entGround = mSceneMgr->createEntity("ground", "floor200x200.mesh");
 		entGround->getSubEntity(0)->setMaterialName("Pool/Table/RedGrass");
@@ -268,8 +269,8 @@ void Frame::createScene()
 	mWindow->getViewport(0)->setBackgroundColour(ColourValue(0.2, 0.2, 0.2));
 
 	// init physics system
-	m_billiards = new Billiards::Game();
-	m_billiards->setup();
+	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
+	m_Game->setup();
 }
 
 void Frame::onIdle(wxIdleEvent& e)
@@ -306,15 +307,15 @@ void Frame::frameStarted(const FrameEvent& evt)
 
 	{
 		// step the world
-		m_billiards->simulate(elapsed);
+		m_Game->simulate(elapsed);
 
-		{
-			m_nodeBall_1->setPosition(hkVector4ToOgre( m_billiards->getPosOfBall(0) ) );
-			m_nodeBall_1->setOrientation( hkQuatToOgre( m_billiards->getRotationOfBall(0) ) );
-			
-			m_nodeBall_2->setPosition(hkVector4ToOgre( m_billiards->getPosOfBall(1) ) );
-			m_nodeBall_2->setOrientation( hkQuatToOgre( m_billiards->getRotationOfBall(1) ) );
-		}
+		/*{
+			m_nodeBall_1->setPosition(bld2Ogre( m_Game->getPosOfBall(0) ) );
+			m_nodeBall_1->setOrientation( bld2Ogre( m_Game->getRotationOfBall(0) ) );
+
+			m_nodeBall_2->setPosition(bld2Ogre( m_Game->getPosOfBall(1) ) );
+			m_nodeBall_2->setOrientation( bld2Ogre( m_Game->getRotationOfBall(1) ) );
+		}*/
 
 		Radian delta = Radian(elapsed * SKYBOX_ROTATE_SPEED);
 		m_SkyBoxAngle += delta;
@@ -493,4 +494,9 @@ void Frame::onQueryExit()
 	listener->exit();
 
 	m_fnOnClose();
+}
+
+Frame::VisualObjectPtr Frame::createGameObject(const Billiards::VisualObjectParameters& param)
+{
+	return VisualObjectPtr(new GameObject(m_nodeGame, param));
 }

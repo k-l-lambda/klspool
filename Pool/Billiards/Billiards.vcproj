@@ -40,7 +40,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm118"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
 				PreprocessorDefinitions="HK_DEBUG;_BILLIARDSDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -117,7 +117,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
 				PreprocessorDefinitions="_BILLIARDSDLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -247,6 +247,14 @@
 			</File>
 			<File
 				RelativePath=".\StableHeaders.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ThreadAccessLock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VisualObject.h"
 				>
 			</File>
 		</Filter>

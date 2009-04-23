@@ -68,6 +68,7 @@ namespace Billiards
 		m_World->removeReference();
 		m_Vdb->removeReference();
 		m_Context->removeReference();
+		m_Contexts.clearAndDeallocate();
 		delete m_JobQueue;
 		m_ThreadPool->removeReference();
 		m_ThreadMemory->setStackArea(0,0);
@@ -126,7 +127,8 @@ namespace Billiards
 
 		//Real timestep = 1.0f/60.0f;
 
-		m_World->stepMultithreaded(m_JobQueue,m_ThreadPool,elapsedTime);
+		if(elapsedTime != 0)
+			m_World->stepMultithreaded(m_JobQueue, m_ThreadPool, elapsedTime);
 
 		//m_Context->syncTimers(m_ThreadPool);
 		//m_Vdb->step();

@@ -17,6 +17,8 @@
 namespace Billiards
 {
 	class Game;
+	struct IVisualObject;
+	struct VisualObjectParameters;
 }
 
 
@@ -28,7 +30,10 @@ class Frame
 
 
 public:
-	typedef	boost::function<void ()>			OnCloseFunctor;
+	typedef	boost::function<void ()>						OnCloseFunctor;
+
+	typedef	boost::shared_ptr<Billiards::IVisualObject>		VisualObjectPtr;
+	typedef	boost::shared_ptr<Billiards::Game>				GamePtr;
 
 public:
 	explicit Frame(const OnCloseFunctor& fnOnClose);
@@ -69,6 +74,8 @@ private:
 
 	void	onQueryExit();
 
+	VisualObjectPtr	createGameObject(const Billiards::VisualObjectParameters& param);
+
 private:
 	// UI commands
 
@@ -79,8 +86,8 @@ private:
 	SceneNode*							m_nodeCameraRoot;
 	SceneNode*							m_nodeCamera;
 
-	SceneNode*                          m_nodeBall_1;
-	SceneNode*                          m_nodeBall_2;
+	//SceneNode*							m_nodeBall_1;
+	//SceneNode*							m_nodeBall_2;
 
 	boost::shared_ptr<CEGUI::Renderer>	m_GuiRenderer;
 	boost::shared_ptr<CEGUI::System>	m_GuiSystem;
@@ -93,9 +100,9 @@ private:
 
 	int									m_FocusDialog;
 
-	Billiards::Game*					m_billiards;
+	GamePtr								m_Game;
 
-	Ogre::Timer                         m_timer;
+	Ogre::Timer							m_timer;
 
 	DECLARE_EVENT_TABLE()
 };
