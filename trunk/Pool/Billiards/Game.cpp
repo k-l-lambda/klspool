@@ -31,6 +31,8 @@ namespace Billiards
 			};
 			m_fnCreateVisualObject = &LocalScope::null;
 		}
+
+		setup();
 	}
 
 	void Game::setup()
@@ -119,7 +121,7 @@ namespace Billiards
 		m_ballList[number]->applyForce(force, pos, deltaTime);
 	}
 
-	Vector Game::getPosOfBall(int number) const
+	/*Vector Game::getPosOfBall(int number) const
 	{
 		//assert(number > (int)m_ballList.size());
 
@@ -131,7 +133,7 @@ namespace Billiards
 		//assert(number > (int)m_ballList.size());
 
 		return m_ballList[number]->getRotation();
-	}
+	}*/
 
 	void Game::deleteBall(int number)
 	{

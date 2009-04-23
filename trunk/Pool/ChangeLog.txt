@@ -6,6 +6,8 @@ Known Issues:
 
 2009.4.23	K.L.	<xxxK.L.xxx@gmail.com>
 
+	>	Billiards: refined interface of 'Game' and 'HavokSystem'.
+
 	+	PoolGame/GameObject: added, implemented.
 	+	Billiards::IVisualObject: added.
 

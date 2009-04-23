@@ -242,19 +242,6 @@ void Frame::createScene()
 
 	// only a sample
 	{
-		/*Ogre::Entity* ball1 = mSceneMgr->createEntity("ball1","Sphere");
-		ball1->getSubEntity(0)->setMaterialName("Pool/Balls/P1");
-		m_nodeBall_1 = m_nodeGame->createChildSceneNode();
-		m_nodeBall_1->attachObject(ball1);
-		Ogre::Vector3 position(0, 0, 0);
-		m_nodeBall_1->setPosition(position);
-
-		Ogre::Entity* ball2 = mSceneMgr->createEntity("ball2","Sphere");
-		ball2->getSubEntity(0)->setMaterialName("Pool/Balls/P2");
-		m_nodeBall_2 = m_nodeGame->createChildSceneNode();
-		m_nodeBall_2->attachObject(ball2);
-		m_nodeBall_2->setPosition(position);*/
-
 		Ogre::Entity* entGround = mSceneMgr->createEntity("ground", "floor200x200.mesh");
 		entGround->getSubEntity(0)->setMaterialName("Pool/Table/RedGrass");
 		Ogre::SceneNode* groundNode = m_nodeGame->createChildSceneNode("groundnode");
@@ -270,7 +257,6 @@ void Frame::createScene()
 
 	// init physics system
 	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
-	m_Game->setup();
 }
 
 void Frame::onIdle(wxIdleEvent& e)
@@ -308,14 +294,6 @@ void Frame::frameStarted(const FrameEvent& evt)
 	{
 		// step the world
 		m_Game->simulate(elapsed);
-
-		/*{
-			m_nodeBall_1->setPosition(bld2Ogre( m_Game->getPosOfBall(0) ) );
-			m_nodeBall_1->setOrientation( bld2Ogre( m_Game->getRotationOfBall(0) ) );
-
-			m_nodeBall_2->setPosition(bld2Ogre( m_Game->getPosOfBall(1) ) );
-			m_nodeBall_2->setOrientation( bld2Ogre( m_Game->getRotationOfBall(1) ) );
-		}*/
 
 		Radian delta = Radian(elapsed * SKYBOX_ROTATE_SPEED);
 		m_SkyBoxAngle += delta;
@@ -356,9 +334,8 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 {
 	if(m_RotatingGame)
 	{
-		// rotate magic cube
+		// yaw camera
 		m_nodeCameraRoot->yaw(Radian(-e.state.X.rel * 0.01f), Node::TS_PARENT);
-		//m_nodeCamera->pitch(Radian(e.state.Y.rel * 0.01f), Node::TS_PARENT);
 	}
 
 	// update camera

@@ -30,7 +30,7 @@ namespace Billiards
 
 	struct IVisualObject
 	{
-		virtual void	setTransform(const Vector& position, const Quaternion& orientation)	= 0;
+		virtual void	updateTransform(const Vector& position, const Quaternion& orientation)	= 0;
 	};
 }
 

@@ -26,30 +26,31 @@ namespace Billiards
 		explicit Game(const VisualObjectCreationFunctor& fnCreateVisualObject);
 		~Game();
 
+		// test if all the balls is still
+		//bool isStill();
+
+		//Vector getPosOfBall(int number) const;
+		//Quaternion getRotationOfBall(int number) const;
+
+		// set the designated ball stilled
+		//void disableBall(int number);
+
+		void simulate(Real elapsedTime);
+
+	private:
 		void setup();
 
-		virtual void createPhysicsScene();
+		void createPhysicsScene();
 
-		// test if all the balls is still
-		bool isStill();
-
-		// give some impuse to the designated ball
-		void applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number);
+		void updateAllBalls();
 
 		void addBall(const VisualObjectParameters& param, Real x, Real y, Real z, Real mass, Real radius);
 		void deleteBall(int number);
 
+		// give some impuse to the designated ball
+		void applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number);
+
 		void setPosOfBall(Real x, Real y, Real z, int number);
-
-		Vector getPosOfBall(int number) const;
-		Quaternion getRotationOfBall(int number) const;
-
-		// set the designated ball stilled
-		void disableBall(int number);
-
-		void updateAllBalls();
-
-		void simulate(Real elapsedTime);
 
 	private:
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'

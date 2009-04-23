@@ -19,19 +19,18 @@ namespace Billiards
 	class HavokSystem
 	{
 	public:
-		HavokSystem(void);
-
-		~HavokSystem(void);
+		HavokSystem();
+		~HavokSystem();
 
 		//创建hkpWorld
-		virtual bool createHavokWorld(Real worldsize);
+		bool createHavokWorld(Real worldsize);
 		//初始化VDB
-		virtual bool InitVDB();
+		bool InitVDB();
 		//创建物理场景
-		virtual void createPhysicsScene();
+		void createPhysicsScene();
 
 		//step simulation
-		virtual void simulate(Real elapsedTime);
+		void simulate(Real elapsedTime);
 
 		void setup();
 

@@ -15,7 +15,7 @@
 
 namespace Ogre
 {
-	class SceneManager;
+	class SceneNode;
 }
 
 
@@ -26,7 +26,7 @@ public:
 	GameObject(Ogre::SceneNode* parent, const Billiards::VisualObjectParameters& param);
 
 private:
-	virtual void	setTransform(const Billiards::Vector& position, const Billiards::Quaternion& orientation);
+	virtual void	updateTransform(const Billiards::Vector& position, const Billiards::Quaternion& orientation);
 
 private:
 	Ogre::SceneNode*	m_nodeObject;

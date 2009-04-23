@@ -9,6 +9,8 @@
 
 #include "HavokSystem.h"
 
+#include <iostream>
+
 // Classlists
 #define INCLUDE_HAVOK_PHYSICS_CLASSES
 #define HK_CLASSES_FILE <Common/Serialize/Classlist/hkClasses.h>
@@ -22,23 +24,25 @@
 namespace Billiards
 {
 	//错误处理函数
-	static void HK_CALL errorReport(const char* msg,void*)
+	static void HK_CALL errorReport(const char* msg, void*)
 	{
-		printf("%s",msg);
+		//printf("%s",msg);
+		std::cout << "Havok error report: " << msg << std::endl;
 	}
 
-	HavokSystem::HavokSystem(void)
+
+	HavokSystem::HavokSystem()
 	{
 		m_MemoryManager = new hkPoolMemory();
 		m_ThreadMemory = new hkThreadMemory(m_MemoryManager);
-		hkBaseSystem::init(m_MemoryManager,m_ThreadMemory,errorReport);
-		
+		hkBaseSystem::init(m_MemoryManager, m_ThreadMemory, errorReport);
+
 		m_MemoryManager->removeReference();
 		//初始化堆栈
 		{
 			m_StackSize = 0x100000;
 			m_StackBuffer = hkAllocate<char>(m_StackSize,HK_MEMORY_CLASS_BASE);
-			hkThreadMemory::getInstance().setStackArea(m_StackBuffer,m_StackSize);
+			hkThreadMemory::getInstance().setStackArea(m_StackBuffer, m_StackSize);
 		}
 		//初始化多线程
 		int m_TotalNumThreadsUsed;
@@ -62,8 +66,7 @@ namespace Billiards
 		//m_bEnableVDB = false;
 	}
 
-
-	HavokSystem::~HavokSystem(void)
+	HavokSystem::~HavokSystem()
 	{
 		m_World->removeReference();
 		m_Vdb->removeReference();
