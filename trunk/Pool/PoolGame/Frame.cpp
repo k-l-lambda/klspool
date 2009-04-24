@@ -184,7 +184,8 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_nodeCameraRoot(NULL)
 	, m_nodeCamera(NULL)
 	, m_fnOnClose(fnOnClose)
-	, m_RotatingGame(false)
+	, m_RotatingCamera(false)
+	, m_PanningCamera(false)
 	, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
 	, m_FocusDialog(wxID_ANY)
 {
@@ -229,9 +230,10 @@ void Frame::createScene()
 	setupGui();
 
 	m_nodeCameraRoot->setOrientation(Quaternion(m_SkyBoxAngle, Vector3::UNIT_Y));
-	m_nodeCamera = m_nodeCameraRoot->createChildSceneNode(Vector3(0, 120, 90));
+	m_nodeCameraRoot->setPosition(0, 8, 0);
+	m_nodeCamera = m_nodeCameraRoot->createChildSceneNode(Vector3(0, 18, 30));
 	mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
-	mCamera->lookAt(0,0,0);
+	mCamera->lookAt(m_nodeCameraRoot->_getDerivedPosition());
 
 	createSphere("Sphere", 24, 24, 0.32);
 	m_nodeGame = mSceneMgr->getRootSceneNode()->createChildSceneNode();
@@ -305,7 +307,7 @@ void Frame::frameStarted(const FrameEvent& evt)
 		// rotate camera
 		//m_nodeCameraRoot->setOrientation(Quaternion(m_SkyBoxAngle, Vector3::UNIT_Y));
 		mCamera->setPosition(m_nodeCamera->_getDerivedPosition()/* + 50*/);
-		mCamera->lookAt(m_nodeGame->_getDerivedPosition());
+		mCamera->lookAt(m_nodeCameraRoot->_getDerivedPosition());
 		//mCamera->lookAt(0, 0, 0);
 	}
 }
@@ -332,20 +334,17 @@ bool Frame::keyReleased(const OIS::KeyEvent& /*arg*/)
 
 bool Frame::mouseMoved(const OIS::MouseEvent& e)
 {
-	if(m_RotatingGame)
-	{
-		// yaw camera
-		m_nodeCameraRoot->yaw(Radian(-e.state.X.rel * 0.01f), Node::TS_PARENT);
-	}
-
 	// update camera
 	{
-		static const Real NEAR_DISTANCE = 0.1;
-		static const Real FAR_DISTANCE = 1200;
+		// yaw camera
+		if(m_RotatingCamera)
+			m_nodeCameraRoot->yaw(Radian(-e.state.X.rel * 0.01f), Node::TS_PARENT);
 
 		Vector3 camera = m_nodeCamera->getPosition();
-		if(m_RotatingGame && e.state.Y.rel)
-		{	// pitch camera
+
+		// pitch camera
+		if(m_RotatingCamera && e.state.Y.rel)
+		{
 			const Real pitch = e.state.Y.rel * 0.01f;
 			const Real cos_pitch = std::cos(pitch), sin_pitch = std::sin(pitch);
 			const Real z = camera.z * cos_pitch - camera.y * sin_pitch;
@@ -356,13 +355,28 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 				camera.y = y;
 			}
 		}
+
+		// zoom in/out
 		if(e.state.Z.rel)
 		{
+			static const Real NEAR_DISTANCE = 0.1;
+			static const Real FAR_DISTANCE = 1200;
+
 			camera *= std::exp(-e.state.Z.rel / 1600.0);
 			if(camera.length() < NEAR_DISTANCE)
 				camera = camera.normalisedCopy() * NEAR_DISTANCE;
 			else if(camera.length() > FAR_DISTANCE)
 				camera = camera.normalisedCopy() * FAR_DISTANCE;
+		}
+
+		// pan camera
+		if(m_PanningCamera)
+		{
+			static const Real s_PanSpeed = 0.03f;
+
+			const Real yaw = -m_nodeCameraRoot->getOrientation().getYaw().valueRadians() + Math::PI;
+			const Vector3 offset(std::cos(yaw) * e.state.X.rel * s_PanSpeed, e.state.Y.rel * s_PanSpeed, std::sin(yaw) * e.state.X.rel * s_PanSpeed);
+			m_nodeCameraRoot->translate(offset);
 		}
 
 		m_nodeCamera->setPosition(camera);
@@ -380,7 +394,11 @@ bool Frame::mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id)
 	switch(id)
 	{
 	case OIS::MB_Left:
-		m_RotatingGame = true;
+		m_RotatingCamera = true;
+
+		break;
+	case OIS::MB_Right:
+		m_PanningCamera = true;
 
 		break;
 	}
@@ -395,11 +413,11 @@ bool Frame::mouseReleased(const OIS::MouseEvent& e, OIS::MouseButtonID id)
 	switch(id)
 	{
 	case OIS::MB_Left:
-		if(m_RotatingGame)
-			m_RotatingGame = false;
+		m_RotatingCamera = false;
 
 		break;
 	case OIS::MB_Right:
+		m_PanningCamera = false;
 
 		break;
 	}

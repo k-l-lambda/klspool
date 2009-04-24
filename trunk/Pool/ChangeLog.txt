@@ -1,10 +1,15 @@
 TODO:
+	Visual object serialization.
+	Specular material on balls.
 
 Known Issues:
 	Havok cleanup errors.
+	Multi-thread accessing conflict sometimes.
 
 
 2009.4.24	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Frame: camera panning implemented.
 
 	>	Frame::mouseMoved: refined constants.
 

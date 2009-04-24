@@ -94,7 +94,8 @@ private:
 
 	OnCloseFunctor						m_fnOnClose;
 
-	bool								m_RotatingGame;
+	bool								m_RotatingCamera;
+	bool								m_PanningCamera;
 
 	Radian								m_SkyBoxAngle;
 
