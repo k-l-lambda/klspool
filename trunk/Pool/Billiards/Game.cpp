@@ -16,9 +16,9 @@
 
 namespace Billiards
 {
-	const TableParams Game::m_tableParams = {5.36f, 17.2f, 31.3f,
-											 0.45f, 1.5f,
-											 0.0f};
+	const TableParams Game::m_tableParams = {5.36f, 15.7f, 29.5f,
+											 0.45f, 0.7f,
+											 0.6f};
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
 		: m_table(NULL)
@@ -106,13 +106,13 @@ namespace Billiards
 				"ball7", "Sphere",
 				boost::assign::map_list_of(0, "Pool/Balls/P7").to_container(VisualObjectParameters::MaterialNameMap_t()),
 			};
-			addBall(param1, 1e-4, 41, 0, 1, 0.32);
-			addBall(param2, 0, 42, 1e-4, 1, 0.32);
-			addBall(param3, 0, 43, 0, 1, 0.32);
-			addBall(param4, 0, 44, 0, 1, 0.32);
-			addBall(param6, 0, 45, 0, 1, 0.32);
-			addBall(param5, 0, 46, 0, 1, 0.32);
-			addBall(param7, 0, 47, 0, 1, 0.32);
+			addBall(param1, 1e-4, 41, 0, 1, 0.27);
+			addBall(param2, 0, 42, 1e-4, 1, 0.27);
+			addBall(param3, 0, 43, 0, 1, 0.27);
+			addBall(param4, 0, 44, 0, 1, 0.27);
+			addBall(param6, 0, 45, 0, 1, 0.27);
+			addBall(param5, 0, 46, 0, 1, 0.27);
+			addBall(param7, 0, 47, 0, 1, 0.27);
 		}
 	}
 
@@ -127,7 +127,7 @@ namespace Billiards
 		// tableBoard
 
 		float boardHeight = 2.0f;
-		hkpBoxShape* tableBoard = new hkpBoxShape(hkVector4(m_tableParams.lenth/2, boardHeight/2, m_tableParams.width/2), 0);
+		hkpBoxShape* tableBoard = new hkpBoxShape(hkVector4(m_tableParams.lenth/2 - m_tableParams.baffleWidth, boardHeight/2, m_tableParams.width/2 - m_tableParams.baffleWidth), 0);
 
 		hkTransform t ;
 		t = t.getIdentity();
@@ -137,13 +137,13 @@ namespace Billiards
 		shapeArray.pushBack(tableBoardTrans);
 
 		// vbaffles
-		float vbaffleLenth = m_tableParams.lenth - 3*2*m_tableParams.holeRadius;
+		float vbaffleLenth = m_tableParams.lenth/2 - 3*m_tableParams.holeRadius;
 
 		hkpBoxShape* vbaffle = new hkpBoxShape( hkVector4(vbaffleLenth/2, 
 			                                    m_tableParams.baffleHeight/2, 
 											    m_tableParams.baffleWidth/2), 0);
 
-		float vX = vbaffleLenth/2 + m_tableParams.holeRadius/2;
+		float vX = vbaffleLenth/2 + m_tableParams.holeRadius;
 		float vY = boardHeight/2 + m_tableParams.baffleHeight/2;
 		float vZ = m_tableParams.width/2 - m_tableParams.baffleWidth/2;
 
