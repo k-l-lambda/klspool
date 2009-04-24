@@ -15,9 +15,9 @@
 
 namespace Billiards
 {
-	const TableParams Game::m_tableParams = {5.36f, 12.7f, 25.4f,
+	const TableParams Game::m_tableParams = {5.36f, 17.2f, 31.3f,
 											 0.45f, 1.5f,
-											 0.55f};
+											 0.0f};
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
 		: m_table(NULL)
@@ -64,9 +64,9 @@ namespace Billiards
 		// set the world pointer in ball
 		Ball::setupStatic(m_hkSystem->m_World);
 
-		m_hkSystem->m_World->markForWrite();
+		creatTable();
 
-		// add 2 sample balls
+		// add sample balls
 		{
 			VisualObjectParameters param1 =
 			{
@@ -78,8 +78,38 @@ namespace Billiards
 				"ball2", "Sphere",
 				boost::assign::map_list_of(0, "Pool/Balls/P2").to_container(VisualObjectParameters::MaterialNameMap_t()),
 			};
-			addBall(param1, 0, 50, 2, 100, 0.575);
-			addBall(param2, 0, 60, 0, 100, 0.575);
+			VisualObjectParameters param3 =
+			{
+				"ball3", "Sphere",
+				boost::assign::map_list_of(0, "Pool/Balls/P3").to_container(VisualObjectParameters::MaterialNameMap_t()),
+			};
+			VisualObjectParameters param4 =
+			{
+				"ball4", "Sphere",
+				boost::assign::map_list_of(0, "Pool/Balls/P4").to_container(VisualObjectParameters::MaterialNameMap_t()),
+			};
+			VisualObjectParameters param5 =
+			{
+				"ball5", "Sphere",
+				boost::assign::map_list_of(0, "Pool/Balls/P5").to_container(VisualObjectParameters::MaterialNameMap_t()),
+			};
+			VisualObjectParameters param6 =
+			{
+				"ball6", "Sphere",
+				boost::assign::map_list_of(0, "Pool/Balls/P6").to_container(VisualObjectParameters::MaterialNameMap_t()),
+			};
+			VisualObjectParameters param7 =
+			{
+				"ball7", "Sphere",
+				boost::assign::map_list_of(0, "Pool/Balls/P7").to_container(VisualObjectParameters::MaterialNameMap_t()),
+			};
+			addBall(param1, 0, 50, 0.3, 1, 0.32);
+			addBall(param2, 0, 60, 0, 1, 0.32);
+			addBall(param3, -0.3, 55, 0, 1, 0.32);
+			addBall(param4, 0, 62, 0.3, 1, 0.32);
+			addBall(param6, -0.3, 64, 0, 1, 0.32);
+			addBall(param5, 0.3, 57, 0, 1, 0.32);
+			addBall(param7, 0.3, 59, 0, 1, 0.32);
 		}
 	}
 
@@ -169,7 +199,7 @@ namespace Billiards
 		m_table = new hkpRigidBody(ci);
 		m_hkSystem->m_World->addEntity(m_table);
 
-		m_table->setPosition(hkVector4(0, m_tableParams.height,0));
+		m_table->setPosition(hkVector4(0, 7.2, 0));
 		table->removeReference();
 
 		m_hkSystem->m_World->unmarkForWrite();
