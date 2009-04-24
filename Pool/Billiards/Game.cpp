@@ -106,13 +106,13 @@ namespace Billiards
 				"ball7", "Sphere",
 				boost::assign::map_list_of(0, "Pool/Balls/P7").to_container(VisualObjectParameters::MaterialNameMap_t()),
 			};
-			addBall(param1, 0, 50, 0.3, 1, 0.32);
-			addBall(param2, 0, 60, 0, 1, 0.32);
-			addBall(param3, -0.3, 55, 0, 1, 0.32);
-			addBall(param4, 0, 62, 0.3, 1, 0.32);
-			addBall(param6, -0.3, 64, 0, 1, 0.32);
-			addBall(param5, 0.3, 57, 0, 1, 0.32);
-			addBall(param7, 0.3, 59, 0, 1, 0.32);
+			addBall(param1, 1e-4, 41, 0, 1, 0.32);
+			addBall(param2, 0, 42, 1e-4, 1, 0.32);
+			addBall(param3, 0, 43, 0, 1, 0.32);
+			addBall(param4, 0, 44, 0, 1, 0.32);
+			addBall(param6, 0, 45, 0, 1, 0.32);
+			addBall(param5, 0, 46, 0, 1, 0.32);
+			addBall(param7, 0, 47, 0, 1, 0.32);
 		}
 	}
 
