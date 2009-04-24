@@ -109,14 +109,14 @@ namespace Billiards
 
 	bool HavokSystem::InitVDB()
 	{
+		{
+			WorldWritingLock wlock(m_World);
 
-		m_World->markForWrite();
-		m_Context = new hkpPhysicsContext();
-		hkpPhysicsContext::registerAllPhysicsProcesses();
-		m_Context->addWorld(m_World);
-		m_Contexts.pushBack(m_Context);
-
-		m_World->unmarkForWrite();
+			m_Context = new hkpPhysicsContext();
+			hkpPhysicsContext::registerAllPhysicsProcesses();
+			m_Context->addWorld(m_World);
+			m_Contexts.pushBack(m_Context);
+		}
 
 		m_Vdb = new hkVisualDebugger(m_Contexts);
 		m_Vdb->serve();
@@ -135,9 +135,9 @@ namespace Billiards
 		if(elapsedTime != 0)
 			m_World->stepMultithreaded(m_JobQueue, m_ThreadPool, elapsedTime);
 
-		//m_Context->syncTimers(m_ThreadPool);
-		//m_Vdb->step();
-		
+		m_Context->syncTimers(m_ThreadPool);
+		m_Vdb->step();
+
 
 		//hkMonitorStream::getInstance().reset();
 		//m_ThreadPool->clearTimerData();

@@ -71,6 +71,201 @@ material Pool/Balls/P2
 	}
 }
 
+material Pool/Balls/P3
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p3.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P4
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p4.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P5
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p5.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P6
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p6.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P7
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p7.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P8
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p8.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P9
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p9.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P10
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p10.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P11
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p11.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P12
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p12.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P13
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p13.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P14
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p14.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
+material Pool/Balls/P15
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture p15.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
 material Pool/Table/RedGrass
 {
 	technique

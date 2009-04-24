@@ -95,11 +95,13 @@ namespace Billiards
 
 	void Ball::update()
 	{
-		WorldReadingLock rlock(s_hkpWorld);
+		{
+			WorldReadingLock rlock(s_hkpWorld);
 
-		m_position = m_havokRigid->getPosition();
+			m_position = m_havokRigid->getPosition();
 
-		m_rotation = m_havokRigid->getRotation();
+			m_rotation = m_havokRigid->getRotation();
+		}
 
 		if(m_VisualObject)
 			m_VisualObject->updateTransform(m_position, m_rotation);
