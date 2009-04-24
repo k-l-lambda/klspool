@@ -340,7 +340,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 
 	// update camera
 	{
-		static const Real NEAR_DISTANCE = 24;
+		static const Real NEAR_DISTANCE = 0.1;
 		static const Real FAR_DISTANCE = 1200;
 
 		Vector3 camera = m_nodeCamera->getPosition();

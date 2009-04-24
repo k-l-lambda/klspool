@@ -4,6 +4,11 @@ Known Issues:
 	Havok cleanup errors.
 
 
+2009.4.24	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Frame::mouseMoved: refined constants.
+
+
 2009.4.23	K.L.	<xxxK.L.xxx@gmail.com>
 
 	>	Billiards: refined interface of 'Game' and 'HavokSystem'.

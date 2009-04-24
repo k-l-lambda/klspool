@@ -11,6 +11,7 @@
 
 #include "Game.h"
 #include "VisualObject.h"
+#include "ThreadAccessLock.h"
 
 
 namespace Billiards
@@ -68,6 +69,8 @@ namespace Billiards
 
 		// add sample balls
 		{
+			WorldWritingLock wlock(m_hkSystem->m_World);
+
 			VisualObjectParameters param1 =
 			{
 				"ball1", "Sphere",
@@ -115,7 +118,7 @@ namespace Billiards
 
 	void Game::creatTable()
 	{
-		m_hkSystem->m_World->markForWrite();
+		WorldWritingLock wlock(m_hkSystem->m_World);
 
 		// create the table shape
 		//
@@ -201,8 +204,6 @@ namespace Billiards
 
 		m_table->setPosition(hkVector4(0, 7.2, 0));
 		table->removeReference();
-
-		m_hkSystem->m_World->unmarkForWrite();
 	}
 
 	void Game::addBall(const VisualObjectParameters& param, Real x, Real y, Real z, Real mass, Real radius)
