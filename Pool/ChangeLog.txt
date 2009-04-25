@@ -3,8 +3,14 @@ TODO:
 	Specular material on balls.
 
 Known Issues:
-	Havok cleanup errors.
+	Ball shot issue.
+	Havok cleanup errors: it seems it crash at exit time if ball's position of out range.
 	Multi-thread accessing conflict sometimes.
+
+
+2009.4.25	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Game::shot: added, implemented.
 
 
 2009.4.24	K.L.	<xxxK.L.xxx@gmail.com>

@@ -315,8 +315,8 @@ void Frame::frameStarted(const FrameEvent& evt)
 void Frame::frameEnded(const FrameEvent& evt)
 {
 	// yield CPU when not busy
-	//if(!static_cast<const OgreListener*>(mFrameListener)->mouseIsMoving())
-	//	Sleep(15);
+	if(!static_cast<const OgreListener*>(mFrameListener)->mouseIsMoving())
+		Sleep(15);
 
 	//while(m_timer.getMilliseconds() < 1000/60)
 	//	Sleep(5);
@@ -324,6 +324,18 @@ void Frame::frameEnded(const FrameEvent& evt)
 
 bool Frame::keyPressed(const OIS::KeyEvent& e)
 {
+	switch(e.key)
+	{
+	case OIS::KC_SPACE:
+		{
+			Vector3 front = m_nodeCameraRoot->_getDerivedPosition() - m_nodeCamera->_getDerivedPosition();
+			front.normalise();
+			m_Game->shot(ogre2Bld(front * 10), ogre2Bld(-front));
+		}
+
+		break;
+	}
+
 	return true;
 }
 

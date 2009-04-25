@@ -198,7 +198,7 @@ public:
 		{
 			// If returned true, user clicked OK so initialise
 			// Here we choose to let the system create a default rendering window by passing 'true'
-			mWindow = mRoot->initialise(true, "Trigo");
+			mWindow = mRoot->initialise(true, "Pool");
 		}
 		return true;
 	}
@@ -217,7 +217,7 @@ public:
 		mCamera->setPosition(Vector3(0,0,500));
 		// Look back along -Z
 		mCamera->lookAt(Vector3(0,0,-300));
-		mCamera->setNearClipDistance(5);
+		mCamera->setNearClipDistance(0.2);
 
 	}
 	virtual void createFrameListener(void)
