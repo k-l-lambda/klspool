@@ -16,7 +16,7 @@
 
 namespace Billiards
 {
-	const TableParams Game::m_tableParams = {5.36f, 15.7f, 29.5f,
+	const TableParams Game::m_tableParams = {5.36f, 15.45f, 29.3f,
 											 0.45f, 0.7f,
 											 0.6f};
 
@@ -202,7 +202,7 @@ namespace Billiards
 		m_table = new hkpRigidBody(ci);
 		m_hkSystem->m_World->addEntity(m_table);
 
-		m_table->setPosition(hkVector4(0, 7.2, 0));
+		m_table->setPosition(hkVector4(0, 7.2, -0.1));
 		table->removeReference();
 	}
 
