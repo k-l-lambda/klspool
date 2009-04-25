@@ -20,6 +20,8 @@ namespace Billiards
 											 0.45f, 0.7f,
 											 0.6f};
 
+	static const Real s_BallRadius = 0.27;
+
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
 		: m_table(NULL)
 		, m_MainBall(NULL)
@@ -108,13 +110,13 @@ namespace Billiards
 				"ball7", "Sphere",
 				boost::assign::map_list_of(0, "Pool/Balls/P7").to_container(VisualObjectParameters::MaterialNameMap_t()),
 			};
-			addBall(param1, 1e-5, 11, 0, 1, 0.27);
-			addBall(param2, 0, 12, 1e-5, 1, 0.27);
-			addBall(param3, 0, 13, 0, 1, 0.27);
-			addBall(param4, 0, 14, 0, 1, 0.27);
-			addBall(param6, 0, 15, 0, 1, 0.27);
-			addBall(param5, 0, 16, 0, 1, 0.27);
-			addBall(param7, 0, 17, 0, 1, 0.27);
+			addBall(param1, 1e-5, 11, 0, 1, s_BallRadius);
+			addBall(param2, 0, 12, 1e-5, 1, s_BallRadius);
+			addBall(param3, 0, 13, 0, 1, s_BallRadius);
+			addBall(param4, 0, 14, 0, 1, s_BallRadius);
+			addBall(param6, 0, 15, 0, 1, s_BallRadius);
+			addBall(param5, 0, 16, 0, 1, s_BallRadius);
+			addBall(param7, 0, 17, 0, 1, s_BallRadius);
 
 			m_MainBall = m_ballList.front();
 		}
@@ -268,6 +270,13 @@ namespace Billiards
 
 		Vector force(impulse);
 		force.mul4(1 / s_ShotTime);
-		m_MainBall->applyForce(force, pos, s_ShotTime);
+
+		Vector p(pos);
+		p.normalize3();
+		p.mul4(s_BallRadius);
+		Vector wp(m_MainBall->getPosition());
+		wp.add4(p);
+
+		m_MainBall->applyForce(force, wp, s_ShotTime);
 	}
 }
