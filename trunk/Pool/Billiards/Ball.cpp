@@ -66,7 +66,7 @@ namespace Billiards
 		m_havokRigid->applyForce(deltaTime, force, pos);
 	}
 
-	void Ball::setPos(const Vector &pos)
+	void Ball::setPosition(const Vector &pos)
 	{
 		m_position = pos;
 
@@ -78,7 +78,7 @@ namespace Billiards
 		}
 	}
 
-	const Vector& Ball::getPos() const
+	const Vector& Ball::getPosition() const
 	{
 		return m_position;
 	}

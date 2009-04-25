@@ -22,10 +22,11 @@ namespace Billiards
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
 		: m_table(NULL)
-		, m_hkSystem(NULL)
+		, m_MainBall(NULL)
+		, m_HavokSystem(NULL)
 		, m_fnCreateVisualObject(fnCreateVisualObject)
 	{
-		m_hkSystem = new HavokSystem();
+		m_HavokSystem = new HavokSystem();
 
 		// set defult result of m_fnCreateVisualObject to null
 		if(!m_fnCreateVisualObject)
@@ -42,9 +43,9 @@ namespace Billiards
 
 	void Game::setup()
 	{
-		if(m_hkSystem)
+		if(m_HavokSystem)
 		{
-			m_hkSystem->setup();
+			m_HavokSystem->setup();
 
 			createPhysicsScene();
 		}
@@ -56,20 +57,21 @@ namespace Billiards
 			iter != m_ballList.end(); ++ iter)
 			delete *iter;
 
-		if(m_hkSystem)
-			delete m_hkSystem;
+		if(m_HavokSystem)
+			delete m_HavokSystem;
 	}
 
 	void Game::createPhysicsScene()
 	{
 		// set the world pointer in ball
-		Ball::setupStatic(m_hkSystem->m_World);
+		Ball::setupStatic(m_HavokSystem->m_World);
+		m_HavokSystem->m_World->setGravity(Vector(0, -98, 0));
 
 		creatTable();
 
 		// add sample balls
 		{
-			WorldWritingLock wlock(m_hkSystem->m_World);
+			WorldWritingLock wlock(m_HavokSystem->m_World);
 
 			VisualObjectParameters param1 =
 			{
@@ -106,19 +108,21 @@ namespace Billiards
 				"ball7", "Sphere",
 				boost::assign::map_list_of(0, "Pool/Balls/P7").to_container(VisualObjectParameters::MaterialNameMap_t()),
 			};
-			addBall(param1, 1e-4, 41, 0, 1, 0.27);
-			addBall(param2, 0, 42, 1e-4, 1, 0.27);
-			addBall(param3, 0, 43, 0, 1, 0.27);
-			addBall(param4, 0, 44, 0, 1, 0.27);
-			addBall(param6, 0, 45, 0, 1, 0.27);
-			addBall(param5, 0, 46, 0, 1, 0.27);
-			addBall(param7, 0, 47, 0, 1, 0.27);
+			addBall(param1, 1e-5, 11, 0, 1, 0.27);
+			addBall(param2, 0, 12, 1e-5, 1, 0.27);
+			addBall(param3, 0, 13, 0, 1, 0.27);
+			addBall(param4, 0, 14, 0, 1, 0.27);
+			addBall(param6, 0, 15, 0, 1, 0.27);
+			addBall(param5, 0, 16, 0, 1, 0.27);
+			addBall(param7, 0, 17, 0, 1, 0.27);
+
+			m_MainBall = m_ballList.front();
 		}
 	}
 
 	void Game::creatTable()
 	{
-		WorldWritingLock wlock(m_hkSystem->m_World);
+		WorldWritingLock wlock(m_HavokSystem->m_World);
 
 		// create the table shape
 		//
@@ -200,7 +204,7 @@ namespace Billiards
 		ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
 
 		m_table = new hkpRigidBody(ci);
-		m_hkSystem->m_World->addEntity(m_table);
+		m_HavokSystem->m_World->addEntity(m_table);
 
 		m_table->setPosition(hkVector4(0, 7.2, -0.1));
 		table->removeReference();
@@ -220,7 +224,7 @@ namespace Billiards
 	{
 		//assert(number > (int)m_ballList.size());
 
-		m_ballList[number]->setPos(Vector(x, y, z));
+		m_ballList[number]->setPosition(Vector(x, y, z));
 	}
 
 	void Game::applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number)
@@ -230,21 +234,7 @@ namespace Billiards
 		m_ballList[number]->applyForce(force, pos, deltaTime);
 	}
 
-	/*Vector Game::getPosOfBall(int number) const
-	{
-		//assert(number > (int)m_ballList.size());
-
-		return m_ballList[number]->getPos();
-	}
-
-	Quaternion Game::getRotationOfBall(int number) const
-	{
-		//assert(number > (int)m_ballList.size());
-
-		return m_ballList[number]->getRotation();
-	}*/
-
-	void Game::deleteBall(int number)
+	/*void Game::deleteBall(int number)
 	{
 		//assert(number > (int)m_ballList.size());
 
@@ -252,7 +242,7 @@ namespace Billiards
 
 		std::vector<Ball*>::iterator iter = m_ballList.begin() + number;
 		m_ballList.erase(iter);
-	}
+	}*/
 
 	void Game::updateAllBalls()
 	{
@@ -262,8 +252,22 @@ namespace Billiards
 
 	void Game::simulate(Real elapsedTime)
 	{
-		m_hkSystem->simulate(elapsedTime);
+		m_HavokSystem->simulate(elapsedTime);
 
 		updateAllBalls();
+
+		// recycle fallen balls
+		for(size_t i = 0; i < m_ballList.size(); ++ i)
+			if(m_ballList[i]->getPosition()(1) < 0)
+				m_ballList[i]->setPosition(Vector(0, 10, 0));
+	}
+
+	void Game::shot(const Vector& impulse, const Vector& pos)
+	{
+		static const Real s_ShotTime = 1e-3;
+
+		Vector force(impulse);
+		force.mul4(1 / s_ShotTime);
+		m_MainBall->applyForce(force, pos, s_ShotTime);
 	}
 }

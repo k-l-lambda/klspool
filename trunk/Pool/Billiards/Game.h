@@ -41,13 +41,9 @@ namespace Billiards
 		// test if all the balls is still
 		//bool isStill();
 
-		//Vector getPosOfBall(int number) const;
-		//Quaternion getRotationOfBall(int number) const;
-
-		// set the designated ball stilled
-		//void disableBall(int number);
-
 		void simulate(Real elapsedTime);
+
+		void shot(const Vector& impulse, const Vector& pos);
 
 	private:
 		void setup();
@@ -59,10 +55,13 @@ namespace Billiards
 		void updateAllBalls();
 
 		void addBall(const VisualObjectParameters& param, Real x, Real y, Real z, Real mass, Real radius);
-		void deleteBall(int number);
+		//void deleteBall(int number);
 
 		// give some impuse to the designated ball
 		void applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number);
+
+		// set the designated ball stilled
+		//void disableBall(int number);
 
 		void setPosOfBall(Real x, Real y, Real z, int number);
 
@@ -71,7 +70,9 @@ namespace Billiards
 		std::vector<Ball*> m_ballList;
 		hkpRigidBody* m_table;
 
-		HavokSystem* m_hkSystem;
+		Ball*		m_MainBall;
+
+		HavokSystem* m_HavokSystem;
 
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		VisualObjectCreationFunctor		m_fnCreateVisualObject;
