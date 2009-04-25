@@ -330,7 +330,7 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 		{
 			Vector3 front = m_nodeCameraRoot->_getDerivedPosition() - m_nodeCamera->_getDerivedPosition();
 			front.normalise();
-			m_Game->shot(ogre2Bld(front * 10), ogre2Bld(-front));
+			m_Game->shot(ogre2Bld(front * 60), ogre2Bld(-front));
 		}
 
 		break;
