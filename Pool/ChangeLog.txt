@@ -3,11 +3,16 @@ TODO:
 	Real-time environment map material.
 
 Known Issues:
-	Havok cleanup errors: it seems it crash at exit time if ball's position out of range.
+	Havok cleanup errors: debug assertion fail.
 	Multi-thread accessing conflict sometimes.
 
 
 2009.4.26	K.L.	<xxxK.L.xxx@gmail.com>
+
+	*!	Ball out of range crash bug maybe due to 'worldInfo.m_broadPhaseBorderBehaviour'
+			was set to 'BROADPHASE_BORDER_REMOVE_ENTITY'.
+
+	+	Billiards::VisualObjectParameters::Scale: added.
 
 	+	Specular material on balls implemented.
 

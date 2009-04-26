@@ -89,6 +89,7 @@ namespace Billiards
 		worldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_FIX_ENTITY;
 		//ÉèÖÃworld³ß´ç
 		worldInfo.setBroadPhaseWorldSize(worldsize);
+		worldInfo.m_gravity = Vector(0, -98, 0);
 
 		m_World = new hkpWorld(worldInfo);
 		m_World->m_wantDeactivation = false;

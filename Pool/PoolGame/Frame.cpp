@@ -235,7 +235,7 @@ void Frame::createScene()
 	mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
 	mCamera->lookAt(m_nodeCameraRoot->_getDerivedPosition());
 
-	createSphere("Sphere", 24, 24, 0.27);
+	createSphere("Sphere", 24, 24, 1);
 	m_nodeGame = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 	Ogre::SceneNode* nodeTable = m_nodeGame->createChildSceneNode("table");
@@ -330,7 +330,7 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 		{
 			Vector3 front = m_nodeCameraRoot->_getDerivedPosition() - m_nodeCamera->_getDerivedPosition();
 			front.normalise();
-			m_Game->shot(ogre2Bld(front * 60), ogre2Bld(-front));
+			m_Game->shot(ogre2Bld(front * 600), ogre2Bld(-front));
 		}
 
 		break;
