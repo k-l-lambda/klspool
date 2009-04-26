@@ -69,6 +69,7 @@ namespace Billiards
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		std::vector<Ball*> m_ballList;
 		hkpRigidBody* m_table;
+		hkpRigidBody* m_baffles;
 
 		Ball*		m_MainBall;
 

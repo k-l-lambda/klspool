@@ -67,7 +67,6 @@ namespace Billiards
 	{
 		// set the world pointer in ball
 		Ball::setupStatic(m_HavokSystem->m_World);
-		m_HavokSystem->m_World->setGravity(Vector(0, -98, 0));
 
 		creatTable();
 
@@ -75,13 +74,13 @@ namespace Billiards
 		{
 			WorldWritingLock wlock(m_HavokSystem->m_World);
 
-			addBall("ball1", "Pool/Balls/P1", 1e-5, 11, 0, 1, s_BallRadius);
-			addBall("ball2", "Pool/Balls/P2", 0, 12, 1e-5, 1, s_BallRadius);
-			addBall("ball3", "Pool/Balls/P3", 0, 13, 0, 1, s_BallRadius);
-			addBall("ball4", "Pool/Balls/P4", 0, 14, 0, 1, s_BallRadius);
-			addBall("ball5", "Pool/Balls/P5", 0, 15, 0, 1, s_BallRadius);
-			addBall("ball6", "Pool/Balls/P6", 0, 16, 0, 1, s_BallRadius);
-			addBall("ball7", "Pool/Balls/P7", 0, 17, 0, 1, s_BallRadius);
+			addBall("ball1", "Pool/Balls/P1", 1e-5, 11, 0, 10, s_BallRadius);
+			addBall("ball2", "Pool/Balls/P2", 0, 12, 1e-5, 10, s_BallRadius);
+			addBall("ball3", "Pool/Balls/P3", 0, 13, 0, 10, s_BallRadius);
+			addBall("ball4", "Pool/Balls/P4", 0, 14, 0, 10, s_BallRadius);
+			addBall("ball5", "Pool/Balls/P5", 0, 15, 0, 10, s_BallRadius);
+			addBall("ball6", "Pool/Balls/P6", 0, 16, 0, 10, s_BallRadius);
+			addBall("ball7", "Pool/Balls/P7", 0, 17, 0, 10, s_BallRadius);
 
 			m_MainBall = m_ballList.front();
 		}
@@ -100,18 +99,29 @@ namespace Billiards
 		float boardHeight = 2.0f;
 		hkpBoxShape* tableBoard = new hkpBoxShape(hkVector4(m_tableParams.lenth/2 - m_tableParams.baffleWidth, boardHeight/2, m_tableParams.width/2 - m_tableParams.baffleWidth), 0);
 
+		// creat rigidBody
+
+		{
+			hkpRigidBodyCinfo ci;
+			ci.m_shape = tableBoard;
+			ci.m_motionType = hkpMotion::MOTION_FIXED;
+			ci.m_position = Vector(0, 0, 0);
+			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
+			ci.m_restitution = 0;
+			
+			m_table = new hkpRigidBody(ci);
+			m_HavokSystem->m_World->addEntity(m_table);
+		}
+
+		// vbaffles
 		hkTransform t ;
 		t = t.getIdentity();
 		hkVector4 trans = hkVector4(0.0f, 0.0f, 0.0f);
-		t.setTranslation( trans );
-		hkpTransformShape* tableBoardTrans = new hkpTransformShape( tableBoard , t);
-		shapeArray.pushBack(tableBoardTrans);
 
-		// vbaffles
 		float vbaffleLenth = m_tableParams.lenth/2 - 3*m_tableParams.holeRadius;
 
 		hkpBoxShape* vbaffle = new hkpBoxShape( hkVector4(vbaffleLenth/2, 
-			                                    m_tableParams.baffleHeight/2, 
+			                                    m_tableParams.baffleHeight, 
 											    m_tableParams.baffleWidth/2), 0);
 
 		float vX = vbaffleLenth/2 + m_tableParams.holeRadius;
@@ -142,7 +152,7 @@ namespace Billiards
 
 		float nbaffleLenth = m_tableParams.width - 2*2*m_tableParams.holeRadius;
 		hkpBoxShape* nbaffle = new hkpBoxShape(hkVector4(m_tableParams.baffleWidth/2, 
-			                                   m_tableParams.baffleHeight/2, 
+			                                   m_tableParams.baffleHeight, 
 											   nbaffleLenth/2), 0);
 
 		float nX = m_tableParams.lenth/2 - m_tableParams.baffleWidth/2;
@@ -159,22 +169,26 @@ namespace Billiards
 		hkpTransformShape* nbaffleTrans2 = new hkpTransformShape( nbaffle ,t);
 		shapeArray.pushBack(nbaffleTrans2);
 
-		hkpListShape* table = new hkpListShape(&shapeArray[0], shapeArray.getSize());
+		hkpListShape* baffles = new hkpListShape(&shapeArray[0], shapeArray.getSize());
+		
+		{
+			hkpRigidBodyCinfo ci;
+			ci.m_shape = baffles;
+			ci.m_motionType = hkpMotion::MOTION_FIXED;
+			ci.m_position = Vector(0, 0, 0);
+			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
+			ci.m_restitution = 0.7;
+			
+			m_baffles = new hkpRigidBody(ci);
+			m_HavokSystem->m_World->addEntity(m_baffles);
+		}
 
-		// creat rigidBody
-
-		hkpRigidBodyCinfo ci;
-
-		ci.m_shape = table;
-		ci.m_motionType = hkpMotion::MOTION_FIXED;
-		ci.m_position = Vector(0, 0, 0);
-		ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-
-		m_table = new hkpRigidBody(ci);
-		m_HavokSystem->m_World->addEntity(m_table);
-
+		// Do some translate according to the real model
+        m_baffles->setPosition(hkVector4(0, 7.2, -0.1));
 		m_table->setPosition(hkVector4(0, 7.2, -0.1));
-		table->removeReference();
+
+		tableBoard->removeReference();
+		baffles->removeReference();
 	}
 
 	void Game::addBall(const std::string& name, const std::string& materialname, Real x, Real y, Real z, Real mass, Real radius)
