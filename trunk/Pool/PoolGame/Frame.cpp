@@ -235,7 +235,7 @@ void Frame::createScene()
 	mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
 	mCamera->lookAt(m_nodeCameraRoot->_getDerivedPosition());
 
-	createSphere("Sphere", 24, 24, 0.27);
+	createSphere("Sphere", 24, 24, 1);
 	m_nodeGame = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 	Ogre::SceneNode* nodeTable = m_nodeGame->createChildSceneNode("table");

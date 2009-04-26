@@ -17,8 +17,8 @@
 namespace Billiards
 {
 	const TableParams Game::m_tableParams = {5.36f, 15.45f, 29.3f,
-											 0.45f, 0.7f,
-											 0.6f};
+		0.45f, 0.7f,
+		0.6f};
 
 	static const Real s_BallRadius = 0.27;
 
@@ -107,10 +107,10 @@ namespace Billiards
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
 			ci.m_position = Vector(0, 0, 0);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-			ci.m_friction = 0.4;
+			ci.m_friction = 0.04f;
 			//ci.m_restitution = 0;
 			//ci.m_allowedPenetrationDepth = 0.2f;
-			
+
 			m_table = new hkpRigidBody(ci);
 			m_HavokSystem->m_World->addEntity(m_table);
 		}
@@ -123,8 +123,8 @@ namespace Billiards
 		float vbaffleLenth = m_tableParams.lenth/2 - 3*m_tableParams.holeRadius;
 
 		hkpBoxShape* vbaffle = new hkpBoxShape( hkVector4(vbaffleLenth/2, 
-			                                    m_tableParams.baffleHeight, 
-											    m_tableParams.baffleWidth/2), 0);
+			m_tableParams.baffleHeight, 
+			m_tableParams.baffleWidth/2), 0);
 
 		float vX = vbaffleLenth/2 + m_tableParams.holeRadius;
 		float vY = boardHeight/2 + m_tableParams.baffleHeight/2;
@@ -154,8 +154,8 @@ namespace Billiards
 
 		float nbaffleLenth = m_tableParams.width - 2*2*m_tableParams.holeRadius;
 		hkpBoxShape* nbaffle = new hkpBoxShape(hkVector4(m_tableParams.baffleWidth/2, 
-			                                   m_tableParams.baffleHeight, 
-											   nbaffleLenth/2), 0);
+			m_tableParams.baffleHeight, 
+			nbaffleLenth/2), 0);
 
 		float nX = m_tableParams.lenth/2 - m_tableParams.baffleWidth/2;
 		float nY = vY;
@@ -172,7 +172,7 @@ namespace Billiards
 		shapeArray.pushBack(nbaffleTrans2);
 
 		hkpListShape* baffles = new hkpListShape(&shapeArray[0], shapeArray.getSize());
-		
+
 		{
 			hkpRigidBodyCinfo ci;
 			ci.m_shape = baffles;
@@ -182,13 +182,13 @@ namespace Billiards
 			ci.m_friction = 0.05;
 			//ci.m_restitution = 0.7;
 			//ci.m_allowedPenetrationDepth = 0.01f;
-			
+
 			m_baffles = new hkpRigidBody(ci);
 			m_HavokSystem->m_World->addEntity(m_baffles);
 		}
 
 		// Do some translate according to the real model
-        m_baffles->setPosition(hkVector4(0, 7.2, -0.1));
+		m_baffles->setPosition(hkVector4(0, 7.2, -0.1));
 		m_table->setPosition(hkVector4(0, 7.2, -0.1));
 
 		tableBoard->removeReference();
@@ -227,12 +227,12 @@ namespace Billiards
 
 	/*void Game::deleteBall(int number)
 	{
-		//assert(number > (int)m_ballList.size());
+	//assert(number > (int)m_ballList.size());
 
-		delete m_ballList[number];
+	delete m_ballList[number];
 
-		std::vector<Ball*>::iterator iter = m_ballList.begin() + number;
-		m_ballList.erase(iter);
+	std::vector<Ball*>::iterator iter = m_ballList.begin() + number;
+	m_ballList.erase(iter);
 	}*/
 
 	void Game::updateAllBalls()
