@@ -107,7 +107,9 @@ namespace Billiards
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
 			ci.m_position = Vector(0, 0, 0);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-			ci.m_restitution = 0;
+			ci.m_friction = 0.4;
+			//ci.m_restitution = 0;
+			//ci.m_allowedPenetrationDepth = 0.2f;
 			
 			m_table = new hkpRigidBody(ci);
 			m_HavokSystem->m_World->addEntity(m_table);
@@ -177,7 +179,9 @@ namespace Billiards
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
 			ci.m_position = Vector(0, 0, 0);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-			ci.m_restitution = 0.7;
+			ci.m_friction = 0.05;
+			//ci.m_restitution = 0.7;
+			//ci.m_allowedPenetrationDepth = 0.01f;
 			
 			m_baffles = new hkpRigidBody(ci);
 			m_HavokSystem->m_World->addEntity(m_baffles);

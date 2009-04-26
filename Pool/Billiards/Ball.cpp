@@ -54,6 +54,7 @@ namespace Billiards
 		sphereInfo.m_angularDamping = 0.5f;
 		sphereInfo.m_restitution = 0.7;
 		sphereInfo.m_allowedPenetrationDepth = 0.01f;
+		sphereInfo.m_friction = 0.2;
 
 		//creat Havok hkpRigidBody
 		m_havokRigid = new hkpRigidBody(sphereInfo);
