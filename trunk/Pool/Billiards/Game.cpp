@@ -197,6 +197,7 @@ namespace Billiards
 		{
 			name, "Sphere",
 			boost::assign::map_list_of(0, materialname).to_container(VisualObjectParameters::MaterialNameMap_t()),
+			boost::make_tuple(radius, radius, radius),
 		};
 		VisualObjectPtr vobj = m_fnCreateVisualObject(param);
 		Ball* ball = new Ball(vobj, Vector(x, y, z) , mass , radius);
