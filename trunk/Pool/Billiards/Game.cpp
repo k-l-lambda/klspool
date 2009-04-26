@@ -75,48 +75,13 @@ namespace Billiards
 		{
 			WorldWritingLock wlock(m_HavokSystem->m_World);
 
-			VisualObjectParameters param1 =
-			{
-				"ball1", "Sphere",
-				boost::assign::map_list_of(0, "Pool/Balls/P1").to_container(VisualObjectParameters::MaterialNameMap_t()),
-			};
-			VisualObjectParameters param2 =
-			{
-				"ball2", "Sphere",
-				boost::assign::map_list_of(0, "Pool/Balls/P2").to_container(VisualObjectParameters::MaterialNameMap_t()),
-			};
-			VisualObjectParameters param3 =
-			{
-				"ball3", "Sphere",
-				boost::assign::map_list_of(0, "Pool/Balls/P3").to_container(VisualObjectParameters::MaterialNameMap_t()),
-			};
-			VisualObjectParameters param4 =
-			{
-				"ball4", "Sphere",
-				boost::assign::map_list_of(0, "Pool/Balls/P4").to_container(VisualObjectParameters::MaterialNameMap_t()),
-			};
-			VisualObjectParameters param5 =
-			{
-				"ball5", "Sphere",
-				boost::assign::map_list_of(0, "Pool/Balls/P5").to_container(VisualObjectParameters::MaterialNameMap_t()),
-			};
-			VisualObjectParameters param6 =
-			{
-				"ball6", "Sphere",
-				boost::assign::map_list_of(0, "Pool/Balls/P6").to_container(VisualObjectParameters::MaterialNameMap_t()),
-			};
-			VisualObjectParameters param7 =
-			{
-				"ball7", "Sphere",
-				boost::assign::map_list_of(0, "Pool/Balls/P7").to_container(VisualObjectParameters::MaterialNameMap_t()),
-			};
-			addBall(param1, 1e-5, 11, 0, 1, s_BallRadius);
-			addBall(param2, 0, 12, 1e-5, 1, s_BallRadius);
-			addBall(param3, 0, 13, 0, 1, s_BallRadius);
-			addBall(param4, 0, 14, 0, 1, s_BallRadius);
-			addBall(param6, 0, 15, 0, 1, s_BallRadius);
-			addBall(param5, 0, 16, 0, 1, s_BallRadius);
-			addBall(param7, 0, 17, 0, 1, s_BallRadius);
+			addBall("ball1", "Pool/Balls/P1", 1e-5, 11, 0, 1, s_BallRadius);
+			addBall("ball2", "Pool/Balls/P2", 0, 12, 1e-5, 1, s_BallRadius);
+			addBall("ball3", "Pool/Balls/P3", 0, 13, 0, 1, s_BallRadius);
+			addBall("ball4", "Pool/Balls/P4", 0, 14, 0, 1, s_BallRadius);
+			addBall("ball5", "Pool/Balls/P5", 0, 15, 0, 1, s_BallRadius);
+			addBall("ball6", "Pool/Balls/P6", 0, 16, 0, 1, s_BallRadius);
+			addBall("ball7", "Pool/Balls/P7", 0, 17, 0, 1, s_BallRadius);
 
 			m_MainBall = m_ballList.front();
 		}
@@ -212,8 +177,13 @@ namespace Billiards
 		table->removeReference();
 	}
 
-	void Game::addBall(const VisualObjectParameters& param, Real x, Real y, Real z, Real mass, Real radius)
+	void Game::addBall(const std::string& name, const std::string& materialname, Real x, Real y, Real z, Real mass, Real radius)
 	{
+		VisualObjectParameters param =
+		{
+			name, "Sphere",
+			boost::assign::map_list_of(0, materialname).to_container(VisualObjectParameters::MaterialNameMap_t()),
+		};
 		VisualObjectPtr vobj = m_fnCreateVisualObject(param);
 		Ball* ball = new Ball(vobj, Vector(x, y, z) , mass , radius);
 

@@ -1,10 +1,15 @@
 TODO:
 	Visual object serialization.
-	Specular material on balls.
+	Real-time environment map material.
 
 Known Issues:
-	Havok cleanup errors: it seems it crash at exit time if ball's position of out range.
+	Havok cleanup errors: it seems it crash at exit time if ball's position out of range.
 	Multi-thread accessing conflict sometimes.
+
+
+2009.4.26	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Specular material on balls implemented.
 
 
 2009.4.25	K.L.	<xxxK.L.xxx@gmail.com>

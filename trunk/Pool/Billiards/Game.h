@@ -54,7 +54,7 @@ namespace Billiards
 
 		void updateAllBalls();
 
-		void addBall(const VisualObjectParameters& param, Real x, Real y, Real z, Real mass, Real radius);
+		void addBall(const std::string& name, const std::string& materialname, Real x, Real y, Real z, Real mass, Real radius);
 		//void deleteBall(int number);
 
 		// give some impuse to the designated ball
