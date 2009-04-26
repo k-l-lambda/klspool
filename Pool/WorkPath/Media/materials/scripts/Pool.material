@@ -34,7 +34,7 @@ material Pool/SkyBox
 
 			texture_unit
 			{
-				cubic_texture stormy2.jpg separateUV
+				cubic_texture morning.jpg separateUV
 				tex_address_mode clamp
 			}
 		}
@@ -49,6 +49,21 @@ material Pool/Balls/P1
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p1.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -64,6 +79,21 @@ material Pool/Balls/P2
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p2.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -79,6 +109,21 @@ material Pool/Balls/P3
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p3.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -94,6 +139,21 @@ material Pool/Balls/P4
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p4.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -109,6 +169,21 @@ material Pool/Balls/P5
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p5.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -124,6 +199,21 @@ material Pool/Balls/P6
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p6.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -139,6 +229,21 @@ material Pool/Balls/P7
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p7.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -154,6 +259,21 @@ material Pool/Balls/P8
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p8.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -169,6 +289,21 @@ material Pool/Balls/P9
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p9.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -184,6 +319,21 @@ material Pool/Balls/P10
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p10.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -199,6 +349,21 @@ material Pool/Balls/P11
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p11.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -214,6 +379,21 @@ material Pool/Balls/P12
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p12.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -229,6 +409,21 @@ material Pool/Balls/P13
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p13.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -244,6 +439,21 @@ material Pool/Balls/P14
 		{
 			texture_unit
 			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
 				texture p14.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
@@ -259,7 +469,22 @@ material Pool/Balls/P15
 		{
 			texture_unit
 			{
-				texture p15.dds
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
+				texture p2.dds
 				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
 			}
 		}
