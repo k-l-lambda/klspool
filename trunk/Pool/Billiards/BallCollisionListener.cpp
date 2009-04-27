@@ -14,7 +14,7 @@
 
 namespace Billiards
 {
-	BallCollisionListener::BallCollisionListener(hkpRigidBody* rigidBody)
+	BallCollisionListener::BallCollisionListener(const hkpRigidBodyPtr& rigidBody)
 	{
 		rigidBody->addCollisionListener(this);
 		rigidBody->addEntityListener(this);

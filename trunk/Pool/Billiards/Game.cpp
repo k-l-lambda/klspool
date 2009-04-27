@@ -35,9 +35,9 @@ namespace Billiards
 
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
-		: m_table(NULL)
+		: /*m_table(NULL)
 		, m_MainBall(NULL)
-		, m_HavokSystem(NULL)
+		,*/ m_HavokSystem(NULL)
 		, m_fnCreateVisualObject(fnCreateVisualObject)
 	{
 		m_HavokSystem = new HavokSystem();
@@ -67,9 +67,14 @@ namespace Billiards
 
 	Game::~Game()
 	{
-		for(std::vector<Ball*>::iterator iter = m_ballList.begin();
+		m_table.reset();
+		m_baffles.reset();
+
+		/*for(std::vector<Ball*>::iterator iter = m_ballList.begin();
 			iter != m_ballList.end(); ++ iter)
-			delete *iter;
+			delete *iter;*/
+		m_ballList.clear();
+		m_MainBall.reset();
 
 		if(m_HavokSystem)
 			delete m_HavokSystem;
@@ -123,8 +128,8 @@ namespace Billiards
 			ci.m_restitution = 0.2f;
 			ci.m_allowedPenetrationDepth = 1e-2f;
 
-			m_table = new hkpRigidBody(ci);
-			m_HavokSystem->getWorld()->addEntity(m_table);
+			m_table.reset(new hkpRigidBody(ci));
+			m_HavokSystem->getWorld()->addEntity(m_table.get());
 		}
 
 		// vbaffles
@@ -194,8 +199,8 @@ namespace Billiards
 			ci.m_restitution = 0.92f;
 			ci.m_allowedPenetrationDepth = 1e-4f;
 
-			m_baffles = new hkpRigidBody(ci);
-			m_HavokSystem->getWorld()->addEntity(m_baffles);
+			m_baffles.reset(new hkpRigidBody(ci));
+			m_HavokSystem->getWorld()->addEntity(m_baffles.get());
 		}
 
 		// Do some translate according to the real model
@@ -215,7 +220,7 @@ namespace Billiards
 			boost::make_tuple(s_BallRadius, s_BallRadius, s_BallRadius),
 		};
 		VisualObjectPtr vobj = m_fnCreateVisualObject(param);
-		Ball* ball = new Ball(m_HavokSystem->getWorld(), vobj);
+		BallPtr ball(new Ball(m_HavokSystem->getWorld(), vobj));
 
 		ball->resetRigidBody(position , s_BallMass , s_BallRadius);
 

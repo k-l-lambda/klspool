@@ -25,7 +25,6 @@ namespace Billiards
 		/*, m_mass(mass)
 		, m_radius(radius)
 		, m_position(pos)*/
-		, m_RigidBody(NULL)
 		, m_VisualObject(vobj)
 	{
 		m_VisualObject->setVisible(m_RigidBody);
@@ -64,10 +63,8 @@ namespace Billiards
 		sphereInfo.m_friction = 0.06f;
 
 		//creat Havok hkpRigidBody
-		if(m_RigidBody)
-			m_RigidBody->getWorld()->removeEntity(m_RigidBody);
-		m_RigidBody = new hkpRigidBody(sphereInfo);
-		m_World->addEntity(m_RigidBody);
+		m_RigidBody.reset(new hkpRigidBody(sphereInfo));
+		m_World->addEntity(m_RigidBody.get());
 
 		// Add the collision event listener to the rigid body
 		BallCollisionListener* listener = new BallCollisionListener(m_RigidBody);
@@ -83,8 +80,7 @@ namespace Billiards
 		{
 			WorldWritingLock wlock(m_World);
 
-			m_RigidBody->getWorld()->removeEntity(m_RigidBody);
-			m_RigidBody = NULL;
+			m_RigidBody.reset();
 		}
 
 		m_VisualObject->setVisible(m_RigidBody);

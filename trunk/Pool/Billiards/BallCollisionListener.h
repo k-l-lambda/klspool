@@ -26,9 +26,7 @@ namespace Billiards
 		, public hkpEntityListener
 	{
 	public:
-
-		BallCollisionListener( hkpRigidBody* rigidBody);
-
+		explicit BallCollisionListener(const hkpRigidBodyPtr& rigidBody);
 		~BallCollisionListener();
 
 
@@ -36,31 +34,31 @@ namespace Billiards
 	private:
 
 		// Called after a contact point was added 
-		virtual void contactPointAddedCallback(	hkpContactPointAddedEvent& event );
+		virtual void contactPointAddedCallback(hkpContactPointAddedEvent& event);
 
-		virtual void contactPointConfirmedCallback( hkpContactPointConfirmedEvent& event);
+		virtual void contactPointConfirmedCallback(hkpContactPointConfirmedEvent& event);
 
 		// Called before a contact point gets removed. We do not implement this.
-		virtual void contactPointRemovedCallback( hkpContactPointRemovedEvent& event );
+		virtual void contactPointRemovedCallback(hkpContactPointRemovedEvent& event);
 
 		// Called just before the collisionResult is passed to the constraint system (solved).
-		virtual void contactProcessCallback( hkpContactProcessEvent& event );
+		virtual void contactProcessCallback(hkpContactProcessEvent& event);
 
 
 		//Members from base class hkpEntityListener which must be implemented:
 
 
 		// Called when the entity is deleted. Important to use this event to remove ourselves as a listener.
-		void entityDeletedCallback( hkpEntity* entity );
+		void entityDeletedCallback(hkpEntity* entity);
 
 		// Called when the entity is removed from the hkpWorld
-		void entityRemovedCallback( hkpEntity* entity );
+		void entityRemovedCallback(hkpEntity* entity);
 
 	private:
 		// a small structure, which gets attached to each contact point
 		struct  ContactPointInfo
 		{
-			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_DEMO,  ContactPointInfo);
+			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_DEMO,  ContactPointInfo);
 			int m_uniqueId;
 		};
 		int m_uniqueIdCounter;

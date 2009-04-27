@@ -64,5 +64,27 @@
 #pragma comment(lib, "hkpVehicle.lib")
 
 
+#include "ThreadAccessLock.h"
+
+namespace boost
+{
+	// used for shared_ptr<hkpEntity>
+	inline void checked_delete(hkpEntity* e)
+	{
+		Billiards::WorldWritingLock wlock(e->getWorld());
+
+		e->getWorld()->removeEntity(e);
+	}
+
+	// used for shared_ptr<hkpRigidBody>
+	inline void checked_delete(hkpRigidBody* rb)
+	{
+		Billiards::WorldWritingLock wlock(rb->getWorld());
+
+		rb->getWorld()->removeEntity(rb);
+	}
+}
+
+
 
 #endif	// !defined(__HAVOKREF_H__)

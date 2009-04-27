@@ -22,6 +22,8 @@ namespace Billiards
 		: boost::noncopyable
 #pragma warning(suppress: 4275)	// non ¨C DLL-interface classkey 'identifier' used as base for DLL-interface classkey 'identifier'
 	{
+		typedef	boost::shared_ptr<Ball>	BallPtr;
+
 	public:
 		explicit Game(const VisualObjectCreationFunctor& fnCreateVisualObject);
 		~Game();
@@ -55,13 +57,13 @@ namespace Billiards
 
 	private:
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
-		std::vector<Ball*> m_ballList;
-		hkpRigidBody* m_table;
-		hkpRigidBody* m_baffles;
+		std::vector<BallPtr>	m_ballList;
+		hkpRigidBodyPtr			m_table;
+		hkpRigidBodyPtr			m_baffles;
 
-		Ball*		m_MainBall;
+		BallPtr					m_MainBall;
 
-		HavokSystem* m_HavokSystem;
+		HavokSystem*			m_HavokSystem;
 
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		VisualObjectCreationFunctor		m_fnCreateVisualObject;

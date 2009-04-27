@@ -69,6 +69,8 @@ namespace Billiards
 
 	HavokSystem::~HavokSystem()
 	{
+		m_World->markForWrite();
+
 		m_World->removeReference();
 		m_Vdb->removeReference();
 		m_Context->removeReference();
