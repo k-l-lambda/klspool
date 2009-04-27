@@ -1,4 +1,5 @@
 TODO:
+	RigidBodyPtr with custom delete method
 	Visual object serialization.
 	Real-time environment map material.
 
@@ -8,6 +9,8 @@ Known Issues:
 
 
 2009.4.27	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards::Ball: refined interface.
 
 	>	GameObject::GameObject: setNormaliseNormals(true);
 

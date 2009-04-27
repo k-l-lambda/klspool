@@ -18,18 +18,6 @@
 
 namespace Billiards
 {
-	struct TableParams
-	{
-		float height;
-		float width;
-		float lenth;
-
-		float baffleHeight;
-		float baffleWidth;
-
-		float holeRadius;
-	};
-
 	class BILLIARDS_API	Game
 		: boost::noncopyable
 #pragma warning(suppress: 4275)	// non ¨C DLL-interface classkey 'identifier' used as base for DLL-interface classkey 'identifier'
@@ -54,7 +42,7 @@ namespace Billiards
 
 		void updateAllBalls();
 
-		void addBall(const std::string& name, const std::string& materialname, Real x, Real y, Real z, Real mass, Real radius);
+		void addBall(const std::string& name, const std::string& materialname, const Vector& position);
 		//void deleteBall(int number);
 
 		// give some impuse to the designated ball
@@ -77,8 +65,6 @@ namespace Billiards
 
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		VisualObjectCreationFunctor		m_fnCreateVisualObject;
-
-		const static TableParams m_tableParams;
 	};
 }
 

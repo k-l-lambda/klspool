@@ -32,3 +32,8 @@ void GameObject::updateTransform(const Billiards::Vector& position, const Billia
 	m_nodeObject->setPosition(bld2Ogre(position));
 	m_nodeObject->setOrientation(bld2Ogre(orientation));
 }
+
+void GameObject::setVisible(bool visible)
+{
+	m_nodeObject->setVisible(visible);
+}
