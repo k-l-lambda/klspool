@@ -61,6 +61,8 @@ class hkThreadMemory;
 class hkVisualDebugger;
 template <typename T> class hkArray;
 
+typedef	boost::shared_ptr<hkpRigidBody>		hkpRigidBodyPtr;
+
 
 #ifdef	_BILLIARDSDLL
 #	define	BILLIARDS_API	__declspec(dllexport)

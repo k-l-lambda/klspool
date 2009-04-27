@@ -50,7 +50,7 @@ namespace Billiards
 		Quaternion		m_rotation;*/
 
 		hkpWorld*		m_World;
-		hkpRigidBody*	m_RigidBody;
+		hkpRigidBodyPtr	m_RigidBody;
 
 		VisualObjectPtr	m_VisualObject;
 

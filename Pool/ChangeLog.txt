@@ -1,14 +1,15 @@
 TODO:
-	RigidBodyPtr with custom delete method
+	Billiards::Game: deployment
 	Visual object serialization.
 	Real-time environment map material.
 
 Known Issues:
-	Havok cleanup errors: debug assertion fail.
 	Multi-thread accessing conflict sometimes.
 
 
 2009.4.27	K.L.	<xxxK.L.xxx@gmail.com>
+
+	|	Havok errors clear.
 
 	+	Billiards::Ball: refined interface.
 
