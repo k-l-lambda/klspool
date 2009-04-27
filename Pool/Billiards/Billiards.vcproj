@@ -184,6 +184,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BallCollisionListener.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Billiards.cpp"
 				>
 			</File>
@@ -223,6 +227,10 @@
 			>
 			<File
 				RelativePath=".\Ball.h"
+				>
+			</File>
+			<File
+				RelativePath=".\BallCollisionListener.h"
 				>
 			</File>
 			<File

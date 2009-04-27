@@ -12,8 +12,7 @@
 #include "VisualObject.h"
 #include "ThreadAccessLock.h"
 
-#include <assert.h>
-#include <iostream>
+#include "BallCollisionListener.h"
 
 
 namespace Billiards
@@ -59,6 +58,9 @@ namespace Billiards
 		//creat Havok hkpRigidBody
 		m_havokRigid = new hkpRigidBody(sphereInfo);
 		s_hkpWorld->addEntity(m_havokRigid);
+
+		// Add the collision event listener to the rigid body
+		BallCollisionListener* listener = new BallCollisionListener(m_havokRigid);
 
 		shape->removeReference();
 	}
