@@ -21,9 +21,11 @@ namespace Billiards
 	class Ball
 	{
 	public:
-		Ball(VisualObjectPtr vobj, const Vector& pos, Real mass, Real radius);
+		Ball(hkpWorld* world, const VisualObjectPtr& vobj);
+		~Ball();
 
-		void creatRigidBody();
+		void resetRigidBody(const Vector& position, Real mass, Real radius);
+		void releaseRigidBody();
 
 		void applyForce(const Vector& force, const Vector& pos, Real deltaTime);
 
@@ -39,21 +41,20 @@ namespace Billiards
 
 		void update();
 
-		~Ball();
-
-		static void setupStatic(hkpWorld* hw);
+		//static void setupStatic(hkpWorld* hw);
 
 	private:
-		Real			m_radius;
+		/*Real			m_radius;
 		Real			m_mass;
 		Vector			m_position;
-		Quaternion		m_rotation;
+		Quaternion		m_rotation;*/
 
-		hkpRigidBody*	m_havokRigid;
+		hkpWorld*		m_World;
+		hkpRigidBody*	m_RigidBody;
 
 		VisualObjectPtr	m_VisualObject;
 
-		static hkpWorld* s_hkpWorld;
+		//static hkpWorld* s_hkpWorld;
 	};
 }
 

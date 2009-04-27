@@ -22,6 +22,14 @@ namespace Billiards
 		HavokSystem();
 		~HavokSystem();
 
+		void setup();
+
+		hkpWorld*	getWorld() const;
+
+		//step simulation
+		void simulate(Real elapsedTime);
+
+	private:
 		//创建hkpWorld
 		bool createHavokWorld(Real worldsize);
 		//初始化VDB
@@ -29,16 +37,10 @@ namespace Billiards
 		//创建物理场景
 		void createPhysicsScene();
 
-		//step simulation
-		void simulate(Real elapsedTime);
-
-		void setup();
-
+	private:
 		//Physics
 		hkpWorld*					m_World;
 
-	private:
-		//成员变量
 		hkPoolMemory*				m_MemoryManager;
 		hkThreadMemory*				m_ThreadMemory;
 		char*						m_StackBuffer;

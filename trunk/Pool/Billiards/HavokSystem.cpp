@@ -154,4 +154,9 @@ namespace Billiards
 		//创建物理场景
 		createPhysicsScene();
 	}
+
+	hkpWorld* HavokSystem::getWorld() const
+	{
+		return m_World;
+	}
 }

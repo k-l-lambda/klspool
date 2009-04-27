@@ -16,10 +16,23 @@
 
 namespace Billiards
 {
-	const TableParams Game::m_tableParams = {5.36f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
+	struct TableParams
+	{
+		float height;
+		float width;
+		float lenth;
+
+		float baffleHeight;
+		float baffleWidth;
+
+		float holeRadius;
+	};
+
+	static const TableParams s_TableParams = {5.36f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
 
 	static const Real s_BallRadius = 0.27;
 	static const Real s_BallMass = 1;
+
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
 		: m_table(NULL)
@@ -65,21 +78,21 @@ namespace Billiards
 	void Game::createPhysicsScene()
 	{
 		// set the world pointer in ball
-		Ball::setupStatic(m_HavokSystem->m_World);
+		//Ball::setupStatic(m_HavokSystem->getWorld());
 
 		creatTable();
 
 		// add sample balls
 		{
-			WorldWritingLock wlock(m_HavokSystem->m_World);
+			WorldWritingLock wlock(m_HavokSystem->getWorld());
 
-			addBall("ball1", "Pool/Balls/P1", 1e-4, 10, 0, s_BallMass, s_BallRadius);
-			addBall("ball2", "Pool/Balls/P2", 0, 11, 1e-4, s_BallMass, s_BallRadius);
-			addBall("ball3", "Pool/Balls/P3", 0, 12, 0, s_BallMass, s_BallRadius);
-			addBall("ball4", "Pool/Balls/P4", 0, 13, 0, s_BallMass, s_BallRadius);
-			addBall("ball5", "Pool/Balls/P5", 0, 14, 0, s_BallMass, s_BallRadius);
-			addBall("ball6", "Pool/Balls/P6", 0, 15, 0, s_BallMass, s_BallRadius);
-			addBall("ball7", "Pool/Balls/P7", 0, 16, 0, s_BallMass, s_BallRadius);
+			addBall("ball1", "Pool/Balls/P1", Vector(1e-4, 10, 0));
+			addBall("ball2", "Pool/Balls/P2", Vector(0, 11, 1e-4));
+			addBall("ball3", "Pool/Balls/P3", Vector(0, 12, 0));
+			addBall("ball4", "Pool/Balls/P4", Vector(0, 13, 0));
+			addBall("ball5", "Pool/Balls/P5", Vector(0, 14, 0));
+			addBall("ball6", "Pool/Balls/P6", Vector(0, 15, 0));
+			addBall("ball7", "Pool/Balls/P7", Vector(0, 16, 0));
 
 			m_MainBall = m_ballList.front();
 		}
@@ -87,7 +100,7 @@ namespace Billiards
 
 	void Game::creatTable()
 	{
-		WorldWritingLock wlock(m_HavokSystem->m_World);
+		WorldWritingLock wlock(m_HavokSystem->getWorld());
 
 		// create the table shape
 		//
@@ -96,7 +109,7 @@ namespace Billiards
 		// tableBoard
 
 		float boardHeight = 2.0f;
-		hkpBoxShape* tableBoard = new hkpBoxShape(Vector(m_tableParams.lenth/2 - m_tableParams.baffleWidth, boardHeight/2, m_tableParams.width/2 - m_tableParams.baffleWidth), 0);
+		hkpBoxShape* tableBoard = new hkpBoxShape(Vector(s_TableParams.lenth/2 - s_TableParams.baffleWidth, boardHeight/2, s_TableParams.width/2 - s_TableParams.baffleWidth), 0);
 
 		// creat rigidBody
 
@@ -111,7 +124,7 @@ namespace Billiards
 			ci.m_allowedPenetrationDepth = 1e-2f;
 
 			m_table = new hkpRigidBody(ci);
-			m_HavokSystem->m_World->addEntity(m_table);
+			m_HavokSystem->getWorld()->addEntity(m_table);
 		}
 
 		// vbaffles
@@ -119,14 +132,14 @@ namespace Billiards
 		t = t.getIdentity();
 		Vector trans = Vector(0.0f, 0.0f, 0.0f);
 
-		float vbaffleLenth = m_tableParams.lenth / 2 - 3 * m_tableParams.holeRadius;
+		float vbaffleLenth = s_TableParams.lenth / 2 - 3 * s_TableParams.holeRadius;
 
 		hkpBoxShape* vbaffle = new hkpBoxShape(Vector(vbaffleLenth/2,
-			m_tableParams.baffleHeight, m_tableParams.baffleWidth/2), 0);
+			s_TableParams.baffleHeight, s_TableParams.baffleWidth/2), 0);
 
-		float vX = vbaffleLenth/2 + m_tableParams.holeRadius;
-		float vY = boardHeight/2 + m_tableParams.baffleHeight/2;
-		float vZ = m_tableParams.width/2 - m_tableParams.baffleWidth/2;
+		float vX = vbaffleLenth/2 + s_TableParams.holeRadius;
+		float vY = boardHeight/2 + s_TableParams.baffleHeight/2;
+		float vZ = s_TableParams.width/2 - s_TableParams.baffleWidth/2;
 
 		trans = Vector(vX, vY, vZ);
 		t.setTranslation(trans);
@@ -150,12 +163,12 @@ namespace Billiards
 
 		// nbaffles
 
-		float nbaffleLenth = m_tableParams.width - 2*2*m_tableParams.holeRadius;
-		hkpBoxShape* nbaffle = new hkpBoxShape(Vector(m_tableParams.baffleWidth/2, 
-			m_tableParams.baffleHeight, 
+		float nbaffleLenth = s_TableParams.width - 2*2*s_TableParams.holeRadius;
+		hkpBoxShape* nbaffle = new hkpBoxShape(Vector(s_TableParams.baffleWidth/2, 
+			s_TableParams.baffleHeight, 
 			nbaffleLenth/2), 0);
 
-		float nX = m_tableParams.lenth/2 - m_tableParams.baffleWidth/2;
+		float nX = s_TableParams.lenth/2 - s_TableParams.baffleWidth/2;
 		float nY = vY;
 		float nZ = 0;
 
@@ -182,7 +195,7 @@ namespace Billiards
 			ci.m_allowedPenetrationDepth = 1e-4f;
 
 			m_baffles = new hkpRigidBody(ci);
-			m_HavokSystem->m_World->addEntity(m_baffles);
+			m_HavokSystem->getWorld()->addEntity(m_baffles);
 		}
 
 		// Do some translate according to the real model
@@ -193,18 +206,18 @@ namespace Billiards
 		baffles->removeReference();
 	}
 
-	void Game::addBall(const std::string& name, const std::string& materialname, Real x, Real y, Real z, Real mass, Real radius)
+	void Game::addBall(const std::string& name, const std::string& materialname, const Vector& position)
 	{
 		VisualObjectParameters param =
 		{
 			name, "Sphere",
 			boost::assign::map_list_of(0, materialname).to_container(VisualObjectParameters::MaterialNameMap_t()),
-			boost::make_tuple(radius, radius, radius),
+			boost::make_tuple(s_BallRadius, s_BallRadius, s_BallRadius),
 		};
 		VisualObjectPtr vobj = m_fnCreateVisualObject(param);
-		Ball* ball = new Ball(vobj, Vector(x, y, z) , mass , radius);
+		Ball* ball = new Ball(m_HavokSystem->getWorld(), vobj);
 
-		ball->creatRigidBody();
+		ball->resetRigidBody(position , s_BallMass , s_BallRadius);
 
 		m_ballList.push_back(ball);
 	}

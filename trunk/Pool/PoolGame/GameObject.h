@@ -27,6 +27,7 @@ public:
 
 private:
 	virtual void	updateTransform(const Billiards::Vector& position, const Billiards::Quaternion& orientation);
+	virtual void	setVisible(bool visible);
 
 private:
 	Ogre::SceneNode*	m_nodeObject;

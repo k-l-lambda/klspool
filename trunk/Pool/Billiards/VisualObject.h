@@ -34,6 +34,7 @@ namespace Billiards
 	struct IVisualObject
 	{
 		virtual void	updateTransform(const Vector& position, const Quaternion& orientation)	= 0;
+		virtual void	setVisible(bool visible)	= 0;
 
 	protected:
 		~IVisualObject()	{};
