@@ -74,13 +74,13 @@ namespace Billiards
 		{
 			WorldWritingLock wlock(m_HavokSystem->m_World);
 
-			addBall("ball1", "Pool/Balls/P1", 1e-5, 11, 0, 10, s_BallRadius);
-			addBall("ball2", "Pool/Balls/P2", 0, 12, 1e-5, 10, s_BallRadius);
-			addBall("ball3", "Pool/Balls/P3", 0, 13, 0, 10, s_BallRadius);
-			addBall("ball4", "Pool/Balls/P4", 0, 14, 0, 10, s_BallRadius);
-			addBall("ball5", "Pool/Balls/P5", 0, 15, 0, 10, s_BallRadius);
-			addBall("ball6", "Pool/Balls/P6", 0, 16, 0, 10, s_BallRadius);
-			addBall("ball7", "Pool/Balls/P7", 0, 17, 0, 10, s_BallRadius);
+			addBall("ball1", "Pool/Balls/P1", 1e-4, 10, 0, 10, s_BallRadius);
+			addBall("ball2", "Pool/Balls/P2", 0, 11, 1e-4, 10, s_BallRadius);
+			addBall("ball3", "Pool/Balls/P3", 0, 12, 0, 10, s_BallRadius);
+			addBall("ball4", "Pool/Balls/P4", 0, 13, 0, 10, s_BallRadius);
+			addBall("ball5", "Pool/Balls/P5", 0, 14, 0, 10, s_BallRadius);
+			addBall("ball6", "Pool/Balls/P6", 0, 15, 0, 10, s_BallRadius);
+			addBall("ball7", "Pool/Balls/P7", 0, 16, 0, 10, s_BallRadius);
 
 			m_MainBall = m_ballList.front();
 		}
@@ -97,7 +97,7 @@ namespace Billiards
 		// tableBoard
 
 		float boardHeight = 2.0f;
-		hkpBoxShape* tableBoard = new hkpBoxShape(hkVector4(m_tableParams.lenth/2 - m_tableParams.baffleWidth, boardHeight/2, m_tableParams.width/2 - m_tableParams.baffleWidth), 0);
+		hkpBoxShape* tableBoard = new hkpBoxShape(Vector(m_tableParams.lenth/2 - m_tableParams.baffleWidth, boardHeight/2, m_tableParams.width/2 - m_tableParams.baffleWidth), 0);
 
 		// creat rigidBody
 
@@ -108,8 +108,8 @@ namespace Billiards
 			ci.m_position = Vector(0, 0, 0);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
 			ci.m_friction = 0.04f;
-			//ci.m_restitution = 0;
-			//ci.m_allowedPenetrationDepth = 0.2f;
+			ci.m_restitution = 0.3f;
+			ci.m_allowedPenetrationDepth = 1e-2f;
 
 			m_table = new hkpRigidBody(ci);
 			m_HavokSystem->m_World->addEntity(m_table);
@@ -118,42 +118,41 @@ namespace Billiards
 		// vbaffles
 		hkTransform t ;
 		t = t.getIdentity();
-		hkVector4 trans = hkVector4(0.0f, 0.0f, 0.0f);
+		Vector trans = Vector(0.0f, 0.0f, 0.0f);
 
-		float vbaffleLenth = m_tableParams.lenth/2 - 3*m_tableParams.holeRadius;
+		float vbaffleLenth = m_tableParams.lenth / 2 - 3 * m_tableParams.holeRadius;
 
-		hkpBoxShape* vbaffle = new hkpBoxShape( hkVector4(vbaffleLenth/2, 
-			m_tableParams.baffleHeight, 
-			m_tableParams.baffleWidth/2), 0);
+		hkpBoxShape* vbaffle = new hkpBoxShape(Vector(vbaffleLenth/2,
+			m_tableParams.baffleHeight, m_tableParams.baffleWidth/2), 0);
 
 		float vX = vbaffleLenth/2 + m_tableParams.holeRadius;
 		float vY = boardHeight/2 + m_tableParams.baffleHeight/2;
 		float vZ = m_tableParams.width/2 - m_tableParams.baffleWidth/2;
 
-		trans = hkVector4(vX, vY, vZ);
+		trans = Vector(vX, vY, vZ);
 		t.setTranslation( trans );
-		hkpTransformShape* vbaffleTrans1 = new hkpTransformShape( vbaffle, t );
+		hkpTransformShape* vbaffleTrans1 = new hkpTransformShape(vbaffle, t);
 		shapeArray.pushBack(vbaffleTrans1);
 
-		trans = hkVector4(vX, vY, -vZ);
+		trans = Vector(vX, vY, -vZ);
 		t.setTranslation( trans );
-		hkpTransformShape* vbaffleTrans2 = new hkpTransformShape( vbaffle,  t );
+		hkpTransformShape* vbaffleTrans2 = new hkpTransformShape(vbaffle, t);
 		shapeArray.pushBack(vbaffleTrans2);
 
-		trans = hkVector4(-vX, vY, vZ);
+		trans = Vector(-vX, vY, vZ);
 		t.setTranslation( trans );
-		hkpTransformShape* vbaffleTrans3 = new hkpTransformShape( vbaffle,  t );
+		hkpTransformShape* vbaffleTrans3 = new hkpTransformShape(vbaffle, t);
 		shapeArray.pushBack(vbaffleTrans3);
 
-		trans = hkVector4(-vX, vY, -vZ);
+		trans = Vector(-vX, vY, -vZ);
 		t.setTranslation( trans );
-		hkpTransformShape* vbaffleTrans4 = new hkpTransformShape( vbaffle,  t );
+		hkpTransformShape* vbaffleTrans4 = new hkpTransformShape(vbaffle, t);
 		shapeArray.pushBack(vbaffleTrans4);
 
 		// nbaffles
 
 		float nbaffleLenth = m_tableParams.width - 2*2*m_tableParams.holeRadius;
-		hkpBoxShape* nbaffle = new hkpBoxShape(hkVector4(m_tableParams.baffleWidth/2, 
+		hkpBoxShape* nbaffle = new hkpBoxShape(Vector(m_tableParams.baffleWidth/2, 
 			m_tableParams.baffleHeight, 
 			nbaffleLenth/2), 0);
 
@@ -161,14 +160,14 @@ namespace Billiards
 		float nY = vY;
 		float nZ = 0;
 
-		trans = hkVector4(nX, nY, nZ);
+		trans = Vector(nX, nY, nZ);
 		t.setTranslation( trans );
-		hkpTransformShape* nbaffleTrans1 = new hkpTransformShape( nbaffle ,t);
+		hkpTransformShape* nbaffleTrans1 = new hkpTransformShape(nbaffle ,t);
 		shapeArray.pushBack(nbaffleTrans1);
 
-		trans = hkVector4(-nX, nY, nZ);
+		trans = Vector(-nX, nY, nZ);
 		t.setTranslation( trans );
-		hkpTransformShape* nbaffleTrans2 = new hkpTransformShape( nbaffle ,t);
+		hkpTransformShape* nbaffleTrans2 = new hkpTransformShape(nbaffle ,t);
 		shapeArray.pushBack(nbaffleTrans2);
 
 		hkpListShape* baffles = new hkpListShape(&shapeArray[0], shapeArray.getSize());
@@ -179,17 +178,17 @@ namespace Billiards
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
 			ci.m_position = Vector(0, 0, 0);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-			ci.m_friction = 0.05;
-			//ci.m_restitution = 0.7;
-			//ci.m_allowedPenetrationDepth = 0.01f;
+			ci.m_friction = 0.01f;
+			ci.m_restitution = 0.92f;
+			ci.m_allowedPenetrationDepth = 1e-4f;
 
 			m_baffles = new hkpRigidBody(ci);
 			m_HavokSystem->m_World->addEntity(m_baffles);
 		}
 
 		// Do some translate according to the real model
-		m_baffles->setPosition(hkVector4(0, 7.2, -0.1));
-		m_table->setPosition(hkVector4(0, 7.2, -0.1));
+		m_baffles->setPosition(Vector(0, 7.2, -0.1));
+		m_table->setPosition(Vector(0, 7.2, -0.1));
 
 		tableBoard->removeReference();
 		baffles->removeReference();
@@ -250,7 +249,13 @@ namespace Billiards
 		// recycle fallen balls
 		for(size_t i = 0; i < m_ballList.size(); ++ i)
 			if(m_ballList[i]->getPosition()(1) < 0)
+			{
 				m_ballList[i]->setPosition(Vector(0, 10, 0));
+
+				Vector v = m_ballList[i]->getVelocity();
+				v.mul4(1e-1f);
+				m_ballList[i]->setVelocity(v);
+			}
 	}
 
 	void Game::shot(const Vector& impulse, const Vector& pos)

@@ -51,10 +51,10 @@ namespace Billiards
 		sphereInfo.m_shape = shape;
 		sphereInfo.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA;
 		sphereInfo.m_position = m_position;
-		sphereInfo.m_angularDamping = 0.5f;
-		sphereInfo.m_restitution = 0.7;
-		sphereInfo.m_allowedPenetrationDepth = 0.01f;
-		sphereInfo.m_friction = 0.2;
+		sphereInfo.m_angularDamping = 0.4f;
+		sphereInfo.m_restitution = 0.92f;
+		sphereInfo.m_allowedPenetrationDepth = 1e-3f;
+		sphereInfo.m_friction = 0.02f;
 
 		//creat Havok hkpRigidBody
 		m_havokRigid = new hkpRigidBody(sphereInfo);
@@ -82,6 +82,16 @@ namespace Billiards
 		}
 	}
 
+	void Ball::setVelocity(const Vector& vel)
+	{
+		if(m_havokRigid)
+		{
+			WorldWritingLock wlock(s_hkpWorld);
+
+			m_havokRigid->setLinearVelocity(vel);
+		}
+	}
+
 	const Vector& Ball::getPosition() const
 	{
 		return m_position;
@@ -90,6 +100,15 @@ namespace Billiards
 	const Quaternion& Ball::getRotation() const
 	{
 		return m_rotation;
+	}
+
+	const Vector& Ball::getVelocity() const
+	{
+		assert(s_hkpWorld);
+
+		WorldReadingLock rlock(s_hkpWorld);
+
+		return m_havokRigid->getLinearVelocity();
 	}
 
 	void Ball::setupStatic(hkpWorld *hw)

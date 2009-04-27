@@ -28,12 +28,14 @@ namespace Billiards
 		void applyForce(const Vector& force, const Vector& pos, Real deltaTime);
 
 		void setPosition(const Vector& pos);
+		void setVelocity(const Vector& vel);
 
 		bool isInHole() const;
 		bool isStill() const;
 
 		const Vector&		getPosition() const;
 		const Quaternion&	getRotation() const;
+		const Vector&		getVelocity() const;
 
 		void update();
 
