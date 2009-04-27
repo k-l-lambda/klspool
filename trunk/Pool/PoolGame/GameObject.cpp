@@ -15,6 +15,7 @@ GameObject::GameObject(Ogre::SceneNode* parent, const Billiards::VisualObjectPar
 	: m_nodeObject(parent->createChildSceneNode())
 {
 	Ogre::Entity* ent = m_nodeObject->getCreator()->createEntity(param.Name, param.MeshName);
+	ent->setNormaliseNormals(true);
 	for(Billiards::VisualObjectParameters::MaterialNameMap_t::const_iterator it = param.MaterialNameMap.begin();
 		it != param.MaterialNameMap.end(); ++ it)
 	{

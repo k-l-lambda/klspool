@@ -5,8 +5,9 @@
 **	This program is free software without any warranty.
 */
 
-#ifndef _BALLCOLLISIONLISTENER_H_
-#define _BALLCOLLISIONLISTENER_H_
+#ifndef __BALLCOLLISIONLISTENER_H__
+#define __BALLCOLLISIONLISTENER_H__
+
 
 
 #include "Billiards.h"
@@ -17,18 +18,22 @@
 // as a listener to the entity. It automatically deletes itself, if the entity gets 
 // deleted.	
 
-class BallCollisionListener : public hkReferencedObject, public hkpCollisionListener, public hkpEntityListener
+namespace Billiards
 {
-
-   	public:
+	class BallCollisionListener
+		: public hkReferencedObject
+		, public hkpCollisionListener
+		, public hkpEntityListener
+	{
+	public:
 
 		BallCollisionListener( hkpRigidBody* rigidBody);
-        
+
 		~BallCollisionListener();
 
-		
+
 		//Members from base class hkpCollisionListener which must be implemented:
-		
+	private:
 
 		// Called after a contact point was added 
 		virtual void contactPointAddedCallback(	hkpContactPointAddedEvent& event );
@@ -51,7 +56,7 @@ class BallCollisionListener : public hkReferencedObject, public hkpCollisionList
 		// Called when the entity is removed from the hkpWorld
 		void entityRemovedCallback( hkpEntity* entity );
 
-	protected:
+	private:
 		// a small structure, which gets attached to each contact point
 		struct  ContactPointInfo
 		{
@@ -61,10 +66,10 @@ class BallCollisionListener : public hkReferencedObject, public hkpCollisionList
 		int m_uniqueIdCounter;
 
 	public:
-
 		int m_reportLevel;
+	};
+}
 
-};
 
 
-#endif
+#endif	// !defined(__BALLCOLLISIONLISTENER_H__)

@@ -46,14 +46,15 @@ namespace Billiards
 		sphereInfo.m_mass = massProperties.m_mass;
 		sphereInfo.m_centerOfMass = massProperties.m_centerOfMass;
 		sphereInfo.m_inertiaTensor = massProperties.m_inertiaTensor;
-		sphereInfo.m_solverDeactivation = sphereInfo.SOLVER_DEACTIVATION_LOW;
+		sphereInfo.m_solverDeactivation = hkpRigidBodyCinfo::SOLVER_DEACTIVATION_LOW;
+		sphereInfo.m_qualityType = HK_COLLIDABLE_QUALITY_MOVING;
 		sphereInfo.m_shape = shape;
 		sphereInfo.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA;
 		sphereInfo.m_position = m_position;
-		sphereInfo.m_angularDamping = 0.4f;
+		sphereInfo.m_angularDamping = 0.8f;
 		sphereInfo.m_restitution = 0.92f;
 		sphereInfo.m_allowedPenetrationDepth = 1e-3f;
-		sphereInfo.m_friction = 0.02f;
+		sphereInfo.m_friction = 0.06f;
 
 		//creat Havok hkpRigidBody
 		m_havokRigid = new hkpRigidBody(sphereInfo);

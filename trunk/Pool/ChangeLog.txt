@@ -7,6 +7,13 @@ Known Issues:
 	Multi-thread accessing conflict sometimes.
 
 
+2009.4.27	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	GameObject::GameObject: setNormaliseNormals(true);
+
+	*!	Collision omission bug due to the setting of sphereInfo.m_qualityType.
+
+
 2009.4.26	K.L.	<xxxK.L.xxx@gmail.com>
 
 	*!	Ball out of range crash bug maybe due to 'worldInfo.m_broadPhaseBorderBehaviour'
