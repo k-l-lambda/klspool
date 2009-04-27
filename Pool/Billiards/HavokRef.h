@@ -10,6 +10,8 @@
 
 
 
+#pragma warning(push)
+
 // Math and base include
 #include <Common/Base/hkBase.h>
 #include <Common/Base/System/hkBaseSystem.h>
@@ -43,7 +45,9 @@
 
 // Visual Debugger includes
 #include <Common/Visualize/hkVisualDebugger.h>
-#include <Physics/Utilities/VisualDebugger/hkpPhysicsContext.h>				
+#include <Physics/Utilities/VisualDebugger/hkpPhysicsContext.h>		
+
+#pragma warning(pop)
 
 #pragma comment(lib, "hkBase.lib")
 #pragma comment(lib, "hkSerialize.lib")

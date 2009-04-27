@@ -16,11 +16,10 @@
 
 namespace Billiards
 {
-	const TableParams Game::m_tableParams = {5.36f, 15.45f, 29.3f,
-		0.45f, 0.7f,
-		0.6f};
+	const TableParams Game::m_tableParams = {5.36f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
 
 	static const Real s_BallRadius = 0.27;
+	static const Real s_BallMass = 1;
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
 		: m_table(NULL)
@@ -74,13 +73,13 @@ namespace Billiards
 		{
 			WorldWritingLock wlock(m_HavokSystem->m_World);
 
-			addBall("ball1", "Pool/Balls/P1", 1e-4, 10, 0, 10, s_BallRadius);
-			addBall("ball2", "Pool/Balls/P2", 0, 11, 1e-4, 10, s_BallRadius);
-			addBall("ball3", "Pool/Balls/P3", 0, 12, 0, 10, s_BallRadius);
-			addBall("ball4", "Pool/Balls/P4", 0, 13, 0, 10, s_BallRadius);
-			addBall("ball5", "Pool/Balls/P5", 0, 14, 0, 10, s_BallRadius);
-			addBall("ball6", "Pool/Balls/P6", 0, 15, 0, 10, s_BallRadius);
-			addBall("ball7", "Pool/Balls/P7", 0, 16, 0, 10, s_BallRadius);
+			addBall("ball1", "Pool/Balls/P1", 1e-4, 10, 0, s_BallMass, s_BallRadius);
+			addBall("ball2", "Pool/Balls/P2", 0, 11, 1e-4, s_BallMass, s_BallRadius);
+			addBall("ball3", "Pool/Balls/P3", 0, 12, 0, s_BallMass, s_BallRadius);
+			addBall("ball4", "Pool/Balls/P4", 0, 13, 0, s_BallMass, s_BallRadius);
+			addBall("ball5", "Pool/Balls/P5", 0, 14, 0, s_BallMass, s_BallRadius);
+			addBall("ball6", "Pool/Balls/P6", 0, 15, 0, s_BallMass, s_BallRadius);
+			addBall("ball7", "Pool/Balls/P7", 0, 16, 0, s_BallMass, s_BallRadius);
 
 			m_MainBall = m_ballList.front();
 		}
@@ -107,8 +106,8 @@ namespace Billiards
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
 			ci.m_position = Vector(0, 0, 0);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-			ci.m_friction = 0.04f;
-			ci.m_restitution = 0.3f;
+			ci.m_friction = 0.2f;
+			ci.m_restitution = 0.2f;
 			ci.m_allowedPenetrationDepth = 1e-2f;
 
 			m_table = new hkpRigidBody(ci);
@@ -130,22 +129,22 @@ namespace Billiards
 		float vZ = m_tableParams.width/2 - m_tableParams.baffleWidth/2;
 
 		trans = Vector(vX, vY, vZ);
-		t.setTranslation( trans );
+		t.setTranslation(trans);
 		hkpTransformShape* vbaffleTrans1 = new hkpTransformShape(vbaffle, t);
 		shapeArray.pushBack(vbaffleTrans1);
 
 		trans = Vector(vX, vY, -vZ);
-		t.setTranslation( trans );
+		t.setTranslation(trans);
 		hkpTransformShape* vbaffleTrans2 = new hkpTransformShape(vbaffle, t);
 		shapeArray.pushBack(vbaffleTrans2);
 
 		trans = Vector(-vX, vY, vZ);
-		t.setTranslation( trans );
+		t.setTranslation(trans);
 		hkpTransformShape* vbaffleTrans3 = new hkpTransformShape(vbaffle, t);
 		shapeArray.pushBack(vbaffleTrans3);
 
 		trans = Vector(-vX, vY, -vZ);
-		t.setTranslation( trans );
+		t.setTranslation(trans);
 		hkpTransformShape* vbaffleTrans4 = new hkpTransformShape(vbaffle, t);
 		shapeArray.pushBack(vbaffleTrans4);
 
@@ -161,12 +160,12 @@ namespace Billiards
 		float nZ = 0;
 
 		trans = Vector(nX, nY, nZ);
-		t.setTranslation( trans );
+		t.setTranslation(trans);
 		hkpTransformShape* nbaffleTrans1 = new hkpTransformShape(nbaffle ,t);
 		shapeArray.pushBack(nbaffleTrans1);
 
 		trans = Vector(-nX, nY, nZ);
-		t.setTranslation( trans );
+		t.setTranslation(trans);
 		hkpTransformShape* nbaffleTrans2 = new hkpTransformShape(nbaffle ,t);
 		shapeArray.pushBack(nbaffleTrans2);
 
