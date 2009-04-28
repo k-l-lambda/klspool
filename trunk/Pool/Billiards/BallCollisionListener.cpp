@@ -27,10 +27,8 @@ namespace Billiards
 
 	void BallCollisionListener::contactPointAddedCallback(hkpContactPointAddedEvent& event)
 	{
-		const hkVector4& pos = event.m_contactPoint->getPosition();
-		std::cout << "*************************************************************" << std::endl;
-		std::cout << "**Collision: " << std::clock() << "	(" << pos(0) << ',' << pos(1) << ',' << pos(2) << ',' << pos(3) << ')' << std::endl;
-		std::cout << "*************************************************************" << std::endl;
+		const Vector& pos = event.m_contactPoint->getPosition();
+		std::cout << "Collision: " << std::clock() << "	(" << pos(0) << ',' << pos(1) << ',' << pos(2) << ',' << pos(3) << ')' << std::endl;
 
 
 		// By setting the  ProcessContactCallbackDelay to 0 we will receive callbacks for 
