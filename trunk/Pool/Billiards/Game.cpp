@@ -12,6 +12,7 @@
 #include "Game.h"
 #include "VisualObject.h"
 #include "ThreadAccessLock.h"
+#include <iostream>
 
 
 namespace Billiards

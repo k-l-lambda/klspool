@@ -9,6 +9,9 @@
 
 #include "../Billiards/Game.h"
 
+#include "../AudioSystem/PoolAudio.h"
+#pragma comment(lib, "AudioSystem.lib")
+
 #include <mmsystem.h>
 
 #pragma comment(lib,"winmm.lib")
@@ -18,6 +21,7 @@
 #include "mathTypeConvert.h"
 #include "GameObject.h"
 
+#include <iostream>
 
 static const Real SKYBOX_ROTATE_SPEED = 0.003f;
 
@@ -259,6 +263,11 @@ void Frame::createScene()
 
 	// init physics system
 	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
+
+	// init audio system
+	PoolAudio& poolAudio = PoolAudio::instance();
+	PoolAudio::instance().init(3, 3);
+	PoolAudio::instance().loadWavFile("collide.wav");
 }
 
 void Frame::onIdle(wxIdleEvent& e)
@@ -309,6 +318,9 @@ void Frame::frameStarted(const FrameEvent& evt)
 		mCamera->setPosition(m_nodeCamera->_getDerivedPosition()/* + 50*/);
 		mCamera->lookAt(m_nodeCameraRoot->_getDerivedPosition());
 		//mCamera->lookAt(0, 0, 0);
+
+		// update camera position in audio system
+		PoolAudio::instance().setCameraPosition(mCamera->getPosition());
 	}
 }
 
