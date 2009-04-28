@@ -265,9 +265,8 @@ void Frame::createScene()
 	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
 
 	// init audio system
-	PoolAudio& poolAudio = PoolAudio::instance();
 	PoolAudio::instance().init(3, 3);
-	PoolAudio::instance().loadWavFile("collide.wav");
+	PoolAudio::instance().loadWavFile("Media/sound/collide.wav");
 }
 
 void Frame::onIdle(wxIdleEvent& e)

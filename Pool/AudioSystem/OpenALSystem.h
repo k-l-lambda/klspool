@@ -5,8 +5,10 @@
 **	This program is free software without any warranty.
 */
 
-#ifndef _OPENALSYSTEM_H_
-#define _OPENALSYSTEM_H_
+#ifndef __OPENALSYSTEM_H__
+#define __OPENALSYSTEM_H__
+
+
 
 #include <map>
 #include <vector>
@@ -16,8 +18,8 @@
 #include <alc.h>
 #include <alut.h>
 
-#	pragma comment(lib, "OpenAL32.lib")
-#	pragma comment(lib, "alut.lib")
+#pragma comment(lib, "OpenAL32.lib")
+#pragma comment(lib, "alut.lib")
 
 #ifdef	_AUDIOSYSTEMDLL
 #	define	AUDIOSYSTEM_API	__declspec(dllexport)
@@ -33,7 +35,7 @@ public:
 
 	bool init(int numBuffers = 3, int numSources = 3);
 
-	bool loadWavFile(std::string fileName);
+	bool loadWavFile(const std::string& fileName);
 	void playSound(int numOfBuffer, ALfloat* sourcePos, ALfloat* listenerPos);
 
 private:
@@ -46,4 +48,6 @@ private:
 	int m_loadedBuffer;
 };
 
-#endif
+
+
+#endif	// !defined(__OPENALSYSTEM_H__)
