@@ -5,8 +5,8 @@
 **	This program is free software without any warranty.
 */
 
-#ifndef	__BLDGAME_H__
-#define	__BLDGAME_H__
+#ifndef	__GAME_H__
+#define	__GAME_H__
 
 
 
@@ -29,7 +29,7 @@ namespace Billiards
 		~Game();
 
 		// test if all the balls is still
-		//bool isStill();
+		//bool isStill() const;
 
 		void simulate(Real elapsedTime);
 
@@ -72,4 +72,4 @@ namespace Billiards
 
 
 
-#endif	// !defined(__BLDGAME_H__)
+#endif	// !defined(__GAME_H__)

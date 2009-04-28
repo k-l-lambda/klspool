@@ -67,7 +67,7 @@ namespace Billiards
 		m_World->addEntity(m_RigidBody.get());
 
 		// Add the collision event listener to the rigid body
-		BallCollisionListener* listener = new BallCollisionListener(m_RigidBody);
+		/*BallCollisionListener* listener = */new BallCollisionListener(m_RigidBody);
 
 		shape->removeReference();
 
