@@ -1,5 +1,12 @@
+/*
+**	This source file is part of Pool.
+**
+**	Copyright (c) 2009	K.L.<xxxk.l.xxx@gmail.com>, Lazy<yinxiaozhou@gmail.com>
+**	This program is free software without any warranty.
+*/
 
 #include "PoolAudio.h"
+
 
 std::auto_ptr<PoolAudio> PoolAudio::m_poolAudioPtr;
 
@@ -16,7 +23,7 @@ bool PoolAudio::init(int numSounds, int numSources)
 	return m_OALSystem.init(numSounds, numSources);
 }
 
-bool PoolAudio::loadWavFile(std::string fileName)
+bool PoolAudio::loadWavFile(const std::string& fileName)
 {
 	return m_OALSystem.loadWavFile(fileName);
 }

@@ -5,8 +5,10 @@
 **	This program is free software without any warranty.
 */
 
-#ifndef _POOLAUDIO_H_
-#define _POOLAUDIO_H_
+#ifndef __POOLAUDIO_H__
+#define __POOLAUDIO_H__
+
+
 
 #include "OpenALSystem.h"
 #include <Ogre.h>
@@ -20,6 +22,7 @@
 #include <string>
 #include <memory>
 
+
 class AUDIOSYSTEM_API PoolAudio
 {
 public:
@@ -29,7 +32,7 @@ public:
 
 	void setCameraPosition(const Ogre::Vector3& pos);
 
-	bool loadWavFile(std::string fileName);
+	bool loadWavFile(const std::string& fileName);
 
 	void playSound(int soundNum, const Ogre::Vector3& source = Ogre::Vector3::ZERO);
 
@@ -41,4 +44,6 @@ private:
 	Ogre::Vector3 m_CamPos;
 };
 
-#endif
+
+
+#endif	// !defined(__POOLAUDIO_H__)
