@@ -14,6 +14,12 @@
 
 #include "../Billiards/MathDef.h"
 
+#ifdef	_DEBUG
+#	pragma comment(lib, "OgreMain_d.lib")
+#else
+#	pragma comment(lib, "OgreMain.lib")
+#endif
+
 
 inline Ogre::Vector3 bld2Ogre(const Billiards::Vector& vec)
 {

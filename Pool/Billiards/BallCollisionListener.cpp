@@ -6,6 +6,12 @@
 */
 
 #include "StableHeaders.h"
+
+#include "../AudioSystem/PoolAudio.h"
+#pragma comment(lib, "AudioSystem.lib")
+
+#include "../PoolGame/mathTypeConvert.h"
+
 #include "BallCollisionListener.h"
 
 #include <iostream>
@@ -29,15 +35,12 @@ namespace Billiards
 	{
 		const Vector& pos = event.m_contactPoint->getPosition();
 		std::cout << "Collision: " << std::clock() << "	(" << pos(0) << ',' << pos(1) << ',' << pos(2) << ',' << pos(3) << ')' << std::endl;
+		
+		hkpShapeType shapeTypeA = event.m_bodyA->m_shape->getType();
+		hkpShapeType shapeTypeB = event.m_bodyB->m_shape->getType();
+		if(shapeTypeA == HK_SHAPE_SPHERE && shapeTypeB == HK_SHAPE_SPHERE )
+			PoolAudio::instance().playSound(0, bld2Ogre(pos));
 
-
-		// By setting the  ProcessContactCallbackDelay to 0 we will receive callbacks for 
-		// any collisions processed for this body every frame (simulation step), i.e. the delay between
-		// any such callbacks is 0 frames.
-
-		// If you wish to only be notified every N frames simply set the delay to be N-1.
-		// The default is 65536, i.e. (for practical purpose) once for the first collision only, until
-		// the bodies separate to outside the collision tolerance. 
 		event.m_callbackFiredFrom->setProcessContactCallbackDelay(0);
 	}
 
