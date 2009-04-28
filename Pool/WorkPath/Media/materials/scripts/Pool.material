@@ -47,6 +47,8 @@ material Pool/Balls/P1
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -77,6 +79,8 @@ material Pool/Balls/P2
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -107,6 +111,8 @@ material Pool/Balls/P3
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -137,6 +143,8 @@ material Pool/Balls/P4
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -167,6 +175,8 @@ material Pool/Balls/P5
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -197,6 +207,8 @@ material Pool/Balls/P6
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -227,6 +239,8 @@ material Pool/Balls/P7
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -257,6 +271,8 @@ material Pool/Balls/P8
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -287,6 +303,8 @@ material Pool/Balls/P9
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -317,6 +335,8 @@ material Pool/Balls/P10
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -347,6 +367,8 @@ material Pool/Balls/P11
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -377,6 +399,8 @@ material Pool/Balls/P12
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -407,6 +431,8 @@ material Pool/Balls/P13
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -437,6 +463,8 @@ material Pool/Balls/P14
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
@@ -467,6 +495,8 @@ material Pool/Balls/P15
 	{
 		pass
 		{
+			normalise_normals	on
+
 			texture_unit
 			{
 				//colour_op			add
