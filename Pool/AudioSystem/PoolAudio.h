@@ -30,7 +30,7 @@ public:
 
 	bool init(int numSounds = 3, int numSources = 3);
 
-	void setCameraPosition(const Ogre::Vector3& pos);
+	void setListenerPosition(const Ogre::Vector3& pos);
 
 	bool loadWavFile(const std::string& fileName);
 
@@ -41,7 +41,7 @@ private:
 
 	OpenALSystem m_OALSystem;
 
-	Ogre::Vector3 m_CamPos;
+	Ogre::Vector3 m_ListenerPos;
 };
 
 

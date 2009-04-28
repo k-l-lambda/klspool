@@ -1,10 +1,18 @@
 TODO:
 	Billiards::Game: deployment
+	Ball config serialization.
+	refine AudioSystem dependence structure.
 	Visual object serialization.
 	Real-time environment map material.
 
 Known Issues:
 	Multi-thread accessing conflict sometimes.
+
+
+2009.4.28	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards/BallConfig.h: created.
+	+	Billiards/GameLayout.h: created.
 
 
 2009.4.27	K.L.	<xxxK.L.xxx@gmail.com>

@@ -234,11 +234,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BallConfig.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Billiards.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GameLayout.h"
 				>
 			</File>
 			<File

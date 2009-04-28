@@ -31,12 +31,12 @@ bool PoolAudio::loadWavFile(const std::string& fileName)
 void PoolAudio::playSound(int soundNum, const Ogre::Vector3 &source)
 {
 	ALfloat sourcePos[3] = {source.x, source.y, source.z};
-	ALfloat litenerPos[3] = {m_CamPos.x, m_CamPos.y, m_CamPos.z};
+	ALfloat listenerPos[3] = {m_ListenerPos.x, m_ListenerPos.y, m_ListenerPos.z};
 
-	m_OALSystem.playSound(soundNum, sourcePos, litenerPos);
+	m_OALSystem.playSound(soundNum, sourcePos, listenerPos);
 }
 
-void PoolAudio::setCameraPosition(const Ogre::Vector3& pos)
+void PoolAudio::setListenerPosition(const Ogre::Vector3& pos)
 {
-	m_CamPos = pos;
+	m_ListenerPos = pos;
 }

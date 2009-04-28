@@ -319,7 +319,7 @@ void Frame::frameStarted(const FrameEvent& evt)
 		//mCamera->lookAt(0, 0, 0);
 
 		// update camera position in audio system
-		PoolAudio::instance().setCameraPosition(mCamera->getPosition());
+		PoolAudio::instance().setListenerPosition(mCamera->getPosition());
 	}
 }
 
