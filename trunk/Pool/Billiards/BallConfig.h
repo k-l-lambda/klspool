@@ -75,6 +75,7 @@ namespace Billiards
 
 BOOST_CLASS_IMPLEMENTATION(Billiards::BallConfig, boost::serialization::object_serializable)
 BOOST_CLASS_IMPLEMENTATION(Billiards::BallConfigSet, boost::serialization::object_serializable)
+BOOST_CLASS_IMPLEMENTATION(Billiards::BallConfigSet::Set, boost::serialization::object_serializable)
 
 
 

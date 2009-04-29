@@ -175,6 +175,43 @@ private:
 
 
 
+static Billiards::GameLayout	genSampleLayout()
+{
+	using Billiards::Vector;
+
+	static const Real s_TriangleTop = 6;
+	static const Real s_BallRadius = 0.27;
+	static const Real s_Sqrt3 = std::sqrt(3.0);
+
+	Billiards::GameLayout::BallInfo balls[] =
+	{
+		{"std/Main",	Vector(-6, s_BallRadius, 0)},
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 1, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 1, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 1, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 1, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 1, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 1, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 1, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 1, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 1, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 1, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, +4) * s_BallRadius},
+	};
+
+	Billiards::GameLayout layout;
+	for(size_t i = 0; i < sizeof(balls) / sizeof(Billiards::GameLayout::BallInfo); ++ i)
+		layout.BallsLayout.push_back(balls[i]);
+
+	return layout;
+}
+static const Billiards::GameLayout s_TheSampleLayout = genSampleLayout();
+
+
 BEGIN_EVENT_TABLE(Frame, wxFrame)
 	EVT_IDLE(Frame::onIdle)
 	EVT_CLOSE(Frame::onClose)
@@ -265,23 +302,7 @@ void Frame::createScene()
 	// init physics system
 	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
 	m_Game->loadBallConfigSet("std");
-	{	// a sample game layout
-		using Billiards::Vector;
-		Billiards::GameLayout::BallInfo balls[] =
-		{
-			{"std/Main",	Vector(-6, 0.27f, 0)},
-			{"std/1#",		Vector(6, 0.27f, 0)},
-			{"std/2#",		Vector(6.468, 0.27f, -0.27)},
-			{"std/3#",		Vector(6.468, 0.27f, 0.27)},
-		};
-		Billiards::GameLayout layout =
-		{
-			boost::assign::list_of(balls[0])(balls[1])(balls[2])(balls[3])
-				.to_container(Billiards::GameLayout::BallsLayout_t()),
-		};
-
-		m_Game->deployLayout(layout);
-	}
+	m_Game->deployLayout(s_TheSampleLayout);
 
 	// init audio system
 	PoolAudio::instance().init(3, 3);
@@ -362,6 +383,10 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 			front.normalise();
 			m_Game->shot(ogre2Bld(front * 40), ogre2Bld(-front));
 		}
+
+		break;
+	case OIS::KC_R:
+		m_Game->deployLayout(s_TheSampleLayout);
 
 		break;
 	}
