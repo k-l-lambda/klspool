@@ -1,6 +1,4 @@
 TODO:
-	Billiards::Game: deployment
-	Ball config serialization.
 	refine AudioSystem dependence structure.
 	Visual object serialization.
 	Real-time environment map material.
@@ -10,6 +8,8 @@ Known Issues:
 
 
 2009.4.29	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards::Game::deployLayout: added, implemeneted.
 
 	+	Billiards::BallConfigSet: added, serialization implemented.
 

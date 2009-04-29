@@ -8,6 +8,7 @@
 #include "StableHeaders.h"
 
 #include "../Billiards/Game.h"
+#include "../Billiards/GameLayout.h"
 
 #include "../AudioSystem/PoolAudio.h"
 #pragma comment(lib, "AudioSystem.lib")
@@ -264,6 +265,23 @@ void Frame::createScene()
 	// init physics system
 	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
 	m_Game->loadBallConfigSet("std");
+	{	// a sample game layout
+		using Billiards::Vector;
+		Billiards::GameLayout::BallInfo balls[] =
+		{
+			{"std/Main",	Vector(-6, 0.27f, 0)},
+			{"std/1#",		Vector(6, 0.27f, 0)},
+			{"std/2#",		Vector(6.468, 0.27f, -0.27)},
+			{"std/3#",		Vector(6.468, 0.27f, 0.27)},
+		};
+		Billiards::GameLayout layout =
+		{
+			boost::assign::list_of(balls[0])(balls[1])(balls[2])(balls[3])
+				.to_container(Billiards::GameLayout::BallsLayout_t()),
+		};
+
+		m_Game->deployLayout(layout);
+	}
 
 	// init audio system
 	PoolAudio::instance().init(3, 3);

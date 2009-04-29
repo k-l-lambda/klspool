@@ -26,7 +26,7 @@ GameObject::GameObject(Ogre::SceneNode* parent, const Billiards::VisualObjectPar
 		ent->getSubEntity(it->first)->setMaterialName(it->second);
 	}
 	m_nodeObject->attachObject(ent);
-	m_nodeObject->setScale(param.Scale.get<0>(), param.Scale.get<1>(), param.Scale.get<2>());
+	m_nodeObject->setScale(bld2Ogre(param.Scale));
 }
 
 void GameObject::updateTransform(const Billiards::Vector& position, const Billiards::Quaternion& orientation)

@@ -22,6 +22,7 @@ namespace Billiards
 
 	Ball::Ball(hkpWorld* world, const VisualObjectPtr& vobj)
 		: m_World(world)
+		, m_Radius(0)
 		/*, m_mass(mass)
 		, m_radius(radius)
 		, m_position(pos)*/
@@ -37,6 +38,8 @@ namespace Billiards
 
 	void Ball::resetRigidBody(const Vector& position, Real mass, Real radius)
 	{
+		m_Radius = radius;
+
 		WorldWritingLock wlock(m_World);
 
 		hkpConvexShape* shape = new hkpSphereShape(radius);
@@ -115,7 +118,12 @@ namespace Billiards
 		}
 	}
 
-	const Vector& Ball::getPosition() const
+	Real Ball::getRadius() const
+	{
+		return m_Radius;
+	}
+
+	Vector Ball::getPosition() const
 	{
 		return m_RigidBody->getPosition();
 	}
@@ -125,7 +133,7 @@ namespace Billiards
 		return m_RigidBody->getRotation();
 	}
 
-	const Vector& Ball::getVelocity() const
+	Vector Ball::getVelocity() const
 	{
 		return m_RigidBody->getLinearVelocity();
 	}

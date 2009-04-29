@@ -40,6 +40,8 @@ namespace Billiards
 
 		void	loadBallConfigSet(const std::string& setname);
 
+		void	deployLayout(const GameLayout& layout);
+
 	private:
 		void	setup();
 

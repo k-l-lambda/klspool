@@ -80,6 +80,9 @@ namespace Billiards
 	class Game;
 	class HavokSystem;
 
+	struct BallConfig;
+	struct BallConfigSet;
+	struct GameLayout;
 	struct IVisualObject;
 	struct VisualObjectParameters;
 
