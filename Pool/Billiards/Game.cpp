@@ -7,12 +7,17 @@
 
 #include "StableHeaders.h"
 
+#include <iostream>
+
+#pragma warning(push)
+#pragma warning(disable: 4819)	// 'bytes' bytes padding added after construct 'member_name'
 #include <boost\assign.hpp>
+#include <boost\format.hpp>
+#pragma warning(pop)
 
 #include "Game.h"
 #include "VisualObject.h"
 #include "ThreadAccessLock.h"
-#include <iostream>
 
 
 namespace Billiards
@@ -31,7 +36,7 @@ namespace Billiards
 
 	static const TableParams s_TableParams = {5.36f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
 
-	static const Real s_BallRadius = 0.27;
+	static const Real s_BallRadius = 1;
 	static const Real s_BallMass = 1;
 
 
@@ -71,10 +76,10 @@ namespace Billiards
 		m_table.reset();
 		m_baffles.reset();
 
-		/*for(std::vector<Ball*>::iterator iter = m_ballList.begin();
-			iter != m_ballList.end(); ++ iter)
+		/*for(std::vector<Ball*>::iterator iter = m_Balls.begin();
+			iter != m_Balls.end(); ++ iter)
 			delete *iter;*/
-		m_ballList.clear();
+		m_Balls.clear();
 		m_MainBall.reset();
 
 		if(m_HavokSystem)
@@ -100,7 +105,7 @@ namespace Billiards
 			addBall("ball6", "Pool/Balls/P6", Vector(0, 15, 0));
 			addBall("ball7", "Pool/Balls/P7", Vector(0, 16, 0));
 
-			m_MainBall = m_ballList.front();
+			m_MainBall = m_Balls.front();
 		}
 	}
 
@@ -225,37 +230,37 @@ namespace Billiards
 
 		ball->resetRigidBody(position , s_BallMass , s_BallRadius);
 
-		m_ballList.push_back(ball);
+		m_Balls.push_back(ball);
 	}
 
 	void Game::setPosOfBall(Real x, Real y, Real z, int number)
 	{
-		//assert(number > (int)m_ballList.size());
+		//assert(number > (int)m_Balls.size());
 
-		m_ballList[number]->setPosition(Vector(x, y, z));
+		m_Balls[number]->setPosition(Vector(x, y, z));
 	}
 
 	void Game::applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number)
 	{
-		//assert(number > (int)m_ballList.size());
+		//assert(number > (int)m_Balls.size());
 
-		m_ballList[number]->applyForce(force, pos, deltaTime);
+		m_Balls[number]->applyForce(force, pos, deltaTime);
 	}
 
 	/*void Game::deleteBall(int number)
 	{
-	//assert(number > (int)m_ballList.size());
+	//assert(number > (int)m_Balls.size());
 
-	delete m_ballList[number];
+	delete m_Balls[number];
 
-	std::vector<Ball*>::iterator iter = m_ballList.begin() + number;
-	m_ballList.erase(iter);
+	std::vector<Ball*>::iterator iter = m_Balls.begin() + number;
+	m_Balls.erase(iter);
 	}*/
 
 	void Game::updateAllBalls()
 	{
-		for(int i = 0; i < (int)m_ballList.size(); ++i)
-			m_ballList[i]->update();
+		for(int i = 0; i < (int)m_Balls.size(); ++i)
+			m_Balls[i]->update();
 	}
 
 	void Game::simulate(Real elapsedTime)
@@ -265,14 +270,14 @@ namespace Billiards
 		updateAllBalls();
 
 		// recycle fallen balls
-		for(size_t i = 0; i < m_ballList.size(); ++ i)
-			if(m_ballList[i]->getPosition()(1) < 0)
+		for(size_t i = 0; i < m_Balls.size(); ++ i)
+			if(m_Balls[i]->getPosition()(1) < 0)
 			{
-				m_ballList[i]->setPosition(Vector(0, 10, 0));
+				m_Balls[i]->setPosition(Vector(0, 10, 0));
 
-				Vector v = m_ballList[i]->getVelocity();
+				Vector v = m_Balls[i]->getVelocity();
 				v.mul4(1e-1f);
-				m_ballList[i]->setVelocity(v);
+				m_Balls[i]->setVelocity(v);
 			}
 	}
 
@@ -290,5 +295,20 @@ namespace Billiards
 		wp.add4(p);
 
 		m_MainBall->applyForce(force, wp, s_ShotTime);
+	}
+
+	void Game::loadBallConfigSet(const std::string& setname)
+	{
+		if(m_LoadedBallConfigSets.insert(setname).second)
+		{
+			static const std::string s_ArchivePath = "./BallConfigSets/%s.xml";
+
+			BallConfigSet bcset = BallConfigSet::loadFile((boost::format(s_ArchivePath) % setname).str());
+
+			for(BallConfigSet::const_iterator it = bcset.begin(); it != bcset.end(); ++ it)
+			{
+				m_BallConfigMap[(boost::format("%s/%s") % bcset.NameSpace % it->Name).str()] = *it;
+			}
+		}
 	}
 }

@@ -41,6 +41,38 @@ material Pool/SkyBox
 	}
 }
 
+material Pool/Balls/White
+{
+	technique
+	{
+		pass
+		{
+			normalise_normals	on
+
+			texture_unit
+			{
+				//colour_op			add
+				//colour_op_ex		blend_manual src_texture src_current 0.6
+				cubic_texture		morning.jpg combinedUVW
+				tex_address_mode	clamp
+				env_map				cubic_reflection
+			}
+
+			texture_unit
+			{
+				colour_op_ex		modulate src_current src_manual 0.6 0.6 0.6
+			}
+
+			texture_unit
+			{
+				colour_op			add
+				texture white.dds
+				transform	2 0 0 0  0 1 0 0  0 0 1 0  0 0 0 1
+			}
+		}
+	}
+}
+
 material Pool/Balls/P1
 {
 	technique

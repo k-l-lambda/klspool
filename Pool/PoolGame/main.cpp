@@ -30,7 +30,7 @@
 
 
 #define	_CONSOLE
-#define	WRITE_STDOULINE_FILES
+//#define	WRITE_BALLCONFIGSET_FILES
 
 
 #include "Frame.h"
@@ -42,12 +42,46 @@ IMPLEMENT_APP(wxApp)
 
 
 
+#ifdef	WRITE_BALLCONFIGSET_FILES
+
+#	include "..\Billiards\BallConfig.h"
+
+static void	saveBallConfigSet(const std::string& name, const Billiards::BallConfigSet& set)
+{
+	Billiards::BallConfigSet::saveFile("./BallConfigSets/" + name + ".xml", set);
+}
+
+static void	writeBallConfigSetFiles()
+{
+	Billiards::BallConfig balls[] =
+	{
+		{"Main", 0.27f, 1, "White"},
+		{"1#", 0.27f, 1, "P1"},
+		{"2#", 0.27f, 1, "P2"},
+		{"3#", 0.27f, 1, "P3"},
+	};
+
+	Billiards::BallConfigSet stdset;
+	stdset.NameSpace = "std";
+	for(size_t i = 0; i < sizeof(balls) / sizeof(Billiards::BallConfig); ++ i)
+		stdset.insert(balls[i]);
+
+	saveBallConfigSet("std", stdset);
+}
+
+#endif	// defined(WRITE_BALLCONFIGSET_FILES)
+
+
 extern "C" __declspec(dllexport) int	startup()
 {
 	// Enable run-time memory check for debug builds.
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 #endif
+
+#ifdef	WRITE_BALLCONFIGSET_FILES
+	writeBallConfigSetFiles();
+#endif	// defined(WRITE_BALLCONFIGSET_FILES)
 
 	if(wxInitialize())
 	{
@@ -66,7 +100,7 @@ extern "C" __declspec(dllexport) int	startup()
 				evtloop.Run();
 			}
 		}
-		catch(const Exception& e)
+		catch(const Ogre::Exception& e)
 		{
 			MessageBox(NULL, e.getFullDescription().c_str(), "An OGRE exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
 		}
