@@ -263,6 +263,7 @@ void Frame::createScene()
 
 	// init physics system
 	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
+	m_Game->loadBallConfigSet("std");
 
 	// init audio system
 	PoolAudio::instance().init(3, 3);

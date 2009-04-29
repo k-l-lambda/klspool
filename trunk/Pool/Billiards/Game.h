@@ -12,6 +12,7 @@
 
 #include "HavokSystem.h"
 #include "Ball.h"
+#include "BallConfig.h"
 
 #include <boost\noncopyable.hpp>
 
@@ -24,6 +25,8 @@ namespace Billiards
 	{
 		typedef	boost::shared_ptr<Ball>	BallPtr;
 
+		typedef	std::map<std::string, BallConfig>	BallConfigMap;
+
 	public:
 		explicit Game(const VisualObjectCreationFunctor& fnCreateVisualObject);
 		~Game();
@@ -31,33 +34,35 @@ namespace Billiards
 		// test if all the balls is still
 		//bool isStill() const;
 
-		void simulate(Real elapsedTime);
+		void	simulate(Real elapsedTime);
 
-		void shot(const Vector& impulse, const Vector& pos);
+		void	shot(const Vector& impulse, const Vector& pos);
+
+		void	loadBallConfigSet(const std::string& setname);
 
 	private:
-		void setup();
+		void	setup();
 
-		void createPhysicsScene();
+		void	createPhysicsScene();
 
-		void creatTable();
+		void	creatTable();
 
-		void updateAllBalls();
+		void	updateAllBalls();
 
-		void addBall(const std::string& name, const std::string& materialname, const Vector& position);
-		//void deleteBall(int number);
+		void	addBall(const std::string& name, const std::string& materialname, const Vector& position);
+		//void	deleteBall(int number);
 
 		// give some impuse to the designated ball
-		void applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number);
+		void	applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number);
 
 		// set the designated ball stilled
-		//void disableBall(int number);
+		//void	freezeBall(int number);
 
-		void setPosOfBall(Real x, Real y, Real z, int number);
+		void	setPosOfBall(Real x, Real y, Real z, int number);
 
 	private:
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
-		std::vector<BallPtr>	m_ballList;
+		std::vector<BallPtr>	m_Balls;
 		hkpRigidBodyPtr			m_table;
 		hkpRigidBodyPtr			m_baffles;
 
@@ -67,6 +72,9 @@ namespace Billiards
 
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		VisualObjectCreationFunctor		m_fnCreateVisualObject;
+
+		std::set<std::string>	m_LoadedBallConfigSets;
+		BallConfigMap			m_BallConfigMap;
 	};
 }
 

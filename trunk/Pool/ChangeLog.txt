@@ -9,6 +9,11 @@ Known Issues:
 	Multi-thread accessing conflict sometimes.
 
 
+2009.4.29	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards::BallConfigSet: added, serialization implemented.
+
+
 2009.4.28	K.L.	<xxxK.L.xxx@gmail.com>
 
 	+	Billiards/BallConfig.h: created.
