@@ -85,9 +85,7 @@ private:
 	SceneNode*							m_nodeGame;
 	SceneNode*							m_nodeCameraRoot;
 	SceneNode*							m_nodeCamera;
-
-	//SceneNode*							m_nodeBall_1;
-	//SceneNode*							m_nodeBall_2;
+	SceneNode*							m_nodeCue;
 
 	boost::shared_ptr<CEGUI::Renderer>	m_GuiRenderer;
 	boost::shared_ptr<CEGUI::System>	m_GuiSystem;
@@ -96,6 +94,7 @@ private:
 
 	bool								m_RotatingCamera;
 	bool								m_PanningCamera;
+	bool								m_Staring;
 
 	Radian								m_SkyBoxAngle;
 
@@ -104,6 +103,9 @@ private:
 	GamePtr								m_Game;
 
 	Ogre::Timer							m_timer;
+
+	Real								m_AmassDistance;
+	Real								m_AmassMax;
 
 	DECLARE_EVENT_TABLE()
 };

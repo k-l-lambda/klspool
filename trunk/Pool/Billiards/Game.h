@@ -42,6 +42,8 @@ namespace Billiards
 
 		void	deployLayout(const GameLayout& layout);
 
+		ConstBallPtr	getMainBall() const;
+
 	private:
 		void	setup();
 
@@ -51,15 +53,8 @@ namespace Billiards
 
 		void	updateAllBalls();
 
-		//void	addBall(const std::string& name, const std::string& materialname, const Vector& position);
-
-		// give some impuse to the designated ball
-		//void	applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number);
-
 		// set the designated ball stilled
 		//void	freezeBall(int number);
-
-		//void	setPosOfBall(Real x, Real y, Real z, int number);
 
 	private:
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'

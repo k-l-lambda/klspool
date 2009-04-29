@@ -1,6 +1,7 @@
 TODO:
 	Camera path animation
 	refine AudioSystem dependence structure.
+	Ball shadow
 	Visual object serialization.
 	Real-time environment map material.
 
@@ -10,6 +11,8 @@ Known Issues:
 
 
 2009.4.29	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Frame: shot by cue-pulling implemented.
 
 	+	Cue mesh added.
 

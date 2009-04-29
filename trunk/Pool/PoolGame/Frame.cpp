@@ -225,11 +225,15 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_nodeGame(NULL)
 	, m_nodeCameraRoot(NULL)
 	, m_nodeCamera(NULL)
+	, m_nodeCue(NULL)
 	, m_fnOnClose(fnOnClose)
 	, m_RotatingCamera(false)
 	, m_PanningCamera(false)
+	, m_Staring(false)
 	, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
 	, m_FocusDialog(wxID_ANY)
+	, m_AmassDistance(0)
+	, m_AmassMax(0)
 {
 }
 
@@ -254,18 +258,21 @@ void Frame::createScene()
 
 	m_nodeCameraRoot = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
-	// Create 2 point lights
-	Light* l1 = mSceneMgr->createLight("MainLight");
-	l1->setAttenuation(100000, 0.4f, 0, 0);
-	l1->setSpecularColour(0.3f, 0.3f, 0.3f);
+	// setup lights
+	Light* l2 = mSceneMgr->createLight("MainLight");
+	l2->setType(Light::LT_SPOTLIGHT);
+	l2->setDiffuseColour(1.0f, 0.9f, 0.7f);
+	l2->setSpecularColour(1.0f, 0.9f, 0.7f);
+	l2->setDirection(0, -1, 0);
+	l2->setSpotlightRange(Radian(Math::PI * 0.5f), Radian(Math::PI * 0.7f));
+	m_nodeLight2 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	m_nodeLight2->createChildSceneNode(Vector3(0, 20, 0))->attachObject(l2);
+
+	Light* l1 = mSceneMgr->createLight("AssistLight");
+	l1->setAttenuation(1000, 0.4f, 0, 0);
+	l1->setSpecularColour(0.1f, 0.1f, 0.1f);
 	m_nodeLight = m_nodeCameraRoot->createChildSceneNode();
 	m_nodeLight->createChildSceneNode(Vector3(40, 20, 100))->attachObject(l1);
-
-	Light* l2 = mSceneMgr->createLight("AssistLight");
-	l2->setDiffuseColour(0.2f, 0.2f, 0.2f);
-	l2->setSpecularColour(0.1f, 0.1f, 0.1f);
-	m_nodeLight2 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	m_nodeLight2->createChildSceneNode(Vector3(-40, 60, 30))->attachObject(l2);
 
 	mSceneMgr->setAmbientLight(ColourValue(0.6f, 0.6f, 0.6f));
 
@@ -284,11 +291,13 @@ void Frame::createScene()
 	nodeTable->attachObject(mSceneMgr->createEntity("table", "table.mesh"));
 	nodeTable->setPosition(0, 8, 0);
 
-	Ogre::SceneNode* nodeCue = m_nodeGame->createChildSceneNode("cue");
-	nodeCue->attachObject(mSceneMgr->createEntity("cue", "cue.mesh"));
-	nodeCue->setPosition(0, 8, 8);
+	m_nodeCue = m_nodeGame->createChildSceneNode("cue");
+	m_nodeCue->createChildSceneNode()->createChildSceneNode(Vector3(-0.8, -0.948, 4.992))->attachObject(mSceneMgr->createEntity("cue", "cue.mesh"));
+	m_nodeCue->setPosition(0, 8, 8);
+	m_nodeCue->getChild(0)->getChild(0)->setOrientation(Quaternion(Radian(Math::HALF_PI), Vector3::UNIT_Y));
+	m_nodeCue->setVisible(m_Staring);
 
-	// only a sample
+	// table & ground
 	{
 		Ogre::Entity* entGround = mSceneMgr->createEntity("ground", "floor200x200.mesh");
 		entGround->getSubEntity(0)->setMaterialName("Pool/Table/RedGrass");
@@ -353,14 +362,19 @@ void Frame::frameStarted(const FrameEvent& evt)
 		m_SkyBoxAngle += delta;
 
 		// light animation
-		m_nodeLight2->yaw(delta);
+		//m_nodeLight2->yaw(delta);
 		//m_nodeLight->yaw(delta);
+
+		// update cue
+		if(m_Staring)
+		{
+			m_nodeCue->getChild(0)->setPosition(0, 0, m_AmassDistance + m_Game->getMainBall()->getRadius());
+		}
 
 		// rotate camera
 		//m_nodeCameraRoot->setOrientation(Quaternion(m_SkyBoxAngle, Vector3::UNIT_Y));
-		mCamera->setPosition(m_nodeCamera->_getDerivedPosition()/* + 50*/);
+		mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
 		mCamera->lookAt(m_nodeCameraRoot->_getDerivedPosition());
-		//mCamera->lookAt(0, 0, 0);
 
 		// update camera position in audio system
 		PoolAudio::instance().setListenerPosition(mCamera->getPosition());
@@ -385,7 +399,7 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 		{
 			Vector3 front = m_nodeCameraRoot->_getDerivedPosition() - m_nodeCamera->_getDerivedPosition();
 			front.normalise();
-			m_Game->shot(ogre2Bld(front * 40), ogre2Bld(-front));
+			m_Game->shot(ogre2Bld(front * 60), ogre2Bld(-front));
 		}
 
 		break;
@@ -393,13 +407,38 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 		m_Game->deployLayout(s_TheSampleLayout);
 
 		break;
+	case OIS::KC_LCONTROL:
+		m_Staring = true;
+		m_RotatingCamera = false;
+		m_AmassMax = m_AmassDistance = 0.2f;
+
+		m_nodeCameraRoot->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
+		m_nodeCue->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
+		m_nodeCue->setOrientation(m_nodeCameraRoot->getOrientation());
+		m_nodeCue->getChild(0)->setPosition(0, 0, m_Game->getMainBall()->getRadius());
+		m_nodeCue->setVisible(m_Staring);
+
+		m_GuiSystem->setDefaultMouseCursor(CEGUI::BlankMouseCursor);
+
+		break;
 	}
 
 	return true;
 }
 
-bool Frame::keyReleased(const OIS::KeyEvent& /*arg*/)
+bool Frame::keyReleased(const OIS::KeyEvent& e)
 {
+	switch(e.key)
+	{
+	case OIS::KC_LCONTROL:
+		m_Staring = false;
+		m_nodeCue->setVisible(m_Staring);
+
+		m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
+
+		break;
+	}
+
 	return true;
 }
 
@@ -453,6 +492,26 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 		m_nodeCamera->setPosition(camera);
 	}
 
+	if(m_Staring)
+	{
+		m_AmassDistance += e.state.Y.rel * 0.04f;
+
+		if(e.state.Y.rel > 0)
+			m_AmassMax = m_AmassDistance;
+
+		// shot
+		if(m_AmassDistance < 0)
+		{
+			Vector3 front = m_nodeCameraRoot->_getDerivedPosition() - m_nodeCamera->_getDerivedPosition();
+			front.normalise();
+			Real power = std::max(-e.state.Y.rel * std::pow(m_AmassMax, 0.4f) * 0.6f, 0.0f);
+			m_Game->shot(ogre2Bld(front * power), ogre2Bld(-front));
+
+			m_Staring = false;
+			m_nodeCue->setVisible(m_Staring);
+		}
+	}
+
 	CEGUI::System::getSingleton().injectMouseMove(e.state.X.rel, e.state.Y.rel);
 
 	return true;
@@ -465,11 +524,13 @@ bool Frame::mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id)
 	switch(id)
 	{
 	case OIS::MB_Left:
-		m_RotatingCamera = true;
+		if(!m_Staring)
+			m_RotatingCamera = true;
 
 		break;
 	case OIS::MB_Right:
-		m_PanningCamera = true;
+		if(!m_Staring)
+			m_PanningCamera = true;
 
 		break;
 	}

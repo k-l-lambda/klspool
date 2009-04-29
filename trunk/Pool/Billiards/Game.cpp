@@ -37,9 +37,6 @@ namespace Billiards
 
 	static const TableParams s_TableParams = {7.2f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
 
-	//static const Real s_BallRadius = 1;
-	//static const Real s_BallMass = 1;
-
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
 		: m_HavokSystem(NULL)
@@ -195,36 +192,6 @@ namespace Billiards
 		baffles->removeReference();
 	}
 
-	/*void Game::addBall(const std::string& name, const std::string& materialname, const Vector& position)
-	{
-		VisualObjectParameters param =
-		{
-			name, "Sphere",
-			boost::assign::map_list_of(0, materialname).to_container(VisualObjectParameters::MaterialNameMap_t()),
-			Vector(s_BallRadius, s_BallRadius, s_BallRadius),
-		};
-		VisualObjectPtr vobj = m_fnCreateVisualObject(param);
-		BallPtr ball(new Ball(m_HavokSystem->getWorld(), vobj));
-
-		ball->resetRigidBody(position ,s_BallMass ,s_BallRadius);
-
-		m_Balls.push_back(ball);
-	}
-
-	void Game::setPosOfBall(Real x, Real y, Real z, int number)
-	{
-		//assert(number > (int)m_Balls.size());
-
-		m_Balls[number]->setPosition(Vector(x, y, z));
-	}
-
-	void Game::applyForceOnBall(const Vector& force, const Vector& pos, Real deltaTime, int number)
-	{
-		//assert(number > (int)m_Balls.size());
-
-		m_Balls[number]->applyForce(force, pos, deltaTime);
-	}*/
-
 	void Game::updateAllBalls()
 	{
 		for(int i = 0; i < (int)m_Balls.size(); ++i)
@@ -298,5 +265,10 @@ namespace Billiards
 
 		if(!m_Balls.empty())
 			m_MainBall = m_Balls.front();
+	}
+
+	ConstBallPtr Game::getMainBall() const
+	{
+		return m_MainBall;
 	}
 }

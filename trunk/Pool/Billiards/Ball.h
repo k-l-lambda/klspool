@@ -18,7 +18,7 @@ namespace Billiards
 	// This class synchronizes the graphic and the phsix of the ball,
 	// and supports some tests and sets funtions
 
-	class Ball
+	class BILLIARDS_API	Ball
 	{
 	public:
 		Ball(hkpWorld* world, const VisualObjectPtr& vobj);
@@ -43,8 +43,6 @@ namespace Billiards
 
 		void update();
 
-		//static void setupStatic(hkpWorld* hw);
-
 	private:
 		Real			m_Radius;
 		/*Real			m_mass;
@@ -55,8 +53,6 @@ namespace Billiards
 		hkpRigidBodyPtr	m_RigidBody;
 
 		VisualObjectPtr	m_VisualObject;
-
-		//static hkpWorld* s_hkpWorld;
 	};
 }
 
