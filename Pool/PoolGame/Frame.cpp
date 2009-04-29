@@ -180,7 +180,7 @@ static Billiards::GameLayout	genSampleLayout()
 	using Billiards::Vector;
 
 	static const Real s_TriangleTop = 6;
-	static const Real s_BallRadius = 0.27;
+	static const Real s_BallRadius = 0.27 + 1e-5;
 	static const Real s_Sqrt3 = std::sqrt(3.0);
 
 	Billiards::GameLayout::BallInfo balls[] =
@@ -283,6 +283,10 @@ void Frame::createScene()
 	Ogre::SceneNode* nodeTable = m_nodeGame->createChildSceneNode("table");
 	nodeTable->attachObject(mSceneMgr->createEntity("table", "table.mesh"));
 	nodeTable->setPosition(0, 8, 0);
+
+	Ogre::SceneNode* nodeCue = m_nodeGame->createChildSceneNode("cue");
+	nodeCue->attachObject(mSceneMgr->createEntity("cue", "cue.mesh"));
+	nodeCue->setPosition(0, 8, 8);
 
 	// only a sample
 	{

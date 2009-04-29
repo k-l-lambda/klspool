@@ -1,13 +1,17 @@
 TODO:
+	Camera path animation
 	refine AudioSystem dependence structure.
 	Visual object serialization.
 	Real-time environment map material.
 
 Known Issues:
+	Balls don't lay stably on table when initializing
 	Multi-thread accessing conflict sometimes.
 
 
 2009.4.29	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Cue mesh added.
 
 	+	Frame: redeploy hotkey added.
 
