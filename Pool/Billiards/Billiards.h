@@ -86,6 +86,7 @@ namespace Billiards
 	struct IVisualObject;
 	struct VisualObjectParameters;
 
+	typedef	boost::shared_ptr<const Ball>											ConstBallPtr;
 	typedef	boost::shared_ptr<IVisualObject>										VisualObjectPtr;
 	typedef	boost::function<VisualObjectPtr (const VisualObjectParameters&)>		VisualObjectCreationFunctor;
 }
