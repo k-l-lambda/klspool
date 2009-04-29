@@ -24,28 +24,30 @@ namespace Billiards
 		Ball(hkpWorld* world, const VisualObjectPtr& vobj);
 		~Ball();
 
-		void resetRigidBody(const Vector& position, Real mass, Real radius);
-		void releaseRigidBody();
+		void	resetRigidBody(const Vector& position, Real mass, Real radius);
+		void	releaseRigidBody();
 
-		void applyForce(const Vector& force, const Vector& pos, Real deltaTime);
+		void	applyForce(const Vector& force, const Vector& pos, Real deltaTime);
 
-		void setPosition(const Vector& pos);
-		void setVelocity(const Vector& vel);
+		void	setPosition(const Vector& pos);
+		void	setVelocity(const Vector& vel);
 
-		bool isInHole() const;
-		bool isStill() const;
+		bool	isInHole() const;
+		bool	isStill() const;
 
-		const Vector&		getPosition() const;
+		Real	getRadius() const;
+
+		Vector				getPosition() const;
 		const Quaternion&	getRotation() const;
-		const Vector&		getVelocity() const;
+		Vector				getVelocity() const;
 
 		void update();
 
 		//static void setupStatic(hkpWorld* hw);
 
 	private:
-		/*Real			m_radius;
-		Real			m_mass;
+		Real			m_Radius;
+		/*Real			m_mass;
 		Vector			m_position;
 		Quaternion		m_rotation;*/
 

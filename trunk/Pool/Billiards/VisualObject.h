@@ -22,12 +22,11 @@ namespace Billiards
 	struct VisualObjectParameters
 	{
 		typedef	std::map<unsigned int, std::string>		MaterialNameMap_t;
-		typedef	boost::tuple<float, float, float>		Scale_t;
 
 		std::string				Name;
 		std::string				MeshName;
 		MaterialNameMap_t		MaterialNameMap;
-		Scale_t					Scale;
+		Vector					Scale;
 	};
 
 

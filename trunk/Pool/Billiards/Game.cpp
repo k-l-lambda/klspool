@@ -18,6 +18,7 @@
 #include "Game.h"
 #include "VisualObject.h"
 #include "ThreadAccessLock.h"
+#include "GameLayout.h"
 
 
 namespace Billiards
@@ -34,16 +35,14 @@ namespace Billiards
 		float holeRadius;
 	};
 
-	static const TableParams s_TableParams = {5.36f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
+	static const TableParams s_TableParams = {7.2f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
 
 	static const Real s_BallRadius = 1;
 	static const Real s_BallMass = 1;
 
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
-		: /*m_table(NULL)
-		, m_MainBall(NULL)
-		,*/ m_HavokSystem(NULL)
+		: m_HavokSystem(NULL)
 		, m_fnCreateVisualObject(fnCreateVisualObject)
 	{
 		m_HavokSystem = new HavokSystem();
@@ -94,7 +93,7 @@ namespace Billiards
 		creatTable();
 
 		// add sample balls
-		{
+		/*{
 			WorldWritingLock wlock(m_HavokSystem->getWorld());
 
 			addBall("ball1", "Pool/Balls/P1", Vector(1e-4, 10, 0));
@@ -106,7 +105,7 @@ namespace Billiards
 			addBall("ball7", "Pool/Balls/P7", Vector(0, 16, 0));
 
 			m_MainBall = m_Balls.front();
-		}
+		}*/
 	}
 
 	void Game::creatTable()
@@ -210,8 +209,8 @@ namespace Billiards
 		}
 
 		// Do some translate according to the real model
-		m_baffles->setPosition(Vector(0, 7.2, -0.1));
-		m_table->setPosition(Vector(0, 7.2, -0.1));
+		m_baffles->setPosition(Vector(0, s_TableParams.height, -0.1));
+		m_table->setPosition(Vector(0, s_TableParams.height, -0.1));
 
 		tableBoard->removeReference();
 		baffles->removeReference();
@@ -223,12 +222,12 @@ namespace Billiards
 		{
 			name, "Sphere",
 			boost::assign::map_list_of(0, materialname).to_container(VisualObjectParameters::MaterialNameMap_t()),
-			boost::make_tuple(s_BallRadius, s_BallRadius, s_BallRadius),
+			Vector(s_BallRadius, s_BallRadius, s_BallRadius),
 		};
 		VisualObjectPtr vobj = m_fnCreateVisualObject(param);
 		BallPtr ball(new Ball(m_HavokSystem->getWorld(), vobj));
 
-		ball->resetRigidBody(position , s_BallMass , s_BallRadius);
+		ball->resetRigidBody(position ,s_BallMass ,s_BallRadius);
 
 		m_Balls.push_back(ball);
 	}
@@ -271,13 +270,10 @@ namespace Billiards
 
 		// recycle fallen balls
 		for(size_t i = 0; i < m_Balls.size(); ++ i)
-			if(m_Balls[i]->getPosition()(1) < 0)
+			if(m_Balls[i]->getPosition().y < 0)
 			{
 				m_Balls[i]->setPosition(Vector(0, 10, 0));
-
-				Vector v = m_Balls[i]->getVelocity();
-				v.mul4(1e-1f);
-				m_Balls[i]->setVelocity(v);
+				m_Balls[i]->setVelocity(m_Balls[i]->getVelocity() / 10);
 			}
 	}
 
@@ -285,16 +281,7 @@ namespace Billiards
 	{
 		static const Real s_ShotTime = 1e-3;
 
-		Vector force(impulse);
-		force.mul4(1 / s_ShotTime);
-
-		Vector p(pos);
-		p.normalize3();
-		p.mul4(s_BallRadius);
-		Vector wp(m_MainBall->getPosition());
-		wp.add4(p);
-
-		m_MainBall->applyForce(force, wp, s_ShotTime);
+		m_MainBall->applyForce(impulse / s_ShotTime, m_MainBall->getPosition() + pos.normalisedCopy() * m_MainBall->getRadius(), s_ShotTime);
 	}
 
 	void Game::loadBallConfigSet(const std::string& setname)
@@ -310,5 +297,37 @@ namespace Billiards
 				m_BallConfigMap[(boost::format("%s/%s") % bcset.NameSpace % it->Name).str()] = *it;
 			}
 		}
+	}
+
+	void Game::deployLayout(const GameLayout& layout)
+	{
+		m_Balls.clear();
+		m_MainBall.reset();
+
+		for(size_t i = 0; i < layout.BallsLayout.size(); ++ i)
+		{
+			const GameLayout::BallInfo& ballinfo = layout.BallsLayout[i];
+
+			if(!m_BallConfigMap.count(ballinfo.Config))
+				throw std::logic_error("cannot find ball config \"" + ballinfo.Config + "\"");
+
+			const BallConfig& config = m_BallConfigMap[ballinfo.Config];
+
+			VisualObjectParameters param =
+			{
+				(boost::format("ball%d") % i).str(), "Sphere",
+				boost::assign::map_list_of(0, "Pool/Balls/" + config.Material).to_container(VisualObjectParameters::MaterialNameMap_t()),
+				Vector(config.Redius, config.Redius, config.Redius),
+			};
+			VisualObjectPtr vobj = m_fnCreateVisualObject(param);
+			BallPtr ball(new Ball(m_HavokSystem->getWorld(), vobj));
+
+			ball->resetRigidBody(ballinfo.Position + Vector(0, s_TableParams.height + -0.1f, 0), config.Mass ,config.Redius);
+
+			m_Balls.push_back(ball);
+		}
+
+		if(!m_Balls.empty())
+			m_MainBall = m_Balls.front();
 	}
 }

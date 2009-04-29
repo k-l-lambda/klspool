@@ -7,6 +7,7 @@
 
 #include "StableHeaders.h"
 
+// TODO: refine this reference of AudioSystem and PoolGame
 #include "../AudioSystem/PoolAudio.h"
 #pragma comment(lib, "AudioSystem.lib")
 
@@ -33,13 +34,12 @@ namespace Billiards
 
 	void BallCollisionListener::contactPointAddedCallback(hkpContactPointAddedEvent& event)
 	{
-		const Vector& pos = event.m_contactPoint->getPosition();
-		std::cout << "Collision: " << std::clock() << "	(" << pos(0) << ',' << pos(1) << ',' << pos(2) << ',' << pos(3) << ')' << std::endl;
-		
+		std::cout << "Collision: " << std::clock() << "\t" << event.m_contactPoint->getPosition() << std::endl;
+
 		hkpShapeType shapeTypeA = event.m_bodyA->m_shape->getType();
 		hkpShapeType shapeTypeB = event.m_bodyB->m_shape->getType();
 		if(shapeTypeA == HK_SHAPE_SPHERE && shapeTypeB == HK_SHAPE_SPHERE )
-			PoolAudio::instance().playSound(0, bld2Ogre(pos));
+			PoolAudio::instance().playSound(0, bld2Ogre(event.m_contactPoint->getPosition()));
 
 		event.m_callbackFiredFrom->setProcessContactCallbackDelay(0);
 	}

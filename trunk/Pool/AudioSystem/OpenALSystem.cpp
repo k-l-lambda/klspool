@@ -39,7 +39,8 @@ bool OpenALSystem::loadWavFile(const std::string& fileName)
 	ALsizei freq;
 	ALboolean loop;
 
-	ALbyte* filename = new ALbyte[fileName.size()];
+	// TODO: fix the memory leak
+	ALbyte* filename = new(_NORMAL_BLOCK, __FILE__, __LINE__) ALbyte[fileName.size()];
 	strcpy(filename,fileName.c_str());
 	alutLoadWAVFile(filename, &format, &data, &size, &freq, &loop);
 
