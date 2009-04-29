@@ -37,8 +37,8 @@ namespace Billiards
 
 	static const TableParams s_TableParams = {7.2f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
 
-	static const Real s_BallRadius = 1;
-	static const Real s_BallMass = 1;
+	//static const Real s_BallRadius = 1;
+	//static const Real s_BallMass = 1;
 
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
@@ -75,9 +75,6 @@ namespace Billiards
 		m_table.reset();
 		m_baffles.reset();
 
-		/*for(std::vector<Ball*>::iterator iter = m_Balls.begin();
-			iter != m_Balls.end(); ++ iter)
-			delete *iter;*/
 		m_Balls.clear();
 		m_MainBall.reset();
 
@@ -87,25 +84,7 @@ namespace Billiards
 
 	void Game::createPhysicsScene()
 	{
-		// set the world pointer in ball
-		//Ball::setupStatic(m_HavokSystem->getWorld());
-
 		creatTable();
-
-		// add sample balls
-		/*{
-			WorldWritingLock wlock(m_HavokSystem->getWorld());
-
-			addBall("ball1", "Pool/Balls/P1", Vector(1e-4, 10, 0));
-			addBall("ball2", "Pool/Balls/P2", Vector(0, 11, 1e-4));
-			addBall("ball3", "Pool/Balls/P3", Vector(0, 12, 0));
-			addBall("ball4", "Pool/Balls/P4", Vector(0, 13, 0));
-			addBall("ball5", "Pool/Balls/P5", Vector(0, 14, 0));
-			addBall("ball6", "Pool/Balls/P6", Vector(0, 15, 0));
-			addBall("ball7", "Pool/Balls/P7", Vector(0, 16, 0));
-
-			m_MainBall = m_Balls.front();
-		}*/
 	}
 
 	void Game::creatTable()
@@ -216,7 +195,7 @@ namespace Billiards
 		baffles->removeReference();
 	}
 
-	void Game::addBall(const std::string& name, const std::string& materialname, const Vector& position)
+	/*void Game::addBall(const std::string& name, const std::string& materialname, const Vector& position)
 	{
 		VisualObjectParameters param =
 		{
@@ -244,16 +223,6 @@ namespace Billiards
 		//assert(number > (int)m_Balls.size());
 
 		m_Balls[number]->applyForce(force, pos, deltaTime);
-	}
-
-	/*void Game::deleteBall(int number)
-	{
-	//assert(number > (int)m_Balls.size());
-
-	delete m_Balls[number];
-
-	std::vector<Ball*>::iterator iter = m_Balls.begin() + number;
-	m_Balls.erase(iter);
 	}*/
 
 	void Game::updateAllBalls()
@@ -322,7 +291,7 @@ namespace Billiards
 			VisualObjectPtr vobj = m_fnCreateVisualObject(param);
 			BallPtr ball(new Ball(m_HavokSystem->getWorld(), vobj));
 
-			ball->resetRigidBody(ballinfo.Position + Vector(0, s_TableParams.height + -0.1f, 0), config.Mass ,config.Redius);
+			ball->resetRigidBody(ballinfo.Position + Vector(0, s_TableParams.height + 1.f, 0), config.Mass ,config.Redius);
 
 			m_Balls.push_back(ball);
 		}

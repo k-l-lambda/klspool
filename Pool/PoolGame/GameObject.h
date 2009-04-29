@@ -24,6 +24,7 @@ class GameObject
 {
 public:
 	GameObject(Ogre::SceneNode* parent, const Billiards::VisualObjectParameters& param);
+	~GameObject();
 
 private:
 	virtual void	updateTransform(const Billiards::Vector& position, const Billiards::Quaternion& orientation);

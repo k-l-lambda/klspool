@@ -9,6 +9,8 @@ Known Issues:
 
 2009.4.29	K.L.	<xxxK.L.xxx@gmail.com>
 
+	+	Frame: redeploy hotkey added.
+
 	+	Billiards::Game::deployLayout: added, implemeneted.
 
 	+	Billiards::BallConfigSet: added, serialization implemented.

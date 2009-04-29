@@ -29,6 +29,12 @@ GameObject::GameObject(Ogre::SceneNode* parent, const Billiards::VisualObjectPar
 	m_nodeObject->setScale(bld2Ogre(param.Scale));
 }
 
+GameObject::~GameObject()
+{
+	m_nodeObject->getCreator()->destroyEntity(dynamic_cast<Ogre::Entity*>(m_nodeObject->getAttachedObject(0)));
+	m_nodeObject->getParent()->removeChild(m_nodeObject);
+}
+
 void GameObject::updateTransform(const Billiards::Vector& position, const Billiards::Quaternion& orientation)
 {
 	m_nodeObject->setPosition(bld2Ogre(position));
