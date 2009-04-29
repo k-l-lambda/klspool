@@ -566,3 +566,41 @@ material Pool/Table/RedGrass
 		}
 	}
 }
+
+material Pool/Cue/Material
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.000000 0.000000 0.000000 
+			diffuse 0.749020 0.749020 0.749020 
+			specular 0.000000 0.000000 0.000000 
+			emissive 0.000000 0.000000 0.000000 
+
+			texture_unit 
+			{
+				texture qiangtou.png
+			}
+		}
+	}
+}
+
+material Pool/Cue/Material1
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.000000 0.000000 0.000000 
+			diffuse 0.749020 0.749020 0.749020 
+			specular 0.000000 0.000000 0.000000 
+			emissive 0.000000 0.000000 0.000000 
+
+			texture_unit 
+			{
+				texture gan.png
+			}
+		}
+	}
+}
