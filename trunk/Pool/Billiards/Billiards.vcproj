@@ -139,7 +139,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
-				IgnoreDefaultLibraryNames="LIBCMT"
+				IgnoreDefaultLibraryNames="LIBCMT;libcpmt"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
