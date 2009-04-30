@@ -14,13 +14,6 @@
 #include <vector>
 #include <string>
 
-#include <al.h>
-#include <alc.h>
-#include <alut.h>
-
-#pragma comment(lib, "OpenAL32.lib")
-#pragma comment(lib, "alut.lib")
-
 #ifdef	_AUDIOSYSTEMDLL
 #	define	AUDIOSYSTEM_API	__declspec(dllexport)
 #else
@@ -36,11 +29,11 @@ public:
 	bool init(int numBuffers = 3, int numSources = 3);
 
 	bool loadWavFile(const std::string& fileName);
-	void playSound(int numOfBuffer, ALfloat* sourcePos, ALfloat* listenerPos);
+	void playSound(int numOfBuffer, const float* sourcePos, const float* listenerPos);
 
 private:
-    ALuint* m_buffers;
-	ALuint* m_sources;
+	unsigned int* m_buffers;
+	unsigned int* m_sources;
 	int m_numBuffers;
 	int m_numSources;
 

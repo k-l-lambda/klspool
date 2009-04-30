@@ -11,13 +11,6 @@
 
 
 #include "OpenALSystem.h"
-#include <Ogre.h>
-
-#ifdef	_DEBUG
-#	pragma comment(lib, "OgreMain_d.lib")
-#else
-#	pragma comment(lib, "OgreMain.lib")
-#endif
 
 #include <string>
 #include <memory>
@@ -25,23 +18,28 @@
 
 class AUDIOSYSTEM_API PoolAudio
 {
+private:
+	PoolAudio();
+	~PoolAudio();
+
 public:
 	static PoolAudio& instance();
 
 	bool init(int numSounds = 3, int numSources = 3);
 
-	void setListenerPosition(const Ogre::Vector3& pos);
+	void setListenerPosition(const float pos[3]);
 
 	bool loadWavFile(const std::string& fileName);
 
-	void playSound(int soundNum, const Ogre::Vector3& source = Ogre::Vector3::ZERO);
+	void playSound(int soundNum, const float source[3]);
 
 private:
-	static std::auto_ptr<PoolAudio> m_poolAudioPtr;
+	//static std::auto_ptr<PoolAudio> m_poolAudioPtr;
 
+#pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 	OpenALSystem m_OALSystem;
 
-	Ogre::Vector3 m_ListenerPos;
+	float m_ListenerPos[3];
 };
 
 

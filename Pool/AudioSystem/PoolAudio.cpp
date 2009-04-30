@@ -7,15 +7,30 @@
 
 #include "PoolAudio.h"
 
+#include <al.h>
+#include <alc.h>
+#include <alut.h>
 
-std::auto_ptr<PoolAudio> PoolAudio::m_poolAudioPtr;
+
+//std::auto_ptr<PoolAudio> PoolAudio::m_poolAudioPtr;
+
+PoolAudio::PoolAudio()
+{
+}
+
+PoolAudio::~PoolAudio()
+{
+}
 
 PoolAudio& PoolAudio::instance()
 {
-	if(!m_poolAudioPtr.get())
+	/*if(!m_poolAudioPtr.get())
 		m_poolAudioPtr = std::auto_ptr <PoolAudio> ( new PoolAudio() );
 
-	return *(m_poolAudioPtr.get());
+	return *(m_poolAudioPtr.get());*/
+	static PoolAudio s_Instance;
+
+	return s_Instance;
 }
 
 bool PoolAudio::init(int numSounds, int numSources)
@@ -28,15 +43,17 @@ bool PoolAudio::loadWavFile(const std::string& fileName)
 	return m_OALSystem.loadWavFile(fileName);
 }
 
-void PoolAudio::playSound(int soundNum, const Ogre::Vector3 &source)
+void PoolAudio::playSound(int soundNum, const float source[3])
 {
-	ALfloat sourcePos[3] = {source.x, source.y, source.z};
-	ALfloat listenerPos[3] = {m_ListenerPos.x, m_ListenerPos.y, m_ListenerPos.z};
+	//ALfloat sourcePos[3] = {source.x, source.y, source.z};
+	//ALfloat listenerPos[3] = {m_ListenerPos.x, m_ListenerPos.y, m_ListenerPos.z};
 
-	m_OALSystem.playSound(soundNum, sourcePos, listenerPos);
+	m_OALSystem.playSound(soundNum, source, m_ListenerPos);
 }
 
-void PoolAudio::setListenerPosition(const Ogre::Vector3& pos)
+void PoolAudio::setListenerPosition(const float pos[3])
 {
-	m_ListenerPos = pos;
+	m_ListenerPos[0] = pos[0];
+	m_ListenerPos[1] = pos[1];
+	m_ListenerPos[2] = pos[2];
 }

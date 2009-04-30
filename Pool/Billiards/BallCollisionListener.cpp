@@ -11,8 +11,6 @@
 #include "../AudioSystem/PoolAudio.h"
 #pragma comment(lib, "AudioSystem.lib")
 
-#include "../PoolGame/mathTypeConvert.h"
-
 #include "BallCollisionListener.h"
 
 #include <iostream>
@@ -39,7 +37,7 @@ namespace Billiards
 		hkpShapeType shapeTypeA = event.m_bodyA->m_shape->getType();
 		hkpShapeType shapeTypeB = event.m_bodyB->m_shape->getType();
 		if(shapeTypeA == HK_SHAPE_SPHERE && shapeTypeB == HK_SHAPE_SPHERE )
-			PoolAudio::instance().playSound(0, bld2Ogre(event.m_contactPoint->getPosition()));
+			PoolAudio::instance().playSound(0, &(event.m_contactPoint->getPosition()(0)));
 
 		event.m_callbackFiredFrom->setProcessContactCallbackDelay(0);
 	}

@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_OPENAL)include&quot;;&quot;$(SDKDIR_OPENAL)alut\include\al&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_OPENAL)include&quot;;&quot;$(SDKDIR_OPENAL)alut\include\al&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_AUDIOSYSTEMDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(SDKDIR_OPENAL)alut\lib&quot;;&quot;$(SDKDIR_OPENAL)libs\Win32&quot;;&quot;$(SDKDIR_OGRE)lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(SDKDIR_OPENAL)alut\lib&quot;;&quot;$(SDKDIR_OPENAL)libs\Win32&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -117,7 +117,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_OPENAL)include&quot;;&quot;$(SDKDIR_OPENAL)alut\include\al&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_OPENAL)include&quot;;&quot;$(SDKDIR_OPENAL)alut\include\al&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;_AUDIOSYSTEMDLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -138,7 +138,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(SDKDIR_OPENAL)alut\lib&quot;;&quot;$(SDKDIR_OPENAL)libs\Win32&quot;;&quot;$(SDKDIR_OGRE)lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(SDKDIR_OPENAL)alut\lib&quot;;&quot;$(SDKDIR_OPENAL)libs\Win32&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
