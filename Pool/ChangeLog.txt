@@ -1,4 +1,5 @@
 TODO:
+	refine table.mesh
 	Camera path animation
 	refine AudioSystem dependence structure.
 	Ball shadow
@@ -6,10 +7,13 @@ TODO:
 	Real-time environment map material.
 
 Known Issues:
+	Deactive rigidbodies' fisrt collision look weird.
 	Multi-thread accessing conflict sometimes.
 
 
 2009.4.30	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Frame: refined lighting, shadow effect implemented.
 
 	>	Billiards::Ball::resetRigidBody: deactivate ball at beginning. Ball's unstable issue fixed.
 
