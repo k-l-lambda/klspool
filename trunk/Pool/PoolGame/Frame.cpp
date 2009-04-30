@@ -180,7 +180,7 @@ static Billiards::GameLayout	genSampleLayout()
 	using Billiards::Vector;
 
 	static const Real s_TriangleTop = 6;
-	static const Real s_BallRadius = 0.27 + 1e-5;
+	static const Real s_BallRadius = 0.32 + 1e-4;
 	static const Real s_Sqrt3 = std::sqrt(3.0);
 
 	Billiards::GameLayout::BallInfo balls[] =
@@ -201,6 +201,182 @@ static Billiards::GameLayout	genSampleLayout()
 		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, 0) * s_BallRadius},
 		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, +2) * s_BallRadius},
 		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, +4) * s_BallRadius},
+
+		/*{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 3, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 3, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 3, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 3, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 3, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 3, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 3, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 3, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 3, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 3, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 3, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 3, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 3, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 3, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 3, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 5, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 5, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 5, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 5, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 5, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 5, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 5, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 5, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 5, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 5, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 5, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 5, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 5, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 5, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 5, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 7, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 7, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 7, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 7, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 7, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 7, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 7, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 7, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 7, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 7, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 7, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 7, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 7, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 7, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 7, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 9, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 9, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 9, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 9, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 9, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 9, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 9, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 9, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 9, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 9, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 9, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 9, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 9, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 9, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 9, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 11, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 11, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 11, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 11, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 11, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 11, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 11, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 11, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 11, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 11, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 11, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 11, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 11, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 11, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 11, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 13, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 13, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 13, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 13, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 13, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 13, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 13, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 13, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 13, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 13, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 13, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 13, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 13, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 13, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 13, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 15, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 15, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 15, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 15, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 15, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 15, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 15, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 15, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 15, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 15, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 15, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 15, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 15, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 15, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 15, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 17, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 17, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 17, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 17, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 17, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 17, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 17, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 17, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 17, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 17, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 17, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 17, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 17, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 17, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 17, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 19, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 19, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 19, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 19, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 19, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 19, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 19, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 19, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 19, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 19, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 19, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 19, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 19, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 19, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 19, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 21, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 21, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 21, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 21, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 21, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 21, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 21, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 21, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 21, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 21, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 21, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 21, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 21, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 21, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 21, +4) * s_BallRadius},
+
+		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 23, 0) * s_BallRadius},
+		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 23, -1) * s_BallRadius},
+		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 23, +1) * s_BallRadius},
+		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 23, -2) * s_BallRadius},
+		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 23, 0) * s_BallRadius},
+		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 23, +2) * s_BallRadius},
+		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 23, -3) * s_BallRadius},
+		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 23, -1) * s_BallRadius},
+		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 23, +1) * s_BallRadius},
+		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 23, +3) * s_BallRadius},
+		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 23, -4) * s_BallRadius},
+		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 23, -2) * s_BallRadius},
+		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 23, 0) * s_BallRadius},
+		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 23, +2) * s_BallRadius},
+		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 23, +4) * s_BallRadius},*/
 	};
 
 	Billiards::GameLayout layout;
@@ -265,6 +441,7 @@ void Frame::createScene()
 	l2->setSpecularColour(1.0f, 0.9f, 0.7f);
 	l2->setDirection(0, -1, 0);
 	l2->setSpotlightRange(Radian(Math::PI * 0.5f), Radian(Math::PI * 0.7f));
+	l2->setCastShadows(true);
 	m_nodeLight2 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 	m_nodeLight2->createChildSceneNode(Vector3(0, 20, 0))->attachObject(l2);
 
@@ -275,6 +452,9 @@ void Frame::createScene()
 	m_nodeLight->createChildSceneNode(Vector3(40, 20, 100))->attachObject(l1);
 
 	mSceneMgr->setAmbientLight(ColourValue(0.6f, 0.6f, 0.6f));
+	mSceneMgr->setShadowTechnique(SHADOWDETAILTYPE_TEXTURE);
+	mSceneMgr->setShadowColour(ColourValue(0.5, 0.5, 0.5));
+	mSceneMgr->setShadowTextureSettings(1024, 2);
 
 	setupGui();
 
@@ -352,7 +532,7 @@ void Frame::frameStarted(const FrameEvent& evt)
 	CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
 
 	// restrict elapsed time by a upper limit
-	const Real elapsed = std::min(evt.timeSinceLastFrame, 0.2f);
+	const Real elapsed = std::min(evt.timeSinceLastFrame, 0.06f);
 
 	{
 		// step the world
@@ -395,14 +575,14 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 {
 	switch(e.key)
 	{
-	case OIS::KC_SPACE:
+	/*case OIS::KC_SPACE:
 		{
 			Vector3 front = m_nodeCameraRoot->_getDerivedPosition() - m_nodeCamera->_getDerivedPosition();
 			front.normalise();
 			m_Game->shot(ogre2Bld(front * 60), ogre2Bld(-front));
 		}
 
-		break;
+		break;*/
 	case OIS::KC_R:
 		m_Game->deployLayout(s_TheSampleLayout);
 
@@ -503,8 +683,10 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 		if(m_AmassDistance < 0)
 		{
 			Vector3 front = m_nodeCameraRoot->_getDerivedPosition() - m_nodeCamera->_getDerivedPosition();
+			if(front.x != 0 || front.z != 0)
+				front.y = 0;
 			front.normalise();
-			Real power = std::max(-e.state.Y.rel * std::pow(m_AmassMax, 0.4f) * 0.6f, 0.0f);
+			Real power = std::pow(std::abs(-e.state.Y.rel), 0.8) * std::pow(m_AmassMax, 0.4f) * 0.6f;
 			m_Game->shot(ogre2Bld(front * power), ogre2Bld(-front));
 
 			m_Staring = false;

@@ -68,12 +68,14 @@ namespace Billiards
 		//creat Havok hkpRigidBody
 		m_RigidBody.reset(new hkpRigidBody(sphereInfo));
 		m_World->addEntity(m_RigidBody.get());
+		m_RigidBody->deactivate();
 
 		// Add the collision event listener to the rigid body
 		/*BallCollisionListener* listener = */new BallCollisionListener(m_RigidBody);
 
 		shape->removeReference();
 
+		update();
 		m_VisualObject->setVisible(m_RigidBody);
 	}
 
