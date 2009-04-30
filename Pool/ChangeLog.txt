@@ -6,8 +6,12 @@ TODO:
 	Real-time environment map material.
 
 Known Issues:
-	Balls don't lay stably on table when initializing
 	Multi-thread accessing conflict sometimes.
+
+
+2009.4.30	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Billiards::Ball::resetRigidBody: deactivate ball at beginning. Ball's unstable issue fixed.
 
 
 2009.4.29	K.L.	<xxxK.L.xxx@gmail.com>
