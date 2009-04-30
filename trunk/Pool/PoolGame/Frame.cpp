@@ -435,26 +435,41 @@ void Frame::createScene()
 	m_nodeCameraRoot = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 	// setup lights
-	Light* l2 = mSceneMgr->createLight("MainLight");
-	l2->setType(Light::LT_SPOTLIGHT);
-	l2->setDiffuseColour(1.0f, 0.9f, 0.7f);
-	l2->setSpecularColour(1.0f, 0.9f, 0.7f);
-	l2->setDirection(0, -1, 0);
-	l2->setSpotlightRange(Radian(Math::PI * 0.5f), Radian(Math::PI * 0.7f));
-	l2->setCastShadows(true);
-	m_nodeLight2 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	m_nodeLight2->createChildSceneNode(Vector3(0, 20, 0))->attachObject(l2);
+	{
+		Light* l2 = mSceneMgr->createLight("MainLight");
+		l2->setType(Light::LT_SPOTLIGHT);
+		l2->setDiffuseColour(1.0f, 0.9f, 0.7f);
+		l2->setSpecularColour(1.0f, 0.9f, 0.7f);
+		l2->setDirection(0, -1, 0);
+		l2->setSpotlightRange(Radian(Math::PI * 0.3f), Radian(Math::PI * 0.6f));
+		l2->setAttenuation(1000, 0.4f, 0, 0);
+		l2->setCastShadows(true);
+		m_nodeLight2 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		m_nodeLight2->createChildSceneNode(Vector3(9, 20, 0))->attachObject(l2);
 
-	Light* l1 = mSceneMgr->createLight("AssistLight");
-	l1->setAttenuation(1000, 0.4f, 0, 0);
-	l1->setSpecularColour(0.1f, 0.1f, 0.1f);
-	m_nodeLight = m_nodeCameraRoot->createChildSceneNode();
-	m_nodeLight->createChildSceneNode(Vector3(40, 20, 100))->attachObject(l1);
+		Light* l3 = mSceneMgr->createLight("MainLight2");
+		l3->setType(Light::LT_SPOTLIGHT);
+		l3->setDiffuseColour(1.0f, 0.9f, 0.7f);
+		l3->setSpecularColour(1.0f, 0.9f, 0.7f);
+		l3->setDirection(0, -1, 0);
+		l3->setSpotlightRange(Radian(Math::PI * 0.3f), Radian(Math::PI * 0.6f));
+		l3->setCastShadows(true);
+		SceneNode* nodeLight3 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		nodeLight3->createChildSceneNode(Vector3(-9, 20, 0))->attachObject(l3);
 
-	mSceneMgr->setAmbientLight(ColourValue(0.6f, 0.6f, 0.6f));
-	mSceneMgr->setShadowTechnique(SHADOWDETAILTYPE_TEXTURE);
-	mSceneMgr->setShadowColour(ColourValue(0.5, 0.5, 0.5));
-	mSceneMgr->setShadowTextureSettings(1024, 2);
+		Light* l1 = mSceneMgr->createLight("AssistLight");
+		l1->setAttenuation(1000, 0.4f, 0, 0);
+		l1->setSpecularColour(0.1f, 0.1f, 0.1f);
+		l1->setCastShadows(true);
+		l1->setVisible(false);
+		m_nodeLight = m_nodeCameraRoot->createChildSceneNode();
+		m_nodeLight->createChildSceneNode(Vector3(40, 20, 100))->attachObject(l1);
+	}
+
+	mSceneMgr->setAmbientLight(ColourValue(0.4f, 0.4f, 0.4f));
+	mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_ADDITIVE);
+	mSceneMgr->setShadowColour(ColourValue(0.4f, 0.4f, 0.4f));
+	//mSceneMgr->setShadowTextureSettings(1024, 2);
 
 	setupGui();
 
