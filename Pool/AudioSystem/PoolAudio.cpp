@@ -43,12 +43,9 @@ bool PoolAudio::loadWavFile(const std::string& fileName)
 	return m_OALSystem.loadWavFile(fileName);
 }
 
-void PoolAudio::playSound(int soundNum, const float source[3])
+void PoolAudio::playSound(int soundNum, const float source[3], float gain)
 {
-	//ALfloat sourcePos[3] = {source.x, source.y, source.z};
-	//ALfloat listenerPos[3] = {m_ListenerPos.x, m_ListenerPos.y, m_ListenerPos.z};
-
-	m_OALSystem.playSound(soundNum, source, m_ListenerPos);
+	m_OALSystem.playSound(soundNum, source, m_ListenerPos, gain);
 }
 
 void PoolAudio::setListenerPosition(const float pos[3])

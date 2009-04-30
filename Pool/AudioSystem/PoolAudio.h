@@ -31,7 +31,7 @@ public:
 
 	bool loadWavFile(const std::string& fileName);
 
-	void playSound(int soundNum, const float source[3]);
+	void playSound(int soundNum, const float source[3], float gain = 18.0f);
 
 private:
 	//static std::auto_ptr<PoolAudio> m_poolAudioPtr;

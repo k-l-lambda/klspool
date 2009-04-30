@@ -62,6 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="hkBase"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"

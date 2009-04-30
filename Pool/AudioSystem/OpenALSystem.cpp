@@ -47,8 +47,7 @@ bool OpenALSystem::loadWavFile(const std::string& fileName)
 	ALsizei freq;
 	ALboolean loop;
 
-	// TODO: fix the memory leak
-	ALbyte* filename = new(_NORMAL_BLOCK, __FILE__, __LINE__) ALbyte[fileName.size()];
+	ALbyte* filename = new(_NORMAL_BLOCK, __FILE__, __LINE__) ALbyte[fileName.size() + 1];
 	strcpy(filename,fileName.c_str());
 	alutLoadWAVFile(filename, &format, &data, &size, &freq, &loop);
 
@@ -56,6 +55,8 @@ bool OpenALSystem::loadWavFile(const std::string& fileName)
 	m_loadedBuffer++;
 
 	alutUnloadWAV(format, data, size, freq);
+
+	delete [] filename;
 
 	if (alGetError() != AL_NO_ERROR)
 		return false;
@@ -113,12 +114,13 @@ bool OpenALSystem::init(int numBuffers, int numSources)
 		return true;
 }
 
-void OpenALSystem::playSound(int numOfBuffer, const ALfloat* sourcePos, const ALfloat* listenerPos)
+void OpenALSystem::playSound(int numOfBuffer, const ALfloat* sourcePos, const ALfloat* listenerPos, float gain)
 {
 	if(numOfBuffer >= m_loadedBuffer)
 		return;
 
 	alSourcei (m_sources[m_playingSource], AL_BUFFER, m_buffers[numOfBuffer]);
+	alSourcef (m_sources[m_playingSource], AL_GAIN,		gain);
 	alSourcefv(m_sources[m_playingSource], AL_POSITION, sourcePos);
 
 	alListenerfv(AL_POSITION, listenerPos);

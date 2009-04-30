@@ -29,7 +29,7 @@ public:
 	bool init(int numBuffers = 3, int numSources = 3);
 
 	bool loadWavFile(const std::string& fileName);
-	void playSound(int numOfBuffer, const float* sourcePos, const float* listenerPos);
+	void playSound(int numOfBuffer, const float* sourcePos, const float* listenerPos, float gain);
 
 private:
 	unsigned int* m_buffers;
