@@ -15,6 +15,7 @@
 #include <boost\format.hpp>
 #pragma warning(pop)
 
+#include "HavokSystem.h"
 #include "Game.h"
 #include "VisualObject.h"
 #include "ThreadAccessLock.h"

@@ -572,7 +572,7 @@ void Frame::frameStarted(const FrameEvent& evt)
 		mCamera->lookAt(m_nodeCameraRoot->_getDerivedPosition());
 
 		// update camera position in audio system
-		PoolAudio::instance().setListenerPosition(mCamera->getPosition());
+		PoolAudio::instance().setListenerPosition(mCamera->getPosition().ptr());
 	}
 }
 
@@ -600,6 +600,13 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 		break;*/
 	case OIS::KC_R:
 		m_Game->deployLayout(s_TheSampleLayout);
+
+		break;
+	case OIS::KC_S:
+		{
+			ShadowTechnique tec = mSceneMgr->getShadowTechnique();
+			mSceneMgr->setShadowTechnique(tec ? SHADOWTYPE_NONE : SHADOWTYPE_STENCIL_ADDITIVE);
+		}
 
 		break;
 	case OIS::KC_LCONTROL:

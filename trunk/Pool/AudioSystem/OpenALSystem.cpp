@@ -7,6 +7,14 @@
 
 #include "OpenALSystem.h"
 
+#include <al.h>
+#include <alc.h>
+#include <alut.h>
+
+#pragma comment(lib, "OpenAL32.lib")
+#pragma comment(lib, "alut.lib")
+
+
 OpenALSystem::OpenALSystem()
 {
 	m_buffers = 0;
@@ -105,7 +113,7 @@ bool OpenALSystem::init(int numBuffers, int numSources)
 		return true;
 }
 
-void OpenALSystem::playSound(int numOfBuffer, ALfloat* sourcePos, ALfloat* listenerPos)
+void OpenALSystem::playSound(int numOfBuffer, const ALfloat* sourcePos, const ALfloat* listenerPos)
 {
 	if(numOfBuffer >= m_loadedBuffer)
 		return;
