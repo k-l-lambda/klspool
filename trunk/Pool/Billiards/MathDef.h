@@ -15,6 +15,8 @@
 #include <Common\Base\hkBase.h>
 #include <Common\Base\Math\hkMath.h>
 
+#pragma comment(lib, "hkBase.lib")
+
 class hkVector4;
 class hkQuaternion;
 class hkMatrix3;
