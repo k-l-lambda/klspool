@@ -8,8 +8,14 @@ TODO:
 	Real-time environment map material.
 
 Known Issues:
+	Sound loading failed in VC9
 	Deactive rigidbodies' fisrt collision look weird.
 	Multi-thread accessing conflict sometimes.
+
+
+2009.5.3	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Upgraded to VC9.0.
 
 
 2009.4.30	K.L.	<xxxK.L.xxx@gmail.com>
