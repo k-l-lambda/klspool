@@ -41,6 +41,10 @@ namespace Billiards
 			PoolAudio::instance().playSound(0, &(event.m_contactPoint->getPosition()(0)), -event.m_projectedVelocity);
 			std::cout<< "Velocity : "<<event.m_projectedVelocity<<std::endl;
 		}
+		else if(event.m_contactPoint->getPosition()(1) != 8.2f)
+		{
+			PoolAudio::instance().playSound(2, &(event.m_contactPoint->getPosition()(0)), -event.m_projectedVelocity);
+		}
 
 		event.m_callbackFiredFrom->setProcessContactCallbackDelay(0);
 	}
