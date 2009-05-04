@@ -266,6 +266,11 @@ namespace Billiards
 
 		if(!m_Balls.empty())
 			m_MainBall = m_Balls.front();
+
+		// resolve unstable status
+		// TODO: change the end condition to all balls still
+		for(size_t i = 0; i < 100; ++ i)
+			m_HavokSystem->simulate(0.01f);
 	}
 
 	ConstBallPtr Game::getMainBall() const
