@@ -56,7 +56,7 @@ namespace Billiards
 		sphereInfo.m_centerOfMass = massProperties.m_centerOfMass;
 		sphereInfo.m_inertiaTensor = massProperties.m_inertiaTensor;
 		sphereInfo.m_solverDeactivation = hkpRigidBodyCinfo::SOLVER_DEACTIVATION_LOW;
-		sphereInfo.m_qualityType = HK_COLLIDABLE_QUALITY_MOVING;
+		sphereInfo.m_qualityType = HK_COLLIDABLE_QUALITY_CRITICAL;
 		sphereInfo.m_shape = shape;
 		sphereInfo.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA;
 		sphereInfo.m_position = position;
@@ -68,7 +68,7 @@ namespace Billiards
 		//creat Havok hkpRigidBody
 		m_RigidBody.reset(new hkpRigidBody(sphereInfo));
 		m_World->addEntity(m_RigidBody.get());
-		m_RigidBody->deactivate();
+		//m_RigidBody->deactivate();
 
 		// Add the collision event listener to the rigid body
 		/*BallCollisionListener* listener = */new BallCollisionListener(m_RigidBody);
