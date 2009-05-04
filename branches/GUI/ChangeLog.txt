@@ -1,0 +1,131 @@
+TODO:
+	game config dialog
+	refine table.mesh
+	Camera path animation
+	refine AudioSystem dependence structure.
+	Visual object serialization.
+	Real-time environment map material.
+
+Known Issues:
+	Deactive rigidbodies' fisrt collision look weird.
+	Multi-thread accessing conflict sometimes.
+
+
+2009.5.4	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Billiards::Ball::resetRigidBody: use HK_COLLIDABLE_QUALITY_CRITICAL for rigidbody quality type.
+			It seems collision omission bug fixed.
+
+	*!	AudioSystem will corrupt at exit time if 'OpenALSystem::playSound' hasn't been called.
+
+
+2009.5.3	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Upgraded to VC9.0.
+
+
+2009.4.30	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	AudioSystem: refined dependence items.
+
+	>	Frame: refined lighting, shadow effect implemented.
+
+	>	Billiards::Ball::resetRigidBody: deactivate ball at beginning. Ball's unstable issue fixed.
+
+
+2009.4.29	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Frame: shot by cue-pulling implemented.
+
+	+	Cue mesh added.
+
+	+	Frame: redeploy hotkey added.
+
+	+	Billiards::Game::deployLayout: added, implemeneted.
+
+	+	Billiards::BallConfigSet: added, serialization implemented.
+
+
+2009.4.28	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards/BallConfig.h: created.
+	+	Billiards/GameLayout.h: created.
+
+
+2009.4.27	K.L.	<xxxK.L.xxx@gmail.com>
+
+	|	Havok errors clear.
+
+	+	Billiards::Ball: refined interface.
+
+	>	GameObject::GameObject: setNormaliseNormals(true);
+
+	*!	Collision omission bug due to the setting of sphereInfo.m_qualityType.
+
+
+2009.4.26	K.L.	<xxxK.L.xxx@gmail.com>
+
+	*!	Ball out of range crash bug maybe due to 'worldInfo.m_broadPhaseBorderBehaviour'
+			was set to 'BROADPHASE_BORDER_REMOVE_ENTITY'.
+
+	+	Billiards::VisualObjectParameters::Scale: added.
+
+	+	Specular material on balls implemented.
+
+
+2009.4.25	K.L.	<xxxK.L.xxx@gmail.com>
+
+	*!	hkpRigidBody::applyForce's parameter 'p' means position in world coordinate.
+
+	+	Game::shot: added, implemented.
+
+
+2009.4.24	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Frame: camera panning implemented.
+
+	>	Frame::mouseMoved: refined constants.
+
+
+2009.4.23	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Billiards: refined interface of 'Game' and 'HavokSystem'.
+
+	+	PoolGame/GameObject: added, implemented.
+	+	Billiards::IVisualObject: added.
+
+	+	Ball.cpp/WorldAccessLock: added.
+
+
+2009.4.22	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Table mesh added.
+
+	+	Billiards/MathDef.h: added.
+
+	>	rename: Game -> PoolGame.
+	>	rename: Billiards::BldGame -> Billiards::Game.
+
+
+2009.4.21	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Frame: camera rotation implemented.
+
+
+2009.4.20	K.L.	<xxxK.L.xxx@gmail.com>
+
+	>	Billiards: refined code organization.
+
+
+2009.4.18	K.L.	<xxxK.L.xxx@gmail.com>
+
+	|	Game: framework based on OGRE set up.
+
+	+	Billiards: project created.
+	+	Game: project created.
+
+	|	Pool set up.
+	+	ChangeLog.txt: created.
+
+
+--------------------------------------------- Pool ChangeLog ---------------------------------------------
