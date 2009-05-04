@@ -13,8 +13,6 @@
 #include "OpenALSystem.h"
 
 #include <string>
-#include <memory>
-
 
 class AUDIOSYSTEM_API PoolAudio
 {

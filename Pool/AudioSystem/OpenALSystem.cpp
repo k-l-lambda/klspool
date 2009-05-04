@@ -14,7 +14,6 @@
 #pragma comment(lib, "OpenAL32.lib")
 #pragma comment(lib, "alut.lib")
 
-
 OpenALSystem::OpenALSystem()
 {
 	m_buffers = 0;
@@ -29,14 +28,19 @@ OpenALSystem::OpenALSystem()
 
 OpenALSystem::~OpenALSystem()
 {
-	//alDeleteBuffers(m_numBuffers, m_buffers);
-	//alDeleteSources(m_numSources, m_sources);
-	alutExit();
-
 	if(m_sources)
+	{
+		//alDeleteSources(m_numSources, m_sources);
 		delete [] m_sources;
+	}
+
 	if(m_buffers)
+	{
+		//alDeleteBuffers(m_numBuffers, m_buffers);
 		delete [] m_buffers;
+	}
+
+	//alutExit();
 }
 
 bool OpenALSystem::loadWavFile(const std::string& fileName)
