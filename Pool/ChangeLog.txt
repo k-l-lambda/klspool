@@ -3,14 +3,17 @@ TODO:
 	refine table.mesh
 	Camera path animation
 	refine AudioSystem dependence structure.
-	Ball shadow
 	Visual object serialization.
 	Real-time environment map material.
 
 Known Issues:
-	Sound loading failed in VC9
 	Deactive rigidbodies' fisrt collision look weird.
 	Multi-thread accessing conflict sometimes.
+
+
+2009.5.4	K.L.	<xxxK.L.xxx@gmail.com>
+
+	*!	AudioSystem will corrupt at exit time if 'OpenALSystem::playSound' hasn't been called.
 
 
 2009.5.3	K.L.	<xxxK.L.xxx@gmail.com>
