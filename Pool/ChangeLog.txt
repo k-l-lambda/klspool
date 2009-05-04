@@ -13,6 +13,9 @@ Known Issues:
 
 2009.5.4	K.L.	<xxxK.L.xxx@gmail.com>
 
+	>	Billiards::Ball::resetRigidBody: use HK_COLLIDABLE_QUALITY_CRITICAL for rigidbody quality type.
+			It seems collision omission bug fixed.
+
 	*!	AudioSystem will corrupt at exit time if 'OpenALSystem::playSound' hasn't been called.
 
 
