@@ -13,6 +13,8 @@ Known Issues:
 
 2009.5.4	K.L.	<xxxK.L.xxx@gmail.com>
 
+	+	logo.ico added.
+
 	>	Billiards::Ball::resetRigidBody: use HK_COLLIDABLE_QUALITY_CRITICAL for rigidbody quality type.
 			It seems collision omission bug fixed.
 
@@ -20,6 +22,8 @@ Known Issues:
 
 
 2009.5.3	K.L.	<xxxK.L.xxx@gmail.com>
+
+	*!	It will be silent if without OpenAL installation(only with OpenAL32.dll), but not crash.
 
 	>	Upgraded to VC9.0.
 

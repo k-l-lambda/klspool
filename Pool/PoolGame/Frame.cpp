@@ -343,7 +343,7 @@ void Frame::createScene()
 	m_Game->loadBallConfigSet("std");
 	m_Game->deployLayout(s_TheSampleLayout);
 
-	m_Game->simulate(0.005f);
+	//m_Game->simulate(0.005f);
 
 	// init audio system
 	PoolAudio::instance().init(3, 3);
