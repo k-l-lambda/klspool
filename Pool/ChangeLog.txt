@@ -1,6 +1,5 @@
 TODO:
 	refine table.mesh
-	refine AudioSystem dependence structure.
 	script interface
 	game config dialog
 	refine table.mesh
@@ -14,6 +13,8 @@ Known Issues:
 
 
 2009.5.5	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards::AudioSocket: created. Remove the Billiards' dependence of AudioSystem.
 
 	+	collid2.wav added.
 	+	Frame::createScene: set icon for render window.

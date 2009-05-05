@@ -14,6 +14,7 @@
 
 #include <string>
 
+
 class AUDIOSYSTEM_API PoolAudio
 {
 private:
@@ -32,8 +33,6 @@ public:
 	void playSound(int soundNum, const float source[3], float gain = 18.0f);
 
 private:
-	//static std::auto_ptr<PoolAudio> m_poolAudioPtr;
-
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 	OpenALSystem m_OALSystem;
 

@@ -99,6 +99,16 @@ namespace Billiards
 				return *(&x+i);
 			}
 
+			Real* ptr()
+			{
+				return &x;
+			}
+
+			const Real* ptr() const
+			{
+				return &x;
+			}
+
 			Vector3& operator = ( const Vector3& rkVector )
 			{
 				x = rkVector.x;

@@ -63,7 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="hkBase"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
