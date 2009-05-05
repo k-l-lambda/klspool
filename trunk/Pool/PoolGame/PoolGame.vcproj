@@ -192,6 +192,26 @@
 				>
 			</File>
 			<File
+				RelativePath=".\OgreUtil.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;$(SDKDIR_OGRE)RenderSystems&quot;;&quot;$(SDKDIR_OGRE)RenderSystems\GL\include&quot;;&quot;$(DXSDK_DIR)\Include&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;$(SDKDIR_OGRE)RenderSystems&quot;;&quot;$(SDKDIR_OGRE)RenderSystems\GL\include&quot;;&quot;$(DXSDK_DIR)\Include&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\PrecompiledHeaders.cpp"
 				>
 				<FileConfiguration
@@ -242,6 +262,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\OgreUtil.h"
+				>
+			</File>
+			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
 				RelativePath=".\StableHeaders.h"
 				>
 			</File>
@@ -251,6 +279,14 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\logo.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\PoolGame.rc"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
