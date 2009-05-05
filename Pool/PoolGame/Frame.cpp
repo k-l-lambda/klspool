@@ -21,6 +21,8 @@
 #include "Geometries.h"
 #include "mathTypeConvert.h"
 #include "GameObject.h"
+#include "OgreUtil.h"
+#include "resource.h"
 
 #include <iostream>
 
@@ -263,6 +265,13 @@ void Frame::createScene()
 		LogManager::getSingleton().logMessage(VERSIONINFO, LML_CRITICAL);
 	}
 
+	// set icon for render window
+	::HWND hwnd = getRenderWindowHandle(mWindow);
+	if(hwnd)
+	{
+		::SendMessage(hwnd, WM_SETICON, ICON_BIG, ::LPARAM(::LoadIcon(::GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_LOGO))));
+	}
+
 	m_nodeCameraRoot = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 	// setup lights
@@ -349,7 +358,7 @@ void Frame::createScene()
 	PoolAudio::instance().init(3, 3);
 	PoolAudio::instance().loadWavFile("Media/sound/collide.wav");
 	PoolAudio::instance().loadWavFile("Media/sound/hit.wav");
-	PoolAudio::instance().loadWavFile("Media/sound/hit.wav");
+	PoolAudio::instance().loadWavFile("Media/sound/collide2.wav");
 }
 
 void Frame::onIdle(wxIdleEvent& e)

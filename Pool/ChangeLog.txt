@@ -1,14 +1,22 @@
 TODO:
+	refine table.mesh
+	refine AudioSystem dependence structure.
+	script interface
 	game config dialog
 	refine table.mesh
 	Camera path animation
-	refine AudioSystem dependence structure.
 	Visual object serialization.
 	Real-time environment map material.
 
 Known Issues:
 	Deactive rigidbodies' fisrt collision look weird.
 	Multi-thread accessing conflict sometimes.
+
+
+2009.5.5	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	collid2.wav added.
+	+	Frame::createScene: set icon for render window.
 
 
 2009.5.4	K.L.	<xxxK.L.xxx@gmail.com>
