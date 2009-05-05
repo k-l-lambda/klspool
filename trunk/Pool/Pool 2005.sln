@@ -8,6 +8,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PoolGame", "PoolGame\PoolGa
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 		{60C50C7A-9964-4DC1-B809-49F0D9532D28} = {60C50C7A-9964-4DC1-B809-49F0D9532D28}
+		{7E1812B0-F357-48E8-9B02-3B93EE482427} = {7E1812B0-F357-48E8-9B02-3B93EE482427}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Billiards", "Billiards\Billiards.vcproj", "{60C50C7A-9964-4DC1-B809-49F0D9532D28}"

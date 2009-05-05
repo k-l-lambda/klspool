@@ -12,8 +12,6 @@
 #include <alut.h>
 
 
-//std::auto_ptr<PoolAudio> PoolAudio::m_poolAudioPtr;
-
 PoolAudio::PoolAudio()
 {
 }
@@ -24,10 +22,6 @@ PoolAudio::~PoolAudio()
 
 PoolAudio& PoolAudio::instance()
 {
-	/*if(!m_poolAudioPtr.get())
-		m_poolAudioPtr = std::auto_ptr <PoolAudio> ( new PoolAudio() );
-
-	return *(m_poolAudioPtr.get());*/
 	static PoolAudio s_Instance;
 
 	return s_Instance;

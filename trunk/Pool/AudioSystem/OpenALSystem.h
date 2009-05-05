@@ -8,6 +8,8 @@
 #ifndef __OPENALSYSTEM_H__
 #define __OPENALSYSTEM_H__
 
+
+
 #include <string>
 
 #ifdef	_AUDIOSYSTEMDLL

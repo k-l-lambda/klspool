@@ -9,6 +9,7 @@
 
 #include "../Billiards/Game.h"
 #include "../Billiards/GameLayout.h"
+#include "../Billiards/AudioSocket.h"
 
 #include "../AudioSystem/PoolAudio.h"
 #pragma comment(lib, "AudioSystem.lib")
@@ -352,13 +353,31 @@ void Frame::createScene()
 	m_Game->loadBallConfigSet("std");
 	m_Game->deployLayout(s_TheSampleLayout);
 
-	//m_Game->simulate(0.005f);
+	{
+		// init audio system
+		PoolAudio::instance().init(3, 3);
+		PoolAudio::instance().loadWavFile("Media/sound/collide.wav");
+		PoolAudio::instance().loadWavFile("Media/sound/hit.wav");
+		PoolAudio::instance().loadWavFile("Media/sound/collide2.wav");
 
-	// init audio system
-	PoolAudio::instance().init(3, 3);
-	PoolAudio::instance().loadWavFile("Media/sound/collide.wav");
-	PoolAudio::instance().loadWavFile("Media/sound/hit.wav");
-	PoolAudio::instance().loadWavFile("Media/sound/collide2.wav");
+		struct LocalScope
+		{
+			static void playSound(const std::string& name, const Billiards::Vector position, Billiards::Real volume)
+			{
+				static std::map<std::string, int> s_SoundMap = boost::assign::map_list_of
+					("collide b-b", 0)
+					("hit", 1)
+					("bound", 2)
+					;
+
+				if(!s_SoundMap.count(name))
+					throw std::runtime_error("no sound named \"" + name + "\"");
+
+				PoolAudio::instance().playSound(s_SoundMap.find(name)->second, position.ptr(), volume);
+			};
+		};
+		Billiards::AudioSocket::instance().playSound.connect(&LocalScope::playSound);
+	}
 }
 
 void Frame::onIdle(wxIdleEvent& e)

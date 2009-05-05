@@ -7,11 +7,12 @@
 
 #include "StableHeaders.h"
 
-// TODO: refine this reference of AudioSystem and PoolGame
+/*// TODO: refine this reference of AudioSystem and PoolGame
 #include "../AudioSystem/PoolAudio.h"
-#pragma comment(lib, "AudioSystem.lib")
+#pragma comment(lib, "AudioSystem.lib")*/
 
 #include "BallCollisionListener.h"
+#include "AudioSocket.h"
 
 #include <iostream>
 #include <ctime>
@@ -38,12 +39,14 @@ namespace Billiards
 		hkpShapeType shapeTypeB = event.m_bodyB->m_shape->getType();
 		if(shapeTypeA == HK_SHAPE_SPHERE && shapeTypeB == HK_SHAPE_SPHERE )
 		{
-			PoolAudio::instance().playSound(0, &(event.m_contactPoint->getPosition()(0)), -event.m_projectedVelocity);
+			//PoolAudio::instance().playSound(0, &(event.m_contactPoint->getPosition()(0)), -event.m_projectedVelocity);
+			AudioSocket::instance().playSound("collide b-b", event.m_contactPoint->getPosition(), -event.m_projectedVelocity);
 			std::cout<< "Velocity : "<<event.m_projectedVelocity<<std::endl;
 		}
 		else if(event.m_contactPoint->getPosition()(1) != 8.2f)
 		{
-			PoolAudio::instance().playSound(2, &(event.m_contactPoint->getPosition()(0)), -event.m_projectedVelocity);
+			//PoolAudio::instance().playSound(2, &(event.m_contactPoint->getPosition()(0)), -event.m_projectedVelocity);
+			AudioSocket::instance().playSound("bound", event.m_contactPoint->getPosition(), -event.m_projectedVelocity);
 		}
 
 		event.m_callbackFiredFrom->setProcessContactCallbackDelay(0);
