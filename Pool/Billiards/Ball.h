@@ -32,7 +32,7 @@ namespace Billiards
 		void	setPosition(const Vector& pos);
 		void	setVelocity(const Vector& vel);
 
-		bool	isInHole() const;
+		//bool	isInHole() const;
 		bool	isStill() const;
 
 		Real	getRadius() const;

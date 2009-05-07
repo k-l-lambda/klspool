@@ -120,6 +120,11 @@ namespace Billiards
 		}
 	}
 
+	bool Ball::isStill() const
+	{
+		return !m_RigidBody || m_RigidBody->getLinearVelocity().lengthSquared3() == 0;
+	}
+
 	Real Ball::getRadius() const
 	{
 		return m_Radius;
@@ -127,16 +132,22 @@ namespace Billiards
 
 	Vector Ball::getPosition() const
 	{
+		assert(m_RigidBody);
+
 		return m_RigidBody->getPosition();
 	}
 
 	const Quaternion& Ball::getRotation() const
 	{
+		assert(m_RigidBody);
+
 		return m_RigidBody->getRotation();
 	}
 
 	Vector Ball::getVelocity() const
 	{
+		assert(m_RigidBody);
+
 		return m_RigidBody->getLinearVelocity();
 	}
 

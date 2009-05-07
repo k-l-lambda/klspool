@@ -12,6 +12,12 @@ Known Issues:
 	Multi-thread accessing conflict sometimes.
 
 
+2009.5.7	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards::Game::isStill: added.
+	+	Billiards::Ball::isStill: added.
+
+
 2009.5.5	K.L.	<xxxK.L.xxx@gmail.com>
 
 	+	Billiards::AudioSocket: created. Remove the Billiards' dependence of AudioSystem.

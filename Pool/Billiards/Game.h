@@ -31,8 +31,8 @@ namespace Billiards
 		explicit Game(const VisualObjectCreationFunctor& fnCreateVisualObject);
 		~Game();
 
-		// test if all the balls is still
-		//bool isStill() const;
+		// test if all the balls are still
+		bool	isStill() const;
 
 		void	simulate(Real elapsedTime);
 
