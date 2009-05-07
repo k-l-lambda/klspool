@@ -373,7 +373,7 @@ void Frame::createScene()
 				if(!s_SoundMap.count(name))
 					throw std::runtime_error("no sound named \"" + name + "\"");
 
-				PoolAudio::instance().playSound(s_SoundMap.find(name)->second, position.ptr(), volume);
+				PoolAudio::instance().playSound(s_SoundMap[name], position.ptr(), volume);
 			};
 		};
 		Billiards::AudioSocket::instance().playSound.connect(&LocalScope::playSound);

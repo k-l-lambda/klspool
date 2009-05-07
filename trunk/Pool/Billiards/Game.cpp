@@ -195,8 +195,17 @@ namespace Billiards
 
 	void Game::updateAllBalls()
 	{
-		for(int i = 0; i < (int)m_Balls.size(); ++i)
+		for(size_t i = 0; i < m_Balls.size(); ++ i)
 			m_Balls[i]->update();
+	}
+
+	bool Game::isStill() const
+	{
+		for(size_t i = 0; i < m_Balls.size(); ++ i)
+			if(!m_Balls[i]->isStill())
+				return false;
+
+		return true;
 	}
 
 	void Game::simulate(Real elapsedTime)
