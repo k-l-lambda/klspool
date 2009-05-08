@@ -40,7 +40,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm118"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;;&quot;$(SDKDIR_LUA)src&quot;;&quot;$(SDKDIR_LUABIND)&quot;;..\Dependences\LuabindUtil\include"
 				PreprocessorDefinitions="HK_DEBUG;_BILLIARDSDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;;&quot;$(SDKDIR_LUA)..\$(ConfigurationName)\vc8&quot;"
 				IgnoreDefaultLibraryNames="libcpmtd"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -117,7 +117,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;;&quot;$(SDKDIR_LUA)src&quot;;&quot;$(SDKDIR_LUABIND)&quot;;..\Dependences\LuabindUtil\include"
 				PreprocessorDefinitions="_BILLIARDSDLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;;&quot;$(SDKDIR_LUA)..\$(ConfigurationName)\vc8&quot;"
 				IgnoreDefaultLibraryNames="LIBCMT;libcpmt"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
@@ -201,6 +201,10 @@
 			</File>
 			<File
 				RelativePath=".\HavokSystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LuaSymbols.cpp"
 				>
 			</File>
 			<File

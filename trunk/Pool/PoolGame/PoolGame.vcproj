@@ -40,7 +40,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm161"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_WXWIDGETS)include&quot;;&quot;$(SDKDIR_WXWIDGETS)include\msvc&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_LUA)src&quot;;&quot;$(SDKDIR_LUABIND)&quot;;&quot;$(SDKDIR_WXWIDGETS)include&quot;;&quot;$(SDKDIR_WXWIDGETS)include\msvc&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				PreprocessorDefinitions="_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="false"
@@ -62,8 +63,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="hkBase"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
+				AdditionalDependencies="hkBase.lib"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_LUA)..\$(ConfigurationName)\vc8&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -119,7 +120,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm148"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_WXWIDGETS)include&quot;;&quot;$(SDKDIR_WXWIDGETS)include\msvc&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_LUA)src&quot;;&quot;$(SDKDIR_LUABIND)&quot;;&quot;$(SDKDIR_WXWIDGETS)include&quot;;&quot;$(SDKDIR_WXWIDGETS)include\msvc&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				PreprocessorDefinitions="NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StableHeaders.h"
@@ -138,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_LUA)..\$(ConfigurationName)\vc8&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_8-0\$(ConfigurationName)_multithreaded&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -185,6 +187,10 @@
 			</File>
 			<File
 				RelativePath=".\GameObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LuaGameHost.cpp"
 				>
 			</File>
 			<File
@@ -250,11 +256,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GameHost.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GameObject.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Geometries.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LuaGameHost.h"
 				>
 			</File>
 			<File

@@ -13,6 +13,7 @@
 #include "Billiards.h"
 
 #include <boost\signal.hpp>
+#include <boost\thread\mutex.hpp>
 
 
 namespace Billiards
@@ -29,7 +30,10 @@ namespace Billiards
 	public:
 		typedef	boost::signal<void (const std::string& name, const Vector position, Real volume)>	PlaySoundSignal;
 
+#pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		PlaySoundSignal	playSound;
+
+		static boost::mutex&	getPlaySoundMutex()	{static boost::mutex m; return m;};
 	};
 }
 

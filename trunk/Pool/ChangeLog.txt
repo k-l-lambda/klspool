@@ -12,6 +12,14 @@ Known Issues:
 	Multi-thread accessing conflict sometimes.
 
 
+2009.5.8	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Billiards/LuaSymbols.cpp: created.
+
+	+	LuaGameHost: added.
+	+	GameHost: added.
+
+
 2009.5.7	K.L.	<xxxK.L.xxx@gmail.com>
 
 	+	Billiards::Game::isStill: added.

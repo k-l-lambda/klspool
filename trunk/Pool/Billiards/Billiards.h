@@ -10,18 +10,22 @@
 
 
 
+// compiling options
+#define	ENABLE_LUASYMBOLS_EXPORT
+
+
 #ifdef	_MSC_VER
 #	pragma warning(push)
 #	pragma warning(disable: 4710)	// 'function' : function not inlined
 #	pragma warning(disable: 4711)	// function 'function' selected for inline expansion
 #endif
 
-#ifdef	_MSC_VER
+/*#ifdef	_MSC_VER
 #	pragma warning(push)
 #	pragma warning(disable: 4820)	// 'bytes' bytes padding added after construct 'member_name'
 #	include <wchar.h>
 #	pragma warning(pop)
-#endif
+#endif*/
 
 #include <vector>
 #if	_MSC_VER == 1400	// tolerant warnings
@@ -46,6 +50,10 @@
 #include <boost\shared_ptr.hpp>
 #include <boost\function.hpp>
 #ifdef _MSC_VER
+#	pragma warning(pop)
+#endif
+
+#ifdef	_MSC_VER
 #	pragma warning(pop)
 #endif
 
@@ -74,6 +82,11 @@ typedef	boost::shared_ptr<hkpRigidBody>		hkpRigidBodyPtr;
 #include "MathDef.h"
 
 
+#ifdef	ENABLE_LUASYMBOLS_EXPORT
+struct lua_State;
+#endif	// defined(ENABLE_LUASYMBOLS_EXPORT)
+
+
 namespace Billiards
 {
 	class Ball;
@@ -89,6 +102,11 @@ namespace Billiards
 	typedef	boost::shared_ptr<const Ball>											ConstBallPtr;
 	typedef	boost::shared_ptr<IVisualObject>										VisualObjectPtr;
 	typedef	boost::function<VisualObjectPtr (const VisualObjectParameters&)>		VisualObjectCreationFunctor;
+
+
+#ifdef	ENABLE_LUASYMBOLS_EXPORT
+	extern "C" BILLIARDS_API	int registerLuaSymbols(lua_State* L);
+#endif	// defined(ENABLE_LUASYMBOLS_EXPORT)
 }
 
 

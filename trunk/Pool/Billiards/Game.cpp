@@ -186,8 +186,8 @@ namespace Billiards
 		}
 
 		// Do some translate according to the real model
-		m_baffles->setPosition(Vector(0, s_TableParams.height, -0.1));
-		m_table->setPosition(Vector(0, s_TableParams.height, -0.1));
+		m_baffles->setPosition(Vector(0, s_TableParams.height, -0.1f));
+		m_table->setPosition(Vector(0, s_TableParams.height, -0.1f));
 
 		tableBoard->removeReference();
 		baffles->removeReference();
@@ -225,7 +225,7 @@ namespace Billiards
 
 	void Game::shot(const Vector& impulse, const Vector& pos)
 	{
-		static const Real s_ShotTime = 1e-3;
+		static const Real s_ShotTime = 1e-3f;
 
 		m_MainBall->applyForce(impulse / s_ShotTime, m_MainBall->getPosition() + pos.normalisedCopy() * m_MainBall->getRadius(), s_ShotTime);
 	}
@@ -262,7 +262,7 @@ namespace Billiards
 			VisualObjectParameters param =
 			{
 				(boost::format("ball%d") % i).str(), "Sphere",
-				boost::assign::map_list_of(0, "Pool/Balls/" + config.Material).to_container(VisualObjectParameters::MaterialNameMap_t()),
+				boost::assign::map_list_of(0, "Pool/Balls/" + config.Material),
 				Vector(config.Redius, config.Redius, config.Redius),
 			};
 			VisualObjectPtr vobj = m_fnCreateVisualObject(param);

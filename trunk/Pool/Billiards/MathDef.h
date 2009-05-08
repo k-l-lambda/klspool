@@ -165,7 +165,7 @@ namespace Billiards
 			{
 				assert( fScalar != 0.0 );
 
-				Real fInv = 1.0 / fScalar;
+				Real fInv = 1.0f / fScalar;
 
 				return Vector3(
 					x * fInv,
@@ -296,7 +296,7 @@ namespace Billiards
 			{
 				assert( fScalar != 0.0 );
 
-				Real fInv = 1.0 / fScalar;
+				Real fInv = 1.0f / fScalar;
 
 				x *= fInv;
 				y *= fInv;
@@ -331,7 +331,7 @@ namespace Billiards
 				// Will also work for zero-sized vectors, but will change nothing
 				if ( fLength > 1e-08 )
 				{
-					Real fInvLength = 1.0 / fLength;
+					Real fInvLength = 1.0f / fLength;
 					x *= fInvLength;
 					y *= fInvLength;
 					z *= fInvLength;
