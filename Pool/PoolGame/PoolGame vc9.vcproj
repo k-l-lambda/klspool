@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm161"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_WXWIDGETS)include&quot;;&quot;$(SDKDIR_WXWIDGETS)include\msvc&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_LUA)src&quot;;&quot;$(SDKDIR_LUABIND)&quot;;&quot;$(SDKDIR_WXWIDGETS)include&quot;;&quot;$(SDKDIR_WXWIDGETS)include\msvc&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="false"
@@ -49,7 +49,6 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -118,12 +117,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm148"
-				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_WXWIDGETS)include&quot;;&quot;$(SDKDIR_WXWIDGETS)include\msvc&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
+				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_OGRE)OgreMain\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include&quot;;&quot;$(SDKDIR_OGRE)Dependencies\include\CEGUI&quot;;&quot;$(SDKDIR_OGRE)Samples\Common\CEGUIRenderer\include&quot;;&quot;$(SDKDIR_LUA)src&quot;;&quot;$(SDKDIR_LUABIND)&quot;;&quot;$(SDKDIR_WXWIDGETS)include&quot;;&quot;$(SDKDIR_WXWIDGETS)include\msvc&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -137,7 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_9-0\$(ConfigurationName)_multithreaded&quot;"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_BOOST)bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_OGRE)lib&quot;;&quot;$(SDKDIR_OGRE)Dependencies\lib\$(ConfigurationName)&quot;;&quot;$(SDKDIR_LUA)..\$(ConfigurationName)\vc9&quot;;&quot;$(SDKDIR_WXWIDGETS)lib\vc_lib&quot;;&quot;$(SDKDIR_HAVOK)Lib\win32_net_9-0\$(ConfigurationName)_multithreaded&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -186,8 +184,32 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LuaGameHost.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
+			</File>
+			<File
+				RelativePath=".\OgreUtil.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;$(SDKDIR_OGRE)RenderSystems&quot;;&quot;$(SDKDIR_OGRE)rendersystems\gl\include&quot;;&quot;$(DXSDK_DIR)include&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;$(SDKDIR_OGRE)RenderSystems&quot;;&quot;$(SDKDIR_OGRE)rendersystems\gl\include&quot;;&quot;$(DXSDK_DIR)include&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\PrecompiledHeaders.cpp"
@@ -228,6 +250,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GameHost.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GameObject.h"
 				>
 			</File>
@@ -236,7 +262,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LuaGameHost.h"
+				>
+			</File>
+			<File
 				RelativePath=".\mathTypeConvert.h"
+				>
+			</File>
+			<File
+				RelativePath=".\OgreUtil.h"
 				>
 			</File>
 			<File

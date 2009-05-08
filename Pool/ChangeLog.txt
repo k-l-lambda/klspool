@@ -1,5 +1,4 @@
 TODO:
-	refine table.mesh
 	script interface
 	game config dialog
 	refine table.mesh
@@ -13,6 +12,8 @@ Known Issues:
 
 
 2009.5.8	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	table.mesh refined.
 
 	+	Billiards/LuaSymbols.cpp: created.
 

@@ -13,7 +13,10 @@
 #include "Billiards.h"
 
 #include <boost\signal.hpp>
+#pragma warning(push)
+#pragma warning(disable: 4244)	// 'argument' : conversion from 'int' to 'unsigned short', possible loss of data
 #include <boost\thread\mutex.hpp>
+#pragma warning(pop)
 
 
 namespace Billiards

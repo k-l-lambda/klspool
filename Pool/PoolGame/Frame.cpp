@@ -282,21 +282,21 @@ void Frame::createScene()
 		l2->setDiffuseColour(1.0f, 0.9f, 0.7f);
 		l2->setSpecularColour(1.0f, 0.9f, 0.7f);
 		l2->setDirection(0, -1, 0);
-		l2->setSpotlightRange(Radian(Math::PI * 0.3f), Radian(Math::PI * 0.6f));
-		l2->setAttenuation(1000, 0.4f, 0, 0);
+		l2->setSpotlightRange(Radian(Math::PI * 0.1f), Radian(Math::PI * 0.60f));
+		//l2->setAttenuation(1000, 0.9f, 0, 0);
 		l2->setCastShadows(true);
 		m_nodeLight2 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-		m_nodeLight2->createChildSceneNode(Vector3(9, 20, 0))->attachObject(l2);
+		m_nodeLight2->createChildSceneNode(Vector3(8, 20, 0))->attachObject(l2);
 
 		Light* l3 = mSceneMgr->createLight("MainLight2");
 		l3->setType(Light::LT_SPOTLIGHT);
 		l3->setDiffuseColour(1.0f, 0.9f, 0.7f);
 		l3->setSpecularColour(1.0f, 0.9f, 0.7f);
 		l3->setDirection(0, -1, 0);
-		l3->setSpotlightRange(Radian(Math::PI * 0.3f), Radian(Math::PI * 0.6f));
+		l3->setSpotlightRange(Radian(Math::PI * 0.1f), Radian(Math::PI * 0.60f));
 		l3->setCastShadows(true);
 		SceneNode* nodeLight3 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-		nodeLight3->createChildSceneNode(Vector3(-9, 20, 0))->attachObject(l3);
+		nodeLight3->createChildSceneNode(Vector3(-8, 20, 0))->attachObject(l3);
 
 		Light* l1 = mSceneMgr->createLight("AssistLight");
 		l1->setAttenuation(1000, 0.4f, 0, 0);
@@ -323,10 +323,6 @@ void Frame::createScene()
 	createSphere("Sphere", 24, 24, 1);
 	m_nodeGame = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
-	Ogre::SceneNode* nodeTable = m_nodeGame->createChildSceneNode("table");
-	nodeTable->attachObject(mSceneMgr->createEntity("table", "table.mesh"));
-	nodeTable->setPosition(0, 8, 0);
-
 	m_nodeCue = m_nodeGame->createChildSceneNode("cue");
 	m_nodeCue->createChildSceneNode()->createChildSceneNode(Vector3(-0.8, -0.948, 4.992))->attachObject(mSceneMgr->createEntity("cue", "cue.mesh"));
 	m_nodeCue->setPosition(0, 8, 8);
@@ -335,6 +331,10 @@ void Frame::createScene()
 
 	// table & ground
 	{
+		Ogre::SceneNode* nodeTable = m_nodeGame->createChildSceneNode("table");
+		nodeTable->attachObject(mSceneMgr->createEntity("table", "table.mesh"));
+		nodeTable->setPosition(0, 8, 0);
+
 		Ogre::Entity* entGround = mSceneMgr->createEntity("ground", "floor200x200.mesh");
 		entGround->getSubEntity(0)->setMaterialName("Pool/Table/RedGrass");
 		Ogre::SceneNode* groundNode = m_nodeGame->createChildSceneNode("groundnode");
