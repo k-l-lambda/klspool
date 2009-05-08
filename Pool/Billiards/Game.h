@@ -57,7 +57,8 @@ namespace Billiards
 		//void	freezeBall(int number);
 
 	private:
-#pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
+#pragma warning(push)
+#pragma warning(disable: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		std::vector<BallPtr>	m_Balls;
 		hkpRigidBodyPtr			m_table;
 		hkpRigidBodyPtr			m_baffles;
@@ -66,11 +67,11 @@ namespace Billiards
 
 		HavokSystem*			m_HavokSystem;
 
-#pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		VisualObjectCreationFunctor		m_fnCreateVisualObject;
 
 		std::set<std::string>	m_LoadedBallConfigSets;
 		BallConfigMap			m_BallConfigMap;
+#pragma warning(pop)
 	};
 }
 
