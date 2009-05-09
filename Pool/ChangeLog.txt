@@ -1,5 +1,5 @@
 TODO:
-	script interface
+	script load dialog
 	game config dialog
 	refine table.mesh
 	Camera path animation
@@ -9,6 +9,14 @@ TODO:
 Known Issues:
 	Deactive rigidbodies' fisrt collision look weird.
 	Multi-thread accessing conflict sometimes.
+
+
+2009.5.9	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Hosts/test.lua: added. Host script setup.
+
+	*!	luabind 0.8 dll config linking requires macro 'LUABIND_DYNAMIC_LINK' defined. If missed it,
+			linking will pass without errors, but it will fail when running(property problem).
 
 
 2009.5.8	K.L.	<xxxK.L.xxx@gmail.com>

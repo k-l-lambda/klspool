@@ -21,6 +21,12 @@ namespace Billiards
 		{
 			std::string		Config;
 			Vector			Position;
+
+			static BallInfo	make(const std::string& config, const Vector& position)
+			{
+				BallInfo info = {config, position};
+				return info;
+			};
 		};
 		typedef	std::vector<BallInfo>	BallsLayout_t;
 

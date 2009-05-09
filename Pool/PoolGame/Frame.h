@@ -21,6 +21,8 @@ namespace Billiards
 	struct VisualObjectParameters;
 }
 
+struct GameHost;
+
 
 class Frame
 	: public wxFrame
@@ -34,6 +36,7 @@ public:
 
 	typedef	boost::shared_ptr<Billiards::IVisualObject>		VisualObjectPtr;
 	typedef	boost::shared_ptr<Billiards::Game>				GamePtr;
+	typedef	boost::shared_ptr<GameHost>						GameHostPtr;
 
 public:
 	explicit Frame(const OnCloseFunctor& fnOnClose);
@@ -101,6 +104,8 @@ private:
 	int									m_FocusDialog;
 
 	GamePtr								m_Game;
+
+	GameHostPtr							m_GameHost;
 
 	Ogre::Timer							m_timer;
 
