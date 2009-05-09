@@ -64,6 +64,7 @@ private:
 	bool	mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 
 	bool	onGuiShut(const CEGUI::EventArgs& e);
+	bool	onGuiLoadHost(const CEGUI::EventArgs& e);
 
 private:
 	void	setupGui();

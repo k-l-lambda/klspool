@@ -64,10 +64,12 @@ namespace Billiards
 							def("make",					&GameLayout::BallInfo::make)
 						]
 						.def(constructor<>())
+						.def(constructor<const GameLayout::BallInfo&>())
 						.def_readwrite("Config",		&GameLayout::BallInfo::Config)
 						.def_readwrite("Position",		&GameLayout::BallInfo::Position)
 				]
 				.def(constructor<>())
+				.def(constructor<const GameLayout&>())
 				.def_readwrite("BallsLayout",			&GameLayout::BallsLayout)
 			,
 			LuabindUtil::bind<GameLayout::BallsLayout_t>()

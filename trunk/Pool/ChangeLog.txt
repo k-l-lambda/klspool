@@ -1,5 +1,4 @@
 TODO:
-	script loading dialog
 	game config dialog
 	refine table.mesh
 	Camera path animation
@@ -12,6 +11,8 @@ Known Issues:
 
 
 2009.5.9	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Frame::onGuiLoadHost: added, implemented.
 
 	+	Hosts/test.lua: added. Host script setup.
 

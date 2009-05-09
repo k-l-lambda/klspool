@@ -79,6 +79,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BallConfigSets", "BallConfi
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
+		WorkPath\BallConfigSets\fun.xml = WorkPath\BallConfigSets\fun.xml
 		WorkPath\BallConfigSets\std.xml = WorkPath\BallConfigSets\std.xml
 	EndProjectSection
 EndProject
@@ -88,6 +89,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{C77BACE6
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
+		WorkPath\Hosts\fun.lua = WorkPath\Hosts\fun.lua
 		WorkPath\Hosts\test.lua = WorkPath\Hosts\test.lua
 	EndProjectSection
 EndProject
