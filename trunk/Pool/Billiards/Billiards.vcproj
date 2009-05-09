@@ -41,7 +41,7 @@
 				AdditionalOptions="-Zm118"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;;&quot;$(SDKDIR_LUA)src&quot;;&quot;$(SDKDIR_LUABIND)&quot;;..\Dependences\LuabindUtil\include"
-				PreprocessorDefinitions="HK_DEBUG;_BILLIARDSDLL"
+				PreprocessorDefinitions="_DEBUG;HK_DEBUG;_BILLIARDSDLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -118,7 +118,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;$(SDKDIR_BOOST)&quot;;&quot;$(SDKDIR_HAVOK)Source&quot;;&quot;$(SDKDIR_LUA)src&quot;;&quot;$(SDKDIR_LUABIND)&quot;;..\Dependences\LuabindUtil\include"
-				PreprocessorDefinitions="_BILLIARDSDLL"
+				PreprocessorDefinitions="NDEBUG;_BILLIARDSDLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StableHeaders.h"

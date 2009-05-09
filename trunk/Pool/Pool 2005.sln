@@ -82,6 +82,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BallConfigSets", "BallConfi
 		WorkPath\BallConfigSets\std.xml = WorkPath\BallConfigSets\std.xml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{C77BACE6-F251-4085-A21A-DD451D96D65C}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		WorkPath\Hosts\test.lua = WorkPath\Hosts\test.lua
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -107,6 +116,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{407580C4-4368-4657-9721-E0AB69658D29} = {49A5AE67-BA70-4EB7-841B-1127E37302FB}
 		{FBBC8045-AE58-4503-A418-99429C30390C} = {49A5AE67-BA70-4EB7-841B-1127E37302FB}
+		{C77BACE6-F251-4085-A21A-DD451D96D65C} = {49A5AE67-BA70-4EB7-841B-1127E37302FB}
 		{5A2EB46B-1DD7-4136-AD01-A8ACF2B3EBA4} = {407580C4-4368-4657-9721-E0AB69658D29}
 		{8EB8E2D9-DCBF-465C-A26F-B73DBC2CD6BE} = {407580C4-4368-4657-9721-E0AB69658D29}
 		{C83EDE32-5DA7-4C71-A24B-014E65CCF987} = {8EB8E2D9-DCBF-465C-A26F-B73DBC2CD6BE}

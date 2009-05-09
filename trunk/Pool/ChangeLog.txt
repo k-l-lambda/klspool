@@ -1,5 +1,5 @@
 TODO:
-	script load dialog
+	script loading dialog
 	game config dialog
 	refine table.mesh
 	Camera path animation
