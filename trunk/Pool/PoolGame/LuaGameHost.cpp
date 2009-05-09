@@ -24,10 +24,12 @@ extern "C"
 #	pragma comment(lib, "Lua_Release.lib")
 #endif
 
+#define	LUABIND_DYNAMIC_LINK	// luabind 0.8 dll linking require this macro
 #pragma warning(push)
-#pragma warning(disable: 4996)
-#pragma warning(disable: 4819)
+#pragma warning(disable: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 #pragma warning(disable: 4267)
+#pragma warning(disable: 4819)
+#pragma warning(disable: 4996)
 #include <luabind\luabind.hpp>
 #include <luabind\operator.hpp>
 #include <luabind\adopt_policy.hpp>

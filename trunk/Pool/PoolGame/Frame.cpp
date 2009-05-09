@@ -23,6 +23,7 @@
 #include "mathTypeConvert.h"
 #include "GameObject.h"
 #include "OgreUtil.h"
+#include "LuaGameHost.h"
 #include "resource.h"
 
 #include <iostream>
@@ -178,7 +179,7 @@ private:
 
 
 
-static Billiards::GameLayout	genSampleLayout()
+/*static Billiards::GameLayout	genSampleLayout()
 {
 	using Billiards::Vector;
 
@@ -209,17 +210,17 @@ static Billiards::GameLayout	genSampleLayout()
 	Billiards::GameLayout layout;
 	for(size_t i = 0; i < sizeof(balls) / sizeof(Billiards::GameLayout::BallInfo); ++ i)
 		layout.BallsLayout.push_back(balls[i]);
-	/*for(size_t j = 0; j < 18; ++ j)
+	for(size_t j = 0; j < 18; ++ j)
 		for(size_t i = 0; i < 15; ++ i)
 		{
 			Billiards::GameLayout::BallInfo info = balls[i + 1];
 			info.Position.y += s_BallRadius * 2 * (j + 1);
 			layout.BallsLayout.push_back(info);
-		}*/
+		}
 
 	return layout;
 }
-static const Billiards::GameLayout s_TheSampleLayout = genSampleLayout();
+static const Billiards::GameLayout s_TheSampleLayout = genSampleLayout();*/
 
 
 BEGIN_EVENT_TABLE(Frame, wxFrame)
@@ -320,7 +321,7 @@ void Frame::createScene()
 	mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
 	mCamera->lookAt(m_nodeCameraRoot->_getDerivedPosition());
 
-	createSphere("Sphere", 24, 24, 1);
+	createSphere("Sphere", 30, 30, 1);
 	m_nodeGame = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 	m_nodeCue = m_nodeGame->createChildSceneNode("cue");
@@ -348,11 +349,6 @@ void Frame::createScene()
 
 	mWindow->getViewport(0)->setBackgroundColour(ColourValue(0.2, 0.2, 0.2));
 
-	// init physics system
-	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
-	m_Game->loadBallConfigSet("std");
-	m_Game->deployLayout(s_TheSampleLayout);
-
 	{
 		// init audio system
 		PoolAudio::instance().init(3, 3);
@@ -378,6 +374,14 @@ void Frame::createScene()
 		};
 		Billiards::AudioSocket::instance().playSound.connect(&LocalScope::playSound);
 	}
+
+	// init physics system
+	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
+	m_Game->loadBallConfigSet("std");
+	//m_Game->deployLayout(s_TheSampleLayout);
+
+	m_GameHost.reset(new LuaGameHost("./Hosts/test.lua"));
+	m_GameHost->initialize(m_Game.get());
 }
 
 void Frame::onIdle(wxIdleEvent& e)
@@ -462,7 +466,9 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 
 		break;*/
 	case OIS::KC_R:
-		m_Game->deployLayout(s_TheSampleLayout);
+		//TODO: replace this by script reload
+		//m_Game->deployLayout(s_TheSampleLayout);
+		m_GameHost->initialize(m_Game.get());
 
 		break;
 	case OIS::KC_S:
