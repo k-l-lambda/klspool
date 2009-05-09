@@ -43,6 +43,23 @@ static CEGUI::MouseButton convertOISMouseButtonToCegui(int buttonID)
 	}
 }
 
+static const std::string&	getCurrentDirectory()
+{
+	struct LocalScope
+	{
+		static std::string	getCurrentDirectory()
+		{
+			char path[MAX_PATH] = "";
+			::GetCurrentDirectory(MAX_PATH, path);
+
+			return path;
+		}
+	};
+
+	static const std::string s_CurrentDirectory = LocalScope::getCurrentDirectory();
+	return s_CurrentDirectory;
+}
+
 
 class OgreListener
 	: public ExampleFrameListener
@@ -177,50 +194,6 @@ private:
 	bool	m_Exit;
 };
 
-
-
-/*static Billiards::GameLayout	genSampleLayout()
-{
-	using Billiards::Vector;
-
-	static const Real s_TriangleTop = 6;
-	static const Real s_BallRadius = 0.32 + 1e-4;
-	static const Real s_Sqrt3 = std::sqrt(3.0);
-
-	Billiards::GameLayout::BallInfo balls[] =
-	{
-		{"std/Main",	Vector(-6, s_BallRadius, 0)},
-		{"std/1#",		Vector(s_TriangleTop, 0, 0) + Vector(0, 1, 0) * s_BallRadius},
-		{"std/2#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 1, -1) * s_BallRadius},
-		{"std/3#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3, 1, +1) * s_BallRadius},
-		{"std/4#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 1, -2) * s_BallRadius},
-		{"std/5#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 1, 0) * s_BallRadius},
-		{"std/6#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 2, 1, +2) * s_BallRadius},
-		{"std/7#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 1, -3) * s_BallRadius},
-		{"std/8#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 1, -1) * s_BallRadius},
-		{"std/9#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 1, +1) * s_BallRadius},
-		{"std/10#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 3, 1, +3) * s_BallRadius},
-		{"std/11#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, -4) * s_BallRadius},
-		{"std/12#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, -2) * s_BallRadius},
-		{"std/13#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, 0) * s_BallRadius},
-		{"std/14#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, +2) * s_BallRadius},
-		{"std/15#",		Vector(s_TriangleTop, 0, 0) + Vector(s_Sqrt3 * 4, 1, +4) * s_BallRadius},
-	};
-
-	Billiards::GameLayout layout;
-	for(size_t i = 0; i < sizeof(balls) / sizeof(Billiards::GameLayout::BallInfo); ++ i)
-		layout.BallsLayout.push_back(balls[i]);
-	for(size_t j = 0; j < 18; ++ j)
-		for(size_t i = 0; i < 15; ++ i)
-		{
-			Billiards::GameLayout::BallInfo info = balls[i + 1];
-			info.Position.y += s_BallRadius * 2 * (j + 1);
-			layout.BallsLayout.push_back(info);
-		}
-
-	return layout;
-}
-static const Billiards::GameLayout s_TheSampleLayout = genSampleLayout();*/
 
 
 BEGIN_EVENT_TABLE(Frame, wxFrame)
@@ -378,7 +351,6 @@ void Frame::createScene()
 	// init physics system
 	m_Game.reset(new Billiards::Game(boost::bind(&Frame::createGameObject, this, _1)));
 	m_Game->loadBallConfigSet("std");
-	//m_Game->deployLayout(s_TheSampleLayout);
 
 	m_GameHost.reset(new LuaGameHost("./Hosts/test.lua"));
 	m_GameHost->initialize(m_Game.get());
@@ -465,12 +437,11 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 		}
 
 		break;*/
-	case OIS::KC_R:
+	/*case OIS::KC_R:
 		//TODO: replace this by script reload
-		//m_Game->deployLayout(s_TheSampleLayout);
 		m_GameHost->initialize(m_Game.get());
 
-		break;
+		break;*/
 	case OIS::KC_S:
 		{
 			ShadowTechnique tec = mSceneMgr->getShadowTechnique();
@@ -637,6 +608,26 @@ bool Frame::onGuiShut(const CEGUI::EventArgs& e)
 	return true;
 }
 
+bool Frame::onGuiLoadHost(const CEGUI::EventArgs&)
+{
+	std::string dir = getCurrentDirectory() + "\\Hosts\\";
+	wxFileDialog dialog(NULL, "Choost a host script", dir, "", "*.lua", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+	if(dialog.ShowModal() == wxID_OK)
+	{
+		try
+		{
+			m_GameHost.reset(new LuaGameHost(dialog.GetPath().ToAscii()));
+			m_GameHost->initialize(m_Game.get());
+		}
+		catch(const std::exception& e)
+		{
+			wxMessageBox(std::string("Error: ") + e.what(), "Host Script Loading Failed", wxOK | wxICON_ERROR);
+		}
+	}
+
+	return true;
+}
+
 void Frame::setupGui()
 {
 	m_GuiRenderer.reset(new CEGUI::OgreCEGUIRenderer(mWindow, Ogre::RENDER_QUEUE_OVERLAY, false, 3000, mSceneMgr));
@@ -654,6 +645,8 @@ void Frame::setupGui()
 
 	CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Pool/Shut")
 		->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Frame::onGuiShut, this));
+	CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Pool/LoadHost")
+		->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Frame::onGuiLoadHost, this));
 }
 
 OgreListener* Frame::getListener() const

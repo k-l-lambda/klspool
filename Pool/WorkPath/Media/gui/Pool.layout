@@ -4,6 +4,13 @@
 	<Window Type="DefaultGUISheet" Name="root">
 		<Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
 
+		<Window Type="TaharezLook/Button" Name="Pool/LoadHost">
+			<Property Name="UnifiedPosition" Value="{{0.03,0},{0.02,0}}" />
+			<Property Name="UnifiedSize" Value="{{0.14,0},{0.06,0}}" />
+			<Property Name="Text" Value="Load Host" />
+			<Property Name="Tooltip" Value="Load a host script" />
+		</Window>
+
 		<Window Type="TaharezLook/Button" Name="Pool/Shut">
 			<Property Name="UnifiedPosition" Value="{{0.9,0},{0.9,0}}" />
 			<Property Name="UnifiedSize" Value="{{0.06,0},{0.06,0}}" />

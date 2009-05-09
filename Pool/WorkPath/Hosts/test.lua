@@ -9,11 +9,6 @@ s_Sqrt3 = math.sqrt(3.0);
 function initialize(game)
 	local layout = Billiards.GameLayout()
 
-	--[[local ball1 = Billiards.GameLayout.BallInfo.make("std/Main", Vector(-6, s_BallRadius, 0))
-	layout.BallsLayout:push_back(ball1)
-
-	local ball2 = Billiards.GameLayout.BallInfo.make("std/1#", Vector(s_TriangleTop, 0, 0) + Vector(0, 1, 0) * s_BallRadius)
-	layout.BallsLayout:push_back(ball2)]]
 	local makeBall = Billiards.GameLayout.BallInfo.make
 	local balls = {
 		makeBall("std/Main",	Vector(-6, s_BallRadius, 0)),
@@ -38,6 +33,15 @@ function initialize(game)
 	for i, ball in pairs(balls) do
 		layout.BallsLayout:push_back(ball)
 	end
+
+	--[[local j
+	for j = 1, 2 do
+		for i = 2, 16 do
+			local ball = Billiards.GameLayout.BallInfo(balls[i]);
+			ball.Position.y = ball.Position.y + s_BallRadius * 2 * j;
+			layout.BallsLayout:push_back(ball);
+		end
+	end]]
 
 	game:deployLayout(layout)
 end

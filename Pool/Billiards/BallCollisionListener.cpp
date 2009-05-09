@@ -29,7 +29,7 @@ namespace Billiards
 
 	void BallCollisionListener::contactPointAddedCallback(hkpContactPointAddedEvent& event)
 	{
-		std::cout << "Collision: " << std::clock() << "\t" << event.m_contactPoint->getPosition()<<std::endl;
+		std::cout << "Collision: " << std::clock() << "\t" << event.m_contactPoint->getPosition() << std::endl;
 
 		hkpShapeType shapeTypeA = event.m_bodyA->m_shape->getType();
 		hkpShapeType shapeTypeB = event.m_bodyB->m_shape->getType();
@@ -38,7 +38,7 @@ namespace Billiards
 			boost::mutex::scoped_lock lock(AudioSocket::getPlaySoundMutex());
 
 			AudioSocket::instance().playSound("collide b-b", event.m_contactPoint->getPosition(), -event.m_projectedVelocity);
-			std::cout<< "Velocity : "<<event.m_projectedVelocity<<std::endl;
+			//std::cout <<  "Velocity : " << event.m_projectedVelocity << std::endl;
 		}
 		else if(event.m_contactPoint->getPosition()(1) != 8.2f)
 		{
