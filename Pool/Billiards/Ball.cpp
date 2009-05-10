@@ -17,9 +17,6 @@
 
 namespace Billiards
 {
-	//hkpWorld* Ball::s_hkpWorld = 0;
-
-
 	Ball::Ball(hkpWorld* world, const VisualObjectPtr& vobj)
 		: m_World(world)
 		, m_Radius(0)
@@ -150,11 +147,6 @@ namespace Billiards
 
 		return m_RigidBody->getLinearVelocity();
 	}
-
-	/*void Ball::setupStatic(hkpWorld *hw)
-	{
-		s_hkpWorld = hw;	
-	}*/
 
 	void Ball::update()
 	{

@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{C83E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BallConfigSets", "BallConfigSets", "{FBBC8045-AE58-4503-A418-99429C30390C}"
 	ProjectSection(SolutionItems) = preProject
+		WorkPath\BallConfigSets\fun.xml = WorkPath\BallConfigSets\fun.xml
 		WorkPath\BallConfigSets\std.xml = WorkPath\BallConfigSets\std.xml
 	EndProjectSection
 EndProject
@@ -44,6 +45,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioSystem", "AudioSystem\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{2135EB77-F7CB-4056-B274-AB1793E67C57}"
 	ProjectSection(SolutionItems) = preProject
+		WorkPath\Hosts\fun.lua = WorkPath\Hosts\fun.lua
 		WorkPath\Hosts\test.lua = WorkPath\Hosts\test.lua
 	EndProjectSection
 EndProject

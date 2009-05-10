@@ -437,11 +437,11 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 		}
 
 		break;*/
-	/*case OIS::KC_R:
-		//TODO: replace this by script reload
+	case OIS::KC_R:
+		//TODO:
 		m_GameHost->initialize(m_Game.get());
 
-		break;*/
+		break;
 	case OIS::KC_S:
 		{
 			ShadowTechnique tec = mSceneMgr->getShadowTechnique();

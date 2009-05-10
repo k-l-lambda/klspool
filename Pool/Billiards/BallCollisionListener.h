@@ -24,6 +24,7 @@ namespace Billiards
 		: public hkReferencedObject
 		, public hkpCollisionListener
 		, public hkpEntityListener
+		, public hkpEntityActivationListener
 	{
 	public:
 		explicit BallCollisionListener(const hkpRigidBodyPtr& rigidBody);
@@ -53,6 +54,11 @@ namespace Billiards
 
 		// Called when the entity is removed from the hkpWorld
 		void entityRemovedCallback(hkpEntity* entity);
+
+
+		virtual void entityDeactivatedCallback(hkpEntity* entity);
+
+		virtual void entityActivatedCallback(hkpEntity* entity);
 
 	private:
 		// a small structure, which gets attached to each contact point

@@ -31,6 +31,7 @@
 
 #include <Physics/Dynamics/Collide/hkpCollisionListener.h>
 #include <Physics/Dynamics/Entity/hkpEntityListener.h>
+#include <Physics/Dynamics/Entity/hkpEntityActivationListener.h>
 
 #include <Physics/Collide/Query/CastUtil/hkpWorldRayCastInput.h>			
 #include <Physics/Collide/Query/CastUtil/hkpWorldRayCastOutput.h>			
