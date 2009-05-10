@@ -20,6 +20,7 @@ namespace Billiards
 	{
 		rigidBody->addCollisionListener(this);
 		rigidBody->addEntityListener(this);
+		rigidBody->addEntityActivationListener(this);
 		m_uniqueIdCounter = 0;
 	}
 
@@ -78,5 +79,14 @@ namespace Billiards
 	void BallCollisionListener::entityRemovedCallback(hkpEntity* entity)
 	{
 		// Do nothing (we'll remove the collision event listener only when the entity is deleted)
+	}
+
+
+	void BallCollisionListener::entityDeactivatedCallback(hkpEntity* entity)
+	{
+	}
+
+	void BallCollisionListener::entityActivatedCallback(hkpEntity* entity)
+	{
 	}
 }

@@ -7,91 +7,91 @@
 		<item_version>0</item_version>
 		<item>
 			<Name>1#</Name>
-			<Redius>2.990</Redius>
-			<Mass>1</Mass>
+			<Redius>2.5999</Redius>
+			<Mass>3.8</Mass>
 			<Material>P1</Material>
 		</item>
 		<item>
 			<Name>2#</Name>
-			<Redius>2.0912</Redius>
-			<Mass>1</Mass>
+			<Redius>2.0447</Redius>
+			<Mass>3.6</Mass>
 			<Material>P2</Material>
 		</item>
 		<item>
 			<Name>3#</Name>
-			<Redius>1.4623</Redius>
-			<Mass>1</Mass>
+			<Redius>1.6080</Redius>
+			<Mass>3.4</Mass>
 			<Material>P3</Material>
 		</item>
 		<item>
 			<Name>4#</Name>
-			<Redius>1.0226</Redius>
-			<Mass>1</Mass>
+			<Redius>1.2646</Redius>
+			<Mass>3.2</Mass>
 			<Material>P4</Material>
 		</item>
 		<item>
 			<Name>5#</Name>
-			<Redius>0.7151</Redius>
-			<Mass>1</Mass>
+			<Redius>0.9945</Redius>
+			<Mass>3</Mass>
 			<Material>P5</Material>
 		</item>
 		<item>
 			<Name>6#</Name>
-			<Redius>0.5000</Redius>
-			<Mass>1</Mass>
+			<Redius>0.7821</Redius>
+			<Mass>2.8</Mass>
 			<Material>P6</Material>
 		</item>
 		<item>
 			<Name>7#</Name>
-			<Redius>0.3497</Redius>
-			<Mass>1</Mass>
+			<Redius>0.6151</Redius>
+			<Mass>2.6</Mass>
 			<Material>P7</Material>
 		</item>
 		<item>
 			<Name>8#</Name>
-			<Redius>0.2445</Redius>
-			<Mass>1</Mass>
+			<Redius>0.4837</Redius>
+			<Mass>2.4</Mass>
 			<Material>P8</Material>
 		</item>
 		<item>
 			<Name>9#</Name>
-			<Redius>0.1710</Redius>
-			<Mass>1</Mass>
+			<Redius>0.38047</Redius>
+			<Mass>2.2</Mass>
 			<Material>P9</Material>
 		</item>
 		<item>
 			<Name>10#</Name>
-			<Redius>0.1195</Redius>
-			<Mass>1</Mass>
+			<Redius>0.2991</Redius>
+			<Mass>2</Mass>
 			<Material>P10</Material>
 		</item>
 		<item>
 			<Name>11#</Name>
-			<Redius>0.0836</Redius>
-			<Mass>1</Mass>
+			<Redius>0.2352</Redius>
+			<Mass>1.8</Mass>
 			<Material>P11</Material>
 		</item>
 		<item>
 			<Name>12#</Name>
-			<Redius>0.0584</Redius>
-			<Mass>1</Mass>
+			<Redius>0.1850</Redius>
+			<Mass>1.6</Mass>
 			<Material>P12</Material>
 		</item>
 		<item>
 			<Name>13#</Name>
-			<Redius>0.0408</Redius>
-			<Mass>1</Mass>
+			<Redius>0.14551</Redius>
+			<Mass>1.4</Mass>
 			<Material>P13</Material>
 		</item>
 		<item>
 			<Name>14#</Name>
-			<Redius>0.0286</Redius>
-			<Mass>1</Mass>
+			<Redius>0.1144</Redius>
+			<Mass>1.2</Mass>
 			<Material>P14</Material>
 		</item>
 		<item>
 			<Name>15#</Name>
-			<Redius>0.02</Redius>
+			<Redius>0.09</Redius>
 			<Mass>1</Mass>
 			<Material>P15</Material>
 		</item>
