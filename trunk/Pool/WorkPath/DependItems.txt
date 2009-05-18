@@ -4,12 +4,12 @@ alut.dll
 CEGUIBase.dll
 CEGUIBase_d.dll			(for debug)
 CEGUIExpatParser.dll
-CEGUIExpatParser_d.dll
+CEGUIExpatParser_d.dll		(for debug)
 CEGUIFalagardWRBase.dll
 CEGUIFalagardWRBase_d.dll	(for debug)
 cg.dll
 d3d9_*.dll
-Lua_Debug.dll
+Lua_Debug.dll			(for debug)
 Lua_Release.dll
 luabind_Debug.dll		(for debug)
 luabind_Release.dll
@@ -28,4 +28,4 @@ RenderSystem_Direct3D9_d.dll	(for debug)
 Required Installation:
 
 OpenAL redistribution, 'oalinst.exe'
-VC redistribution, or msvcp80.dll + msvcr80.dll + Microsoft.VC80.CRT.manifest
+VC redistribution, or msvcp*.dll + msvcr*.dll + Microsoft.VC*.CRT.manifest
