@@ -1,6 +1,5 @@
 TODO:
 	game config dialog
-	refine table.mesh
 	Camera path animation
 	Visual object serialization.
 	Real-time environment map material.
@@ -8,6 +7,12 @@ TODO:
 Known Issues:
 	Deactive rigidbodies' fisrt collision look weird.
 	Multi-thread accessing conflict sometimes.
+
+
+2009.5.19	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	WorkPath\DeployStables.bat: added.
+	+	WorkPath\DeployVariables.bat: added.
 
 
 2009.5.9	K.L.	<xxxK.L.xxx@gmail.com>
