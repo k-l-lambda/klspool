@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkPath", "WorkPath", "{49
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
+		WorkPath\DeployStables.bat = WorkPath\DeployStables.bat
+		WorkPath\DeployVariables.bat = WorkPath\DeployVariables.bat
 		WorkPath\ReadMe.txt = WorkPath\ReadMe.txt
 		WorkPath\resources.cfg = WorkPath\resources.cfg
 	EndProjectSection
