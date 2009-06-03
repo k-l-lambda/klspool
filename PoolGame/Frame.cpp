@@ -233,14 +233,23 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_nodeCameraRoot(NULL)
 	, m_nodeCamera(NULL)
 	, m_nodeCue(NULL)
+	, m_PointPosition(0, 0)
+	, m_ImagePoint(NULL)
+	, m_ImagePowerSlotSurface(NULL)
+	, m_ImageBall(NULL)
+	, m_ImagePowerSlotBase(NULL)
 	, m_fnOnClose(fnOnClose)
 	, m_RotatingCamera(false)
 	, m_PanningCamera(false)
 	, m_Staring(false)
+	, m_ShootAble(true)
+	, m_PowerControlerOn(false)
+	, m_PointControlerOn(false)
 	, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
 	, m_FocusDialog(wxID_ANY)
 	, m_AmassDistance(0)
 	, m_AmassMax(0)
+	, m_DistanceMax(15)
 {
 }
 
@@ -445,19 +454,44 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 
 		break;
 	case OIS::KC_LCONTROL:
-		m_Staring = true;
-		m_RotatingCamera = false;
-		m_AmassMax = m_AmassDistance = 0.2f;
+		{
+			if(!m_ShootAble)
+				break;
 
-		m_nodeCameraRoot->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
-		m_nodeCue->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
-		m_nodeCue->setOrientation(m_nodeCameraRoot->getOrientation());
-		m_nodeCue->getChild(0)->setPosition(0, 0, m_Game->getMainBall()->getRadius());
-		m_nodeCue->setVisible(m_Staring);
+			// Enable power controler, disable shoot point controler
+			m_PowerControlerOn = true;
+			m_PointControlerOn = false;
 
-		m_GuiSystem->setDefaultMouseCursor(CEGUI::BlankMouseCursor);
+			m_Staring = true;
+			m_RotatingCamera = false;
+			m_AmassMax = m_AmassDistance = 0.2f;
+			
+			m_nodeCameraRoot->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
+			m_nodeCue->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
+			m_nodeCue->setOrientation(m_nodeCameraRoot->getOrientation());
+			m_nodeCue->getChild(0)->setPosition(0, 0, m_Game->getMainBall()->getRadius());
+			m_nodeCue->setVisible(m_Staring);
+			
+			m_GuiSystem->setDefaultMouseCursor(CEGUI::BlankMouseCursor);
 
-		break;
+			m_ImagePowerSlotBase->setVisible(true);
+			m_ImagePowerSlotSurface->setVisible(true);
+			
+			break;
+		}
+	case OIS::KC_SPACE:
+		{
+			if(!m_ShootAble)
+				break;
+			// Enable shoot point controler,disable power controler
+			m_PowerControlerOn = false;
+			m_PointControlerOn = true;
+
+			m_ImageBall->setVisible(true);
+			m_ImagePoint->setVisible(true);
+
+			//TODO
+		}
 	}
 
 	return true;
@@ -468,10 +502,27 @@ bool Frame::keyReleased(const OIS::KeyEvent& e)
 	switch(e.key)
 	{
 	case OIS::KC_LCONTROL:
+		{
 		m_Staring = false;
 		m_nodeCue->setVisible(m_Staring);
 
 		m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
+
+		m_ImagePowerSlotBase->setVisible(false);
+	    m_ImagePowerSlotSurface->setVisible(false);
+
+		CEGUI::UDim normalHeight(0.8, 0);
+		m_ImagePowerSlotSurface->setHeight(normalHeight);
+
+		m_AmassDistance = 0;
+		m_AmassMax = 0;
+
+		break;
+		}
+
+	case OIS::KC_SPACE:
+	    m_ImageBall->setVisible(false);
+	    m_ImagePoint->setVisible(false);
 
 		break;
 	}
@@ -533,6 +584,9 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 	{
 		m_AmassDistance += e.state.Y.rel * 0.04f;
 
+		if(m_AmassDistance > m_DistanceMax)
+			m_AmassDistance = m_DistanceMax;
+
 		if(e.state.Y.rel > 0)
 			m_AmassMax = m_AmassDistance;
 
@@ -549,6 +603,38 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 			m_Staring = false;
 			m_nodeCue->setVisible(m_Staring);
 		}
+	}
+
+	if(m_PowerControlerOn)
+	{	
+		Real rad = (1 - m_AmassDistance/m_DistanceMax);
+		if(rad > 1)
+			rad = 1;
+		CEGUI::UDim height(rad * 0.8, 0);
+		m_ImagePowerSlotSurface->setHeight(height);
+	}
+	else if(m_PointControlerOn)
+	{
+		Real x;
+		Real y;
+		const Real radius = 45;
+
+		x = m_PointPosition.x;
+		y = m_PointPosition.y;
+
+		y += e.state.Y.rel * 0.2;
+		x += e.state.X.rel * 0.2;
+
+		if(y * y + x * x < radius * radius)
+		{
+			m_PointPosition.x = x;
+		    m_PointPosition.y = y;
+		}
+
+		CEGUI::UDim dx(0, 95 + x);
+		CEGUI::UDim dy(0, 95 + y);
+		CEGUI::UVector2 pos(dx, dy);
+		m_ImagePoint->setPosition(pos);
 	}
 
 	CEGUI::System::getSingleton().injectMouseMove(e.state.X.rel, e.state.Y.rel);
@@ -609,12 +695,35 @@ void Frame::setupGui()
 	m_GuiSystem.reset(new CEGUI::System(m_GuiRenderer.get()));
 	CEGUI::Logger::getSingleton().setLoggingLevel(CEGUI::Informative);
 	CEGUI::SchemeManager::getSingleton().loadScheme((CEGUI::utf8*)"TaharezLookSkin.scheme");
+
 	m_GuiSystem->setDefaultMouseCursor((CEGUI::utf8*)"TaharezLook", (CEGUI::utf8*)"MouseArrow");
 	m_GuiSystem->setDefaultFont((CEGUI::utf8*)"BlueHighway-12");
 	m_GuiSystem->setDefaultTooltip("TaharezLook/Tooltip");
 
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().loadWindowLayout((CEGUI::utf8*)"Pool.layout"); 
 	m_GuiSystem->setGUISheet(sheet);
+
+	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlot", "gagebase.bmp");
+	m_ImagePowerSlotBase = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot");
+	m_ImagePowerSlotBase->setProperty("Image", "set:powerSlot image:full_image");
+
+	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shotPos", "setspin.dds");
+	m_ImageBall = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShotPos");
+	m_ImageBall->setProperty("Image", "set:shotPos image:full_image");
+
+	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlotSurface", "gageSurface.tga");
+	m_ImagePowerSlotSurface = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot_Surface");
+	m_ImagePowerSlotSurface->setProperty("Image", "set:powerSlotSurface image:full_image");
+
+	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shootPoint", "point.dds");
+	m_ImagePoint = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShootPoint");
+	m_ImagePoint->setProperty("Image", "set:shootPoint image:full_image");
+
+	m_ImagePowerSlotBase->setVisible(false);
+	m_ImagePowerSlotSurface->setVisible(false);
+
+	m_ImageBall->setVisible(false);
+	m_ImagePoint->setVisible(false);
 
 	CEGUI::Window* root = CEGUI::WindowManager::getSingleton().getWindow("root");
 
