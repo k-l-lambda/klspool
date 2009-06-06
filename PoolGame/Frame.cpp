@@ -511,7 +511,7 @@ bool Frame::keyReleased(const OIS::KeyEvent& e)
 		m_ImagePowerSlotBase->setVisible(false);
 	    m_ImagePowerSlotSurface->setVisible(false);
 
-		CEGUI::UDim normalHeight(0.8, 0);
+		CEGUI::UDim normalHeight(0.773, 0);
 		m_ImagePowerSlotSurface->setHeight(normalHeight);
 
 		m_AmassDistance = 0;
@@ -610,7 +610,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 		Real rad = (1 - m_AmassDistance/m_DistanceMax);
 		if(rad > 1)
 			rad = 1;
-		CEGUI::UDim height(rad * 0.8, 0);
+		CEGUI::UDim height(rad * 0.773, 0);
 		m_ImagePowerSlotSurface->setHeight(height);
 	}
 	else if(m_PointControlerOn)
@@ -711,11 +711,11 @@ void Frame::setupGui()
 	m_ImageBall = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShotPos");
 	m_ImageBall->setProperty("Image", "set:shotPos image:full_image");
 
-	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlotSurface", "gageSurface.tga");
+	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlotSurface", "gageSurface.png");
 	m_ImagePowerSlotSurface = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot_Surface");
 	m_ImagePowerSlotSurface->setProperty("Image", "set:powerSlotSurface image:full_image");
 
-	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shootPoint", "point.dds");
+	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shootPoint", "point.png");
 	m_ImagePoint = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShootPoint");
 	m_ImagePoint->setProperty("Image", "set:shootPoint image:full_image");
 
