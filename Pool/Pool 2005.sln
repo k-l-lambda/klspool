@@ -51,6 +51,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gui", "gui", "{5A2EB46B-1DD
 	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
 		WorkPath\Media\gui\Pool.layout = WorkPath\Media\gui\Pool.layout
+		WorkPath\Media\gui\PoolGame.imageset = WorkPath\Media\gui\PoolGame.imageset
+		WorkPath\Media\gui\PoolGame.scheme = WorkPath\Media\gui\PoolGame.scheme
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "materials", "materials", "{8EB8E2D9-DCBF-465C-A26F-B73DBC2CD6BE}"
