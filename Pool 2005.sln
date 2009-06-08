@@ -2,12 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PoolGame", "PoolGame\PoolGame.vcproj", "{293B5B44-A9EA-4283-82B3-010F2740AD42}"
-	ProjectSection(ProjectDependencies) = postProject
-		{60C50C7A-9964-4DC1-B809-49F0D9532D28} = {60C50C7A-9964-4DC1-B809-49F0D9532D28}
-	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{60C50C7A-9964-4DC1-B809-49F0D9532D28} = {60C50C7A-9964-4DC1-B809-49F0D9532D28}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Billiards", "Billiards\Billiards.vcproj", "{60C50C7A-9964-4DC1-B809-49F0D9532D28}"
@@ -17,22 +17,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Billiards", "Billiards\Bill
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{2BA4FF37-FB17-4F33-9F2E-0EEB6DA6E9FC}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
 		ChangeLog.txt = ChangeLog.txt
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkPath", "WorkPath", "{49A5AE67-BA70-4EB7-841B-1127E37302FB}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkPath", "WorkPath", "{49A5AE67-BA70-4EB7-841B-1127E37302FB}"
 	ProjectSection(SolutionItems) = preProject
 		WorkPath\ReadMe.txt = WorkPath\ReadMe.txt
 		WorkPath\resources.cfg = WorkPath\resources.cfg
-	EndProjectSection
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Media", "Media", "{407580C4-4368-4657-9721-E0AB69658D29}"
@@ -46,6 +46,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gui", "gui", "{5A2EB46B-1DD
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		WorkPath\Media\gui\Pool.layout = WorkPath\Media\gui\Pool.layout
+		WorkPath\Media\gui\PoolGame.imageset = WorkPath\Media\gui\PoolGame.imageset
+		WorkPath\Media\gui\PoolGame.scheme = WorkPath\Media\gui\PoolGame.scheme
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "materials", "materials", "{8EB8E2D9-DCBF-465C-A26F-B73DBC2CD6BE}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -54,13 +59,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "materials", "materials", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{C83EDE32-5DA7-4C71-A24B-014E65CCF987}"
-	ProjectSection(SolutionItems) = preProject
-		WorkPath\Media\materials\scripts\Pool.material = WorkPath\Media\materials\scripts\Pool.material
-		WorkPath\Media\materials\scripts\PoolTable.material = WorkPath\Media\materials\scripts\PoolTable.material
-	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		WorkPath\Media\materials\scripts\Pool.material = WorkPath\Media\materials\scripts\Pool.material
+		WorkPath\Media\materials\scripts\PoolTable.material = WorkPath\Media\materials\scripts\PoolTable.material
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioSystem", "AudioSystem\AudioSystem.vcproj", "{7E1812B0-F357-48E8-9B02-3B93EE482427}"
@@ -70,12 +75,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioSystem", "AudioSystem\
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BallConfigSets", "BallConfigSets", "{FBBC8045-AE58-4503-A418-99429C30390C}"
-	ProjectSection(SolutionItems) = preProject
-		WorkPath\BallConfigSets\std.xml = WorkPath\BallConfigSets\std.xml
-	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		WorkPath\BallConfigSets\std.xml = WorkPath\BallConfigSets\std.xml
 	EndProjectSection
 EndProject
 Global
