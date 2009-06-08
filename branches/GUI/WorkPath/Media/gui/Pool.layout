@@ -11,32 +11,36 @@
 			<Property Name="Tooltip" Value="Exit Game" />
 		</Window>
 
-    <Window Type="TaharezLook/StaticImage" Name="Pool/ShotPos">
-      <Property Name="FrameEnabled" Value="false" />
-      <Property Name="UnifiedPosition" Value="{{0,50},{0,50}}" />
-      <Property Name="UnifiedSize" Value="{{0,100},{0,100}}" />
-      <Property Name="BackgroundEnabled" Value="false" />
-    </Window>
+		<Window Type="TaharezLook/StaticImage" Name="Pool/ShotPos">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0,50},{0,50}}" />
+			<Property Name="UnifiedSize" Value="{{0,100},{0,100}}" />
+			<Property Name="Image" Value="set:PoolGame image:SpinBackground" />
+			<Property Name="BackgroundEnabled" Value="false" />
+		</Window>
 
-    <Window Type="TaharezLook/StaticImage" Name="Pool/ShootPoint">
-      <Property Name="FrameEnabled" Value="false" />
-      <Property Name="UnifiedPosition" Value="{{0,95},{0,95}}" />
-      <Property Name="UnifiedSize" Value="{{0,10},{0,10}}" />
-      <Property Name="BackgroundEnabled" Value="false" />
-    </Window>
+		<Window Type="TaharezLook/StaticImage" Name="Pool/ShootPoint">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0,95},{0,95}}" />
+			<Property Name="UnifiedSize" Value="{{0,10},{0,10}}" />
+			<Property Name="Image" Value="set:PoolGame image:SpinPoint" />
+			<Property Name="BackgroundEnabled" Value="false" />
+		</Window>
 
-    <Window Type="TaharezLook/StaticImage" Name="Pool/PowerSlot">
-      <Property Name="FrameEnabled" Value="false" />
-      <Property Name="UnifiedPosition" Value="{{0.9,0},{0.05,0}}" />
-      <Property Name="UnifiedSize" Value="{{0.05,0},{0.8,0}}" />
-    </Window>
+		<Window Type="TaharezLook/StaticImage" Name="Pool/PowerSlot">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0.92,0},{0.05,0}}" />
+			<Property Name="UnifiedSize" Value="{{0.03,0},{0.8,0}}" />
+			<Property Name="Image" Value="set:PoolGame image:PowerSlot" />
+		</Window>
 
-    <Window Type="TaharezLook/StaticImage" Name="Pool/PowerSlot_Surface">
-      <Property Name="FrameEnabled" Value="false" />
-      <Property Name="UnifiedPosition" Value="{{0.9,0},{0.05,8}}" />
-      <Property Name="UnifiedSize" Value="{{0.05,0},{0.773,0}}" />
-      <Property Name="BackgroundEnabled" Value="false" />
-    </Window>
-    
+		<Window Type="TaharezLook/StaticImage" Name="Pool/PowerSlot_Surface">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0.92,0},{0.05,8}}" />
+			<Property Name="UnifiedSize" Value="{{0.03,0},{0.773,0}}" />
+			<Property Name="Image" Value="set:PoolGame image:PowerSlotSurface" />
+			<Property Name="BackgroundEnabled" Value="false" />
+		</Window>
+
 	</Window>
 </GUILayout>

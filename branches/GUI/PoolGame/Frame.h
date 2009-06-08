@@ -93,9 +93,9 @@ private:
 
 	Ogre::Vector2                       m_PointPosition;
 
+    CEGUI::Window*                      m_ImageBall;
 	CEGUI::Window*                      m_ImagePoint;
     CEGUI::Window*                      m_ImagePowerSlotBase;
-    CEGUI::Window*                      m_ImageBall;
     CEGUI::Window*                      m_ImagePowerSlotSurface;
 
 	OnCloseFunctor						m_fnOnClose;
@@ -119,7 +119,7 @@ private:
 	Real								m_AmassDistance;
 	Real								m_AmassMax;
 
-	const Real                          m_DistanceMax;
+	//const Real                          m_DistanceMax;
 
 	DECLARE_EVENT_TABLE()
 };

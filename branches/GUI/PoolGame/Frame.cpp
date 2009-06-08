@@ -234,10 +234,10 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_nodeCamera(NULL)
 	, m_nodeCue(NULL)
 	, m_PointPosition(0, 0)
-	, m_ImagePoint(NULL)
-	, m_ImagePowerSlotSurface(NULL)
 	, m_ImageBall(NULL)
+	, m_ImagePoint(NULL)
 	, m_ImagePowerSlotBase(NULL)
+	, m_ImagePowerSlotSurface(NULL)
 	, m_fnOnClose(fnOnClose)
 	, m_RotatingCamera(false)
 	, m_PanningCamera(false)
@@ -249,7 +249,7 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_FocusDialog(wxID_ANY)
 	, m_AmassDistance(0)
 	, m_AmassMax(0)
-	, m_DistanceMax(15)
+	//, m_DistanceMax(15)
 {
 }
 
@@ -584,8 +584,8 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 	{
 		m_AmassDistance += e.state.Y.rel * 0.04f;
 
-		if(m_AmassDistance > m_DistanceMax)
-			m_AmassDistance = m_DistanceMax;
+		//if(m_AmassDistance > m_DistanceMax)
+		//	m_AmassDistance = m_DistanceMax;
 
 		if(e.state.Y.rel > 0)
 			m_AmassMax = m_AmassDistance;
@@ -607,7 +607,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 
 	if(m_PowerControlerOn)
 	{	
-		Real rad = (1 - m_AmassDistance/m_DistanceMax);
+		Real rad = (1 - m_AmassDistance / 15);
 		if(rad > 1)
 			rad = 1;
 		CEGUI::UDim height(rad * 0.773, 0);
@@ -615,12 +615,10 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 	}
 	else if(m_PointControlerOn)
 	{
-		Real x;
-		Real y;
-		const Real radius = 45;
+		static const Real radius = 45;
 
-		x = m_PointPosition.x;
-		y = m_PointPosition.y;
+		Real x = m_PointPosition.x;
+		Real y = m_PointPosition.y;
 
 		y += e.state.Y.rel * 0.2;
 		x += e.state.X.rel * 0.2;
@@ -695,6 +693,7 @@ void Frame::setupGui()
 	m_GuiSystem.reset(new CEGUI::System(m_GuiRenderer.get()));
 	CEGUI::Logger::getSingleton().setLoggingLevel(CEGUI::Informative);
 	CEGUI::SchemeManager::getSingleton().loadScheme((CEGUI::utf8*)"TaharezLookSkin.scheme");
+	CEGUI::SchemeManager::getSingleton().loadScheme((CEGUI::utf8*)"PoolGame.scheme");
 
 	m_GuiSystem->setDefaultMouseCursor((CEGUI::utf8*)"TaharezLook", (CEGUI::utf8*)"MouseArrow");
 	m_GuiSystem->setDefaultFont((CEGUI::utf8*)"BlueHighway-12");
@@ -703,21 +702,21 @@ void Frame::setupGui()
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().loadWindowLayout((CEGUI::utf8*)"Pool.layout"); 
 	m_GuiSystem->setGUISheet(sheet);
 
-	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlot", "gagebase.bmp");
-	m_ImagePowerSlotBase = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot");
-	m_ImagePowerSlotBase->setProperty("Image", "set:powerSlot image:full_image");
-
-	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shotPos", "setspin.dds");
+	//CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shotPos", "setspin.dds");
 	m_ImageBall = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShotPos");
-	m_ImageBall->setProperty("Image", "set:shotPos image:full_image");
+	//m_ImageBall->setProperty("Image", "set:PoolGame image:SpinBackground");
 
-	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlotSurface", "gageSurface.png");
-	m_ImagePowerSlotSurface = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot_Surface");
-	m_ImagePowerSlotSurface->setProperty("Image", "set:powerSlotSurface image:full_image");
-
-	CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shootPoint", "point.png");
+	//CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shootPoint", "point.png");
 	m_ImagePoint = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShootPoint");
-	m_ImagePoint->setProperty("Image", "set:shootPoint image:full_image");
+	//m_ImagePoint->setProperty("Image", "set:shootPoint image:full_image");
+
+	//CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlot", "gagebase.bmp");
+	m_ImagePowerSlotBase = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot");
+	//m_ImagePowerSlotBase->setProperty("Image", "set:powerSlot image:full_image");
+
+	//CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlotSurface", "gageSurface.png");
+	m_ImagePowerSlotSurface = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot_Surface");
+	//m_ImagePowerSlotSurface->setProperty("Image", "set:powerSlotSurface image:full_image");
 
 	m_ImagePowerSlotBase->setVisible(false);
 	m_ImagePowerSlotSurface->setVisible(false);
