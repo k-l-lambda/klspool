@@ -18,5 +18,52 @@
 			<Property Name="Tooltip" Value="Exit Game" />
 		</Window>
 
+		<Window Type="TaharezLook/StaticImage" Name="Pool/SpinBackground">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0,5},{0,45}}" />
+			<Property Name="UnifiedSize" Value="{{0,100},{0,100}}" />
+			<Property Name="Image" Value="set:PoolGame image:SpinBackground" />
+			<Property Name="BackgroundEnabled" Value="false" />
+		</Window>
+
+		<Window Type="TaharezLook/StaticImage" Name="Pool/SpinPoint">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0,50},{0,90}}" />
+			<Property Name="UnifiedSize" Value="{{0,10},{0,10}}" />
+			<Property Name="Image" Value="set:PoolGame image:SpinPoint" />
+			<Property Name="BackgroundEnabled" Value="false" />
+		</Window>
+
+		<Window Type="TaharezLook/StaticImage" Name="Pool/PowerSlot">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0.94,0},{0.05,0}}" />
+			<Property Name="UnifiedSize" Value="{{0,19},{0.8,0}}" />
+			<Property Name="Image" Value="set:PoolGame image:PowerSlot" />
+		</Window>
+
+		<Window Type="TaharezLook/StaticImage" Name="Pool/PowerSlot_Surface">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0.94,0},{0.05,8}}" />
+			<Property Name="UnifiedSize" Value="{{0,19},{0.773,0}}" />
+			<Property Name="Image" Value="set:PoolGame image:PowerSlotSurface" />
+			<Property Name="BackgroundEnabled" Value="false" />
+		</Window>
+
+		<Window Type="TaharezLook/StaticImage" Name="Pool/PowerColumn">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0.90,0},{0.05,0}}" />
+			<Property Name="UnifiedSize" Value="{{0,16},{0.8,0}}" />
+			<Property Name="Image" Value="set:PoolGame image:RedColumn" />
+			<Property Name="Alpha" Value="0.8" />
+		</Window>
+
+		<Window Type="TaharezLook/StaticImage" Name="Pool/PowerColumnMax">
+			<Property Name="FrameEnabled" Value="false" />
+			<Property Name="UnifiedPosition" Value="{{0.90,0},{0.05,0}}" />
+			<Property Name="UnifiedSize" Value="{{0,16},{0.8,0}}" />
+			<Property Name="Image" Value="set:PoolGame image:RedColumn" />
+			<Property Name="Alpha" Value="0.4" />
+		</Window>
+
 	</Window>
 </GUILayout>
