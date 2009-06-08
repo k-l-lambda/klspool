@@ -455,10 +455,8 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 
 		break;
 	case OIS::KC_LCONTROL:
+		if(m_ShootAble)
 		{
-			if(!m_ShootAble)
-				break;
-
 			// Enable power controler, disable shoot point controler
 			m_PowerControlerOn = true;
 			m_PointControlerOn = false;
@@ -479,9 +477,9 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 			m_ImagePowerSlotSurface->setVisible(true);
 			m_ImagePowerColumn->setVisible(true);
 			m_ImagePowerColumnMax->setVisible(true);
-
-			break;
 		}
+
+		break;
 	case OIS::KC_SPACE:
 		{
 			if(m_ShootAble)
@@ -510,25 +508,22 @@ bool Frame::keyReleased(const OIS::KeyEvent& e)
 	switch(e.key)
 	{
 	case OIS::KC_LCONTROL:
-		{
-			m_Staring = false;
-			m_nodeCue->setVisible(m_Staring);
+		m_Staring = false;
+		m_nodeCue->setVisible(m_Staring);
 
-			m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
+		m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
-			m_ImagePowerSlotBase->setVisible(false);
-			m_ImagePowerSlotSurface->setVisible(false);
-			m_ImagePowerColumn->setVisible(false);
-			m_ImagePowerColumnMax->setVisible(false);
+		m_ImagePowerSlotBase->setVisible(false);
+		m_ImagePowerSlotSurface->setVisible(false);
+		m_ImagePowerColumn->setVisible(false);
+		m_ImagePowerColumnMax->setVisible(false);
 
-			CEGUI::UDim normalHeight(0.773, 0);
-			m_ImagePowerSlotSurface->setHeight(normalHeight);
+		m_ImagePowerSlotSurface->setHeight(CEGUI::UDim(0.773f, 0));
 
-			m_AmassDistance = 0;
-			m_AmassMax = 0;
+		m_AmassDistance = 0;
+		m_AmassMax = 0;
 
-			break;
-		}
+		break;
 
 	case OIS::KC_SPACE:
 		m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
