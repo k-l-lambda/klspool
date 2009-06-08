@@ -12,7 +12,6 @@
 
 #include "ExampleApplication.h"
 #include "OgreCEGUIRenderer.h"
-#include "CEGUI/CEGUIImagesetManager.h"
 
 
 namespace Billiards
@@ -91,10 +90,12 @@ private:
 	boost::shared_ptr<CEGUI::Renderer>	m_GuiRenderer;
 	boost::shared_ptr<CEGUI::System>	m_GuiSystem;
 
-    CEGUI::Window*                      m_ImageBall;
-	CEGUI::Window*                      m_ImagePoint;
-    CEGUI::Window*                      m_ImagePowerSlotBase;
-    CEGUI::Window*                      m_ImagePowerSlotSurface;
+	CEGUI::Window*						m_ImageBall;
+	CEGUI::Window*						m_ImagePoint;
+	CEGUI::Window*						m_ImagePowerSlotBase;
+	CEGUI::Window*						m_ImagePowerSlotSurface;
+	CEGUI::Window*						m_ImagePowerColumn;
+	//CEGUI::Window*						m_ImagePowerColumnMax;
 
 	OnCloseFunctor						m_fnOnClose;
 
@@ -102,11 +103,11 @@ private:
 	bool								m_PanningCamera;
 	bool								m_Staring;
 
-	bool                                m_ShootAble;
-	bool                                m_PowerControlerOn;
-	bool                                m_PointControlerOn;
+	bool								m_ShootAble;
+	bool								m_PowerControlerOn;
+	bool								m_PointControlerOn;
 
-	Ogre::Vector2                       m_SpinPointPosition;
+	Ogre::Vector2						m_SpinPointPosition;
 
 	Radian								m_SkyBoxAngle;
 
@@ -118,6 +119,8 @@ private:
 
 	Real								m_AmassDistance;
 	Real								m_AmassMax;
+
+	CEGUI::Window*						m_ImagePowerColumnMax;	// if this variable is declared several lines higher, it may occur BUFFER OVERRUN when process exit, in Release config.
 
 	DECLARE_EVENT_TABLE()
 };

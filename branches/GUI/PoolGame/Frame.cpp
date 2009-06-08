@@ -237,6 +237,8 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_ImagePoint(NULL)
 	, m_ImagePowerSlotBase(NULL)
 	, m_ImagePowerSlotSurface(NULL)
+	, m_ImagePowerColumn(NULL)
+	, m_ImagePowerColumnMax(NULL)
 	, m_fnOnClose(fnOnClose)
 	, m_RotatingCamera(false)
 	, m_PanningCamera(false)
@@ -249,7 +251,6 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_FocusDialog(wxID_ANY)
 	, m_AmassDistance(0)
 	, m_AmassMax(0)
-	//, m_DistanceMax(15)
 {
 }
 
@@ -476,21 +477,28 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 
 			m_ImagePowerSlotBase->setVisible(true);
 			m_ImagePowerSlotSurface->setVisible(true);
+			m_ImagePowerColumn->setVisible(true);
+			m_ImagePowerColumnMax->setVisible(true);
 
 			break;
 		}
 	case OIS::KC_SPACE:
 		{
-			if(!m_ShootAble)
-				break;
-			// Enable shoot point controler,disable power controler
-			m_PowerControlerOn = false;
-			m_PointControlerOn = true;
+			if(m_ShootAble)
+			{
+				// Enable shoot point controler,disable power controler
+				m_PowerControlerOn = false;
+				m_PointControlerOn = true;
 
-			m_ImageBall->setVisible(true);
-			m_ImagePoint->setVisible(true);
+				m_ImageBall->setVisible(true);
+				m_ImagePoint->setVisible(true);
 
-			//TODO
+				m_GuiSystem->setDefaultMouseCursor(CEGUI::BlankMouseCursor);
+
+				//TODO
+			}
+
+			break;
 		}
 	}
 
@@ -510,6 +518,8 @@ bool Frame::keyReleased(const OIS::KeyEvent& e)
 
 			m_ImagePowerSlotBase->setVisible(false);
 			m_ImagePowerSlotSurface->setVisible(false);
+			m_ImagePowerColumn->setVisible(false);
+			m_ImagePowerColumnMax->setVisible(false);
 
 			CEGUI::UDim normalHeight(0.773, 0);
 			m_ImagePowerSlotSurface->setHeight(normalHeight);
@@ -521,6 +531,8 @@ bool Frame::keyReleased(const OIS::KeyEvent& e)
 		}
 
 	case OIS::KC_SPACE:
+		m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
+
 		m_ImageBall->setVisible(false);
 		m_ImagePoint->setVisible(false);
 
@@ -584,9 +596,6 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 	{
 		m_AmassDistance += e.state.Y.rel * 0.04f;
 
-		//if(m_AmassDistance > m_DistanceMax)
-		//	m_AmassDistance = m_DistanceMax;
-
 		if(e.state.Y.rel > 0)
 			m_AmassMax = m_AmassDistance;
 
@@ -612,24 +621,28 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 			rad = 1;
 		CEGUI::UDim height(rad * 0.773, 0);
 		m_ImagePowerSlotSurface->setHeight(height);
+
+		{
+			CEGUI::UDim height(std::pow(m_AmassDistance, 0.7f) * 0.08f, 0);
+			m_ImagePowerColumn->setHeight(height);
+		}
+
+		{
+			CEGUI::UDim height(std::pow(m_AmassMax, 0.7f) * 0.08f, 0);
+			m_ImagePowerColumnMax->setHeight(height);
+		}
 	}
 	else if(m_PointControlerOn)
 	{
 		static const Real radius = 40;
-		static const Real centerx = 95;
-		static const Real centery = 95;
+		static const Real centerx = 50;
+		static const Real centery = 50;
 
 		Real& x = m_SpinPointPosition.x;
 		Real& y = m_SpinPointPosition.y;
 
 		y += e.state.Y.rel * 0.2;
 		x += e.state.X.rel * 0.2;
-
-		/*if(y * y + x * x < radius * radius)
-		{
-			m_SpinPointPosition.x = x;
-			m_SpinPointPosition.y = y;
-		}*/
 
 		if(x * x + y * y > radius * radius)
 		{
@@ -712,13 +725,17 @@ void Frame::setupGui()
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().loadWindowLayout((CEGUI::utf8*)"Pool.layout"); 
 	m_GuiSystem->setGUISheet(sheet);
 
-	m_ImageBall = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShotPos");
-	m_ImagePoint = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShootPoint");
+	m_ImageBall = CEGUI::WindowManager::getSingleton().getWindow("Pool/SpinBackground");
+	m_ImagePoint = CEGUI::WindowManager::getSingleton().getWindow("Pool/SpinPoint");
 	m_ImagePowerSlotBase = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot");
 	m_ImagePowerSlotSurface = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot_Surface");
+	m_ImagePowerColumn = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerColumn");
+	m_ImagePowerColumnMax = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerColumnMax");
 
 	m_ImagePowerSlotBase->setVisible(false);
 	m_ImagePowerSlotSurface->setVisible(false);
+	m_ImagePowerColumn->setVisible(false);
+	m_ImagePowerColumnMax->setVisible(false);
 
 	m_ImageBall->setVisible(false);
 	m_ImagePoint->setVisible(false);
