@@ -91,8 +91,6 @@ private:
 	boost::shared_ptr<CEGUI::Renderer>	m_GuiRenderer;
 	boost::shared_ptr<CEGUI::System>	m_GuiSystem;
 
-	Ogre::Vector2                       m_PointPosition;
-
     CEGUI::Window*                      m_ImageBall;
 	CEGUI::Window*                      m_ImagePoint;
     CEGUI::Window*                      m_ImagePowerSlotBase;
@@ -108,6 +106,8 @@ private:
 	bool                                m_PowerControlerOn;
 	bool                                m_PointControlerOn;
 
+	Ogre::Vector2                       m_SpinPointPosition;
+
 	Radian								m_SkyBoxAngle;
 
 	int									m_FocusDialog;
@@ -118,8 +118,6 @@ private:
 
 	Real								m_AmassDistance;
 	Real								m_AmassMax;
-
-	//const Real                          m_DistanceMax;
 
 	DECLARE_EVENT_TABLE()
 };

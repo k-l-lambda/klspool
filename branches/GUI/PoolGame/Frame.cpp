@@ -233,7 +233,6 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_nodeCameraRoot(NULL)
 	, m_nodeCamera(NULL)
 	, m_nodeCue(NULL)
-	, m_PointPosition(0, 0)
 	, m_ImageBall(NULL)
 	, m_ImagePoint(NULL)
 	, m_ImagePowerSlotBase(NULL)
@@ -245,6 +244,7 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_ShootAble(true)
 	, m_PowerControlerOn(false)
 	, m_PointControlerOn(false)
+	, m_SpinPointPosition(0, 0)
 	, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
 	, m_FocusDialog(wxID_ANY)
 	, m_AmassDistance(0)
@@ -465,18 +465,18 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 			m_Staring = true;
 			m_RotatingCamera = false;
 			m_AmassMax = m_AmassDistance = 0.2f;
-			
+
 			m_nodeCameraRoot->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
 			m_nodeCue->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
 			m_nodeCue->setOrientation(m_nodeCameraRoot->getOrientation());
 			m_nodeCue->getChild(0)->setPosition(0, 0, m_Game->getMainBall()->getRadius());
 			m_nodeCue->setVisible(m_Staring);
-			
+
 			m_GuiSystem->setDefaultMouseCursor(CEGUI::BlankMouseCursor);
 
 			m_ImagePowerSlotBase->setVisible(true);
 			m_ImagePowerSlotSurface->setVisible(true);
-			
+
 			break;
 		}
 	case OIS::KC_SPACE:
@@ -503,26 +503,26 @@ bool Frame::keyReleased(const OIS::KeyEvent& e)
 	{
 	case OIS::KC_LCONTROL:
 		{
-		m_Staring = false;
-		m_nodeCue->setVisible(m_Staring);
+			m_Staring = false;
+			m_nodeCue->setVisible(m_Staring);
 
-		m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
+			m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
-		m_ImagePowerSlotBase->setVisible(false);
-	    m_ImagePowerSlotSurface->setVisible(false);
+			m_ImagePowerSlotBase->setVisible(false);
+			m_ImagePowerSlotSurface->setVisible(false);
 
-		CEGUI::UDim normalHeight(0.773, 0);
-		m_ImagePowerSlotSurface->setHeight(normalHeight);
+			CEGUI::UDim normalHeight(0.773, 0);
+			m_ImagePowerSlotSurface->setHeight(normalHeight);
 
-		m_AmassDistance = 0;
-		m_AmassMax = 0;
+			m_AmassDistance = 0;
+			m_AmassMax = 0;
 
-		break;
+			break;
 		}
 
 	case OIS::KC_SPACE:
-	    m_ImageBall->setVisible(false);
-	    m_ImagePoint->setVisible(false);
+		m_ImageBall->setVisible(false);
+		m_ImagePoint->setVisible(false);
 
 		break;
 	}
@@ -615,22 +615,32 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 	}
 	else if(m_PointControlerOn)
 	{
-		static const Real radius = 45;
+		static const Real radius = 40;
+		static const Real centerx = 95;
+		static const Real centery = 95;
 
-		Real x = m_PointPosition.x;
-		Real y = m_PointPosition.y;
+		Real& x = m_SpinPointPosition.x;
+		Real& y = m_SpinPointPosition.y;
 
 		y += e.state.Y.rel * 0.2;
 		x += e.state.X.rel * 0.2;
 
-		if(y * y + x * x < radius * radius)
+		/*if(y * y + x * x < radius * radius)
 		{
-			m_PointPosition.x = x;
-		    m_PointPosition.y = y;
+			m_SpinPointPosition.x = x;
+			m_SpinPointPosition.y = y;
+		}*/
+
+		if(x * x + y * y > radius * radius)
+		{
+			const Real rate = sqrt(radius * radius / (x * x + y * y));
+
+			x *= rate;
+			y *= rate;
 		}
 
-		CEGUI::UDim dx(0, 95 + x);
-		CEGUI::UDim dy(0, 95 + y);
+		CEGUI::UDim dx(0, centerx + x);
+		CEGUI::UDim dy(0, centery + y);
 		CEGUI::UVector2 pos(dx, dy);
 		m_ImagePoint->setPosition(pos);
 	}
@@ -702,21 +712,10 @@ void Frame::setupGui()
 	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().loadWindowLayout((CEGUI::utf8*)"Pool.layout"); 
 	m_GuiSystem->setGUISheet(sheet);
 
-	//CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shotPos", "setspin.dds");
 	m_ImageBall = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShotPos");
-	//m_ImageBall->setProperty("Image", "set:PoolGame image:SpinBackground");
-
-	//CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("shootPoint", "point.png");
 	m_ImagePoint = CEGUI::WindowManager::getSingleton().getWindow("Pool/ShootPoint");
-	//m_ImagePoint->setProperty("Image", "set:shootPoint image:full_image");
-
-	//CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlot", "gagebase.bmp");
 	m_ImagePowerSlotBase = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot");
-	//m_ImagePowerSlotBase->setProperty("Image", "set:powerSlot image:full_image");
-
-	//CEGUI::ImagesetManager::getSingleton().createImagesetFromImageFile("powerSlotSurface", "gageSurface.png");
 	m_ImagePowerSlotSurface = CEGUI::WindowManager::getSingleton().getWindow("Pool/PowerSlot_Surface");
-	//m_ImagePowerSlotSurface->setProperty("Image", "set:powerSlotSurface image:full_image");
 
 	m_ImagePowerSlotBase->setVisible(false);
 	m_ImagePowerSlotSurface->setVisible(false);
