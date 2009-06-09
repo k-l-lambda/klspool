@@ -105,13 +105,11 @@ private:
 
 	bool								m_RotatingCamera;
 	bool								m_PanningCamera;
-	bool								m_Staring;
+	//bool								m_Staring;
 
 	bool								m_ShootAble;
 	bool								m_PowerControlerOn;
-	bool								m_PointControlerOn;
-
-	Ogre::Vector2						m_SpinPointPosition;
+	bool								m_SpinControlerOn;
 
 	Radian								m_SkyBoxAngle;
 
@@ -125,6 +123,8 @@ private:
 
 	Real								m_AmassDistance;
 	Real								m_AmassMax;
+
+	Ogre::Vector2						m_SpinPoint;
 
 	//CEGUI::Window*						m_ImagePowerColumnMax;	// if this variable is declared several lines higher, it may occur BUFFER OVERRUN when process exit, in Release config.
 

@@ -1,14 +1,19 @@
 TODO:
-	spin -> hit point adjust
+	shot pitch adjusting interface
 	game config dialog
 	Camera path animation
 	Visual object serialization.
 	Real-time environment map material.
 
 Known Issues:
-	Pointer members of Frame result in BUFFER OVERRUN when process exit
+	Pointer members of Frame result in BUFFER OVERRUN when process exit in vc9
 	Deactive rigidbodies' fisrt collision look weird.
 	Multi-thread accessing conflict sometimes.
+
+
+2009.6.9	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Frame: shot spin adjusting interface implemented.
 
 
 2009.6.8	K.L.	<xxxK.L.xxx@gmail.com>
