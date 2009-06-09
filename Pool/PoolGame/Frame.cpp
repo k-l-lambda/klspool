@@ -219,15 +219,15 @@ Frame::Frame(const OnCloseFunctor& fnOnClose)
 	, m_fnOnClose(fnOnClose)
 	, m_RotatingCamera(false)
 	, m_PanningCamera(false)
-	//, m_Staring(false)
 	, m_ShootAble(true)
-	, m_PowerControlerOn(false)
-	, m_SpinControlerOn(false)
+	, m_PowerControlOn(false)
+	, m_SpinControlOn(false)
 	, m_SkyBoxAngle((timeGetTime() % DWORD(Math::PI * 2000 / SKYBOX_ROTATE_SPEED)) * SKYBOX_ROTATE_SPEED / 1000)
 	, m_FocusDialog(wxID_ANY)
 	, m_AmassDistance(0)
 	, m_AmassMax(0)
 	, m_SpinPoint(0, 0)
+	, m_PitchingAngle(0)
 {
 }
 
@@ -238,7 +238,7 @@ Frame::~Frame()
 void Frame::createFrameListener()
 {
 	// This is where we instantiate our own frame listener
-	mFrameListener= new OgreListener(this, mWindow, mCamera);
+	mFrameListener = new OgreListener(this, mWindow, mCamera);
 	mRoot->addFrameListener(mFrameListener);
 }
 
@@ -311,7 +311,7 @@ void Frame::createScene()
 	m_nodeCue->createChildSceneNode()->createChildSceneNode(Vector3(-0.8, -0.948, 4.992))->attachObject(mSceneMgr->createEntity("cue", "cue.mesh"));
 	m_nodeCue->setPosition(0, 8, 8);
 	m_nodeCue->getChild(0)->getChild(0)->setOrientation(Quaternion(Radian(Math::HALF_PI), Vector3::UNIT_Y));
-	m_nodeCue->setVisible(m_PowerControlerOn || m_SpinControlerOn);
+	m_nodeCue->setVisible(m_PowerControlOn || m_SpinControlOn);
 
 	// table & ground
 	{
@@ -410,11 +410,13 @@ void Frame::frameStarted(const FrameEvent& evt)
 		//m_nodeLight->yaw(delta);
 
 		// update cue
-		m_nodeCue->setVisible(m_PowerControlerOn || m_SpinControlerOn);
-		if(m_PowerControlerOn || m_SpinControlerOn)
+		m_nodeCue->setVisible(m_PowerControlOn || m_SpinControlOn);
+		if(m_PowerControlOn || m_SpinControlOn)
 		{
 			const Real radius = m_Game->getMainBall()->getRadius();
 			m_nodeCue->getChild(0)->setPosition(m_SpinPoint.x * radius, m_SpinPoint.y * radius, m_AmassDistance + m_Game->getMainBall()->getRadius());
+			m_nodeCue->setOrientation(m_nodeCameraRoot->getOrientation());
+			m_nodeCue->pitch(-m_PitchingAngle);
 		}
 
 		// rotate camera
@@ -462,11 +464,9 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 
 		break;
 	case OIS::KC_LCONTROL:
-		if(m_ShootAble && !m_SpinControlerOn)
+		if(m_ShootAble && !m_SpinControlOn)
 		{
-			m_PowerControlerOn = true;
-
-			//m_Staring = true;
+			m_PowerControlOn = true;
 			m_RotatingCamera = false;
 			m_AmassMax = m_AmassDistance = 0.2f;
 
@@ -477,23 +477,20 @@ bool Frame::keyPressed(const OIS::KeyEvent& e)
 
 			m_GuiSystem->setDefaultMouseCursor(CEGUI::BlankMouseCursor);
 
-			m_ImagePowerSlotBase->setVisible(true);
-			m_ImagePowerSlotSurface->setVisible(true);
-			m_ImagePowerColumn->setVisible(true);
-			m_ImagePowerColumnMax->setVisible(true);
+			updateGui();
 		}
 
 		break;
 	case OIS::KC_SPACE:
-		if(m_ShootAble && !m_PowerControlerOn)
+		if(m_ShootAble && !m_PowerControlOn)
 		{
-			m_SpinControlerOn = true;
+			m_SpinControlOn = true;
+			m_AmassMax = m_AmassDistance = 0.2f;
 
 			m_nodeCue->setPosition(bld2Ogre(m_Game->getMainBall()->getPosition()));
 			m_nodeCue->setOrientation(m_nodeCameraRoot->getOrientation());
 
-			m_ImageBall->setVisible(true);
-			m_ImagePoint->setVisible(true);
+			updateGui();
 
 			m_GuiSystem->setDefaultMouseCursor(CEGUI::BlankMouseCursor);
 
@@ -511,15 +508,11 @@ bool Frame::keyReleased(const OIS::KeyEvent& e)
 	switch(e.key)
 	{
 	case OIS::KC_LCONTROL:
-		//m_Staring = false;
-		m_PowerControlerOn = false;
+		m_PowerControlOn = false;
 
 		m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
-		m_ImagePowerSlotBase->setVisible(false);
-		m_ImagePowerSlotSurface->setVisible(false);
-		m_ImagePowerColumn->setVisible(false);
-		m_ImagePowerColumnMax->setVisible(false);
+		updateGui();
 
 		m_ImagePowerSlotSurface->setHeight(CEGUI::UDim(0.773f, 0));
 
@@ -531,9 +524,8 @@ bool Frame::keyReleased(const OIS::KeyEvent& e)
 	case OIS::KC_SPACE:
 		m_GuiSystem->setDefaultMouseCursor("TaharezLook", "MouseArrow");
 
-		m_SpinControlerOn = false;
-		m_ImageBall->setVisible(false);
-		m_ImagePoint->setVisible(false);
+		m_SpinControlOn = false;
+		updateGui();
 
 		break;
 	}
@@ -566,7 +558,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 		}
 
 		// zoom in/out
-		if(e.state.Z.rel)
+		if(!m_PowerControlOn && !m_SpinControlOn && e.state.Z.rel)
 		{
 			static const Real NEAR_DISTANCE = 0.1;
 			static const Real FAR_DISTANCE = 1200;
@@ -591,9 +583,13 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 		m_nodeCamera->setPosition(camera);
 	}
 
-	if(m_PowerControlerOn)
+	if(m_PowerControlOn)
 	{	
 		m_AmassDistance += e.state.Y.rel * 0.04f;
+
+		m_PitchingAngle += Radian(e.state.Z.rel * 0.0006f);
+		m_PitchingAngle = std::max(m_PitchingAngle, Radian(Math::HALF_PI * -0.06f));
+		m_PitchingAngle = std::min(m_PitchingAngle, Radian(Math::HALF_PI * 0.92f));
 
 		if(e.state.Y.rel > 0)
 			m_AmassMax = m_AmassDistance;
@@ -603,7 +599,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 		{
 			Vector3 front = m_nodeCameraRoot->_getDerivedPosition() - m_nodeCamera->_getDerivedPosition();
 			assert(front.x != 0 || front.z != 0);
-			front.y = 0;
+			front.y = std::sqrt(front.x * front.x + front.z * front.z) * std::tan(m_PitchingAngle.valueRadians());
 			front.normalise();
 
 			const Vector3 right = front.crossProduct(Vector3::UNIT_Y);
@@ -614,7 +610,9 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 			Real power = std::pow(std::abs(-e.state.Y.rel), 0.8) * std::pow(m_AmassMax, 0.4f) * 0.6f;
 			m_Game->shot(ogre2Bld(front * power), ogre2Bld(touchpos));
 
-			m_PowerControlerOn = false;
+			m_SpinPoint = Vector2::ZERO;
+			m_PitchingAngle = 0;
+			m_PowerControlOn = false;
 		}
 
 		Real rad = (1 - m_AmassDistance / 15);
@@ -623,26 +621,19 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 		CEGUI::UDim height(rad * 0.773, 0);
 		m_ImagePowerSlotSurface->setHeight(height);
 
-		{
-			CEGUI::UDim height(std::pow(m_AmassDistance, 0.6f) * 0.12f, 0);
-			m_ImagePowerColumn->setHeight(height);
-		}
-
-		{
-			CEGUI::UDim height(std::pow(m_AmassMax, 0.6f) * 0.12f, 0);
-			m_ImagePowerColumnMax->setHeight(height);
-		}
+		updateGui();
 	}
 
-	if(m_SpinControlerOn)
+	if(m_SpinControlOn)
 	{
 		static const Real spinmax = 0.7f;
-		static const Real radius = 45;
-		static const Real centerx = 50;
-		static const Real centery = 90;
 
 		m_SpinPoint.x += e.state.X.rel * 0.006;
 		m_SpinPoint.y -= e.state.Y.rel * 0.006;
+
+		m_PitchingAngle += Radian(e.state.Z.rel * 0.0006f);
+		m_PitchingAngle = std::max(m_PitchingAngle, Radian(Math::HALF_PI * -0.06f));
+		m_PitchingAngle = std::min(m_PitchingAngle, Radian(Math::HALF_PI * 0.92f));
 
 		Real sl = m_SpinPoint.squaredLength();
 		if(sl > spinmax)
@@ -652,9 +643,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 			m_SpinPoint *= rate;
 		}
 
-		CEGUI::UDim dx(0, centerx + m_SpinPoint.x * radius);
-		CEGUI::UDim dy(0, centery - m_SpinPoint.y * radius);
-		m_ImagePoint->setPosition(CEGUI::UVector2(dx, dy));
+		updateGui();
 	}
 
 	CEGUI::System::getSingleton().injectMouseMove(e.state.X.rel, e.state.Y.rel);
@@ -669,12 +658,12 @@ bool Frame::mousePressed(const OIS::MouseEvent& e, OIS::MouseButtonID id)
 	switch(id)
 	{
 	case OIS::MB_Left:
-		if(!m_PowerControlerOn)
+		if(!m_PowerControlOn)
 			m_RotatingCamera = true;
 
 		break;
 	case OIS::MB_Right:
-		if(!m_PowerControlerOn)
+		if(!m_PowerControlOn)
 			m_PanningCamera = true;
 
 		break;
@@ -765,6 +754,30 @@ void Frame::setupGui()
 		->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Frame::onGuiShut, this));
 	CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Pool/LoadHost")
 		->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Frame::onGuiLoadHost, this));
+}
+
+void Frame::updateGui()
+{
+	m_ImageBall->setVisible(m_SpinControlOn);
+	m_ImagePoint->setVisible(m_SpinControlOn);
+
+	{
+		static const Real radius = 45;
+		static const Real centerx = 50;
+		static const Real centery = 90;
+
+		CEGUI::UDim dx(0, centerx + m_SpinPoint.x * radius);
+		CEGUI::UDim dy(0, centery - m_SpinPoint.y * radius);
+		m_ImagePoint->setPosition(CEGUI::UVector2(dx, dy));
+	}
+
+	m_ImagePowerSlotBase->setVisible(m_PowerControlOn);
+	m_ImagePowerSlotSurface->setVisible(m_PowerControlOn);
+	m_ImagePowerColumn->setVisible(m_PowerControlOn);
+	m_ImagePowerColumnMax->setVisible(m_PowerControlOn);
+
+	m_ImagePowerColumn->setHeight(CEGUI::UDim(std::pow(m_AmassDistance, 0.6f) * 0.12f, 0));
+	m_ImagePowerColumnMax->setHeight(CEGUI::UDim(std::pow(m_AmassMax, 0.6f) * 0.12f, 0));
 }
 
 OgreListener* Frame::getListener() const

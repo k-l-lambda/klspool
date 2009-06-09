@@ -69,6 +69,8 @@ private:
 private:
 	void	setupGui();
 
+	void	updateGui();
+
 	OgreListener*	getListener() const;
 
 	Vector2	getCursorPosition() const;
@@ -105,11 +107,10 @@ private:
 
 	bool								m_RotatingCamera;
 	bool								m_PanningCamera;
-	//bool								m_Staring;
 
 	bool								m_ShootAble;
-	bool								m_PowerControlerOn;
-	bool								m_SpinControlerOn;
+	bool								m_PowerControlOn;
+	bool								m_SpinControlOn;
 
 	Radian								m_SkyBoxAngle;
 
@@ -125,6 +126,8 @@ private:
 	Real								m_AmassMax;
 
 	Ogre::Vector2						m_SpinPoint;
+
+	Radian								m_PitchingAngle;
 
 	//CEGUI::Window*						m_ImagePowerColumnMax;	// if this variable is declared several lines higher, it may occur BUFFER OVERRUN when process exit, in Release config.
 

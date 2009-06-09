@@ -1,5 +1,4 @@
 TODO:
-	shot pitch adjusting interface
 	game config dialog
 	Camera path animation
 	Visual object serialization.
@@ -12,6 +11,10 @@ Known Issues:
 
 
 2009.6.9	K.L.	<xxxK.L.xxx@gmail.com>
+
+	+	Frame: shot pitch adjusting interface implemented.
+
+	+	Frame::updateGui: added, implemented.
 
 	+	Frame: shot spin adjusting interface implemented.
 
