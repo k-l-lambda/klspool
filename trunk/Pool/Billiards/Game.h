@@ -14,6 +14,8 @@
 #include "Ball.h"
 #include "BallConfig.h"
 
+#include "HolePhantom.h"
+
 #include <boost\noncopyable.hpp>
 
 
@@ -23,8 +25,6 @@ namespace Billiards
 		: boost::noncopyable
 #pragma warning(suppress: 4275)	// non ¨C DLL-interface classkey 'identifier' used as base for DLL-interface classkey 'identifier'
 	{
-		typedef	boost::shared_ptr<Ball>	BallPtr;
-
 		typedef	std::map<std::string, BallConfig>	BallConfigMap;
 
 	public:
@@ -37,6 +37,8 @@ namespace Billiards
 		void	simulate(Real elapsedTime);
 
 		void	shot(const Vector& impulse, const Vector& pos);
+
+		//bool	isBallFalling();
 
 		void	loadBallConfigSet(const std::string& setname);
 
@@ -51,26 +53,30 @@ namespace Billiards
 
 		void	creatTable();
 
+		void	creatPhantoms();
+
 		void	updateAllBalls();
 
 		// set the designated ball stilled
-		//void	freezeBall(int number);
+		// void	freezeBall(int number);
 
 	private:
 #pragma warning(push)
 #pragma warning(disable: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
-		std::vector<BallPtr>	m_Balls;
-		hkpRigidBodyPtr			m_table;
-		hkpRigidBodyPtr			m_baffles;
+		std::vector<BallPtr>			m_Balls;
+		hkpRigidBodyPtr					m_table;
+		hkpRigidBodyPtr					m_baffles;
 
-		BallPtr					m_MainBall;
+		BallPtr							m_MainBall;
 
-		HavokSystem*			m_HavokSystem;
+		std::vector<HolePhantomPtr>		m_HolePhantoms;
+
+		HavokSystem*					m_HavokSystem;
 
 		VisualObjectCreationFunctor		m_fnCreateVisualObject;
 
-		std::set<std::string>	m_LoadedBallConfigSets;
-		BallConfigMap			m_BallConfigMap;
+		std::set<std::string>			m_LoadedBallConfigSets;
+		BallConfigMap					m_BallConfigMap;
 #pragma warning(pop)
 	};
 }

@@ -42,6 +42,7 @@
 #include <set>
 #include <map>
 #include <stack>
+#include <fstream>
 
 
 #ifdef _MSC_VER
@@ -92,6 +93,7 @@ namespace Billiards
 	class Ball;
 	class Game;
 	class HavokSystem;
+	class HolePhantom;
 
 	struct BallConfig;
 	struct BallConfigSet;
@@ -100,7 +102,9 @@ namespace Billiards
 	struct VisualObjectParameters;
 
 	typedef	boost::shared_ptr<const Ball>											ConstBallPtr;
+	typedef	boost::shared_ptr<Ball>													BallPtr;
 	typedef	boost::shared_ptr<IVisualObject>										VisualObjectPtr;
+	typedef	boost::shared_ptr<HolePhantom>                                          HolePhantomPtr;
 	typedef	boost::function<VisualObjectPtr (const VisualObjectParameters&)>		VisualObjectCreationFunctor;
 
 

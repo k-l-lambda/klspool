@@ -30,7 +30,7 @@ namespace Billiards
 
 	void BallCollisionListener::contactPointAddedCallback(hkpContactPointAddedEvent& event)
 	{
-		std::cout << "Collision: " << std::clock() << "\t" << event.m_contactPoint->getPosition() << std::endl;
+		//std::cout << "Collision: " << std::clock() << "\t" << event.m_contactPoint->getPosition() << std::endl;
 
 		hkpShapeType shapeTypeA = event.m_bodyA->m_shape->getType();
 		hkpShapeType shapeTypeB = event.m_bodyB->m_shape->getType();
