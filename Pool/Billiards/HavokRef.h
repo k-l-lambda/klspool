@@ -25,6 +25,8 @@
 #include <Physics/Collide/Agent/ConvexAgent/SphereBox/hkpSphereBoxAgent.h>	
 #include <Physics/Collide/Shape/Convex/Box/hkpBoxShape.h>					
 #include <Physics/Collide/Shape/Convex/Sphere/hkpSphereShape.h>		
+#include <Physics/Collide/Shape/Convex/Cylinder/hkpCylinderShape.h>
+#include <Physics/Collide/Shape/Compound/Collection/SimpleMesh/hkpSimpleMeshShape.h>
 #include <Physics/Collide/Shape/Misc/Transform/hkpTransformShape.h>
 #include <Physics/Collide/Shape/Compound/Collection/List/hkpListShape.h>
 #include <Physics/Collide/Dispatch/hkpAgentRegisterUtil.h>	
@@ -39,6 +41,8 @@
 #include <Physics/Dynamics/World/hkpWorld.h>								
 #include <Physics/Dynamics/Entity/hkpRigidBody.h>							
 #include <Physics/Utilities/Dynamics/Inertia/hkpInertiaTensorComputer.h>	
+
+#include <Physics/Dynamics/Phantom/hkpSimpleShapePhantom.h>
 
 #include <Common/Base/Thread/Job/ThreadPool/Cpu/hkCpuJobThreadPool.h>
 #include <Common/Base/Thread/Job/ThreadPool/Spu/hkSpuJobThreadPool.h>

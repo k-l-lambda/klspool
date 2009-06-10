@@ -20,6 +20,8 @@ namespace Billiards
 
 	class BILLIARDS_API	Ball
 	{
+		friend class HolePhantom;
+
 	public:
 		Ball(hkpWorld* world, const VisualObjectPtr& vobj);
 		~Ball();
@@ -48,6 +50,8 @@ namespace Billiards
 		/*Real			m_mass;
 		Vector			m_position;
 		Quaternion		m_rotation;*/
+
+		bool			m_IsInHole;
 
 		hkpWorld*		m_World;
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'

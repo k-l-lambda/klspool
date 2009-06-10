@@ -149,12 +149,12 @@ namespace Billiards
 
 	void HavokSystem::setup()
 	{
-		//创建hkpWorld
+		// Create hkpWorld
 		createHavokWorld(2000);
-		//初始化远程调试
+		// Init visualDebugger
 		InitVDB();
-		//创建物理场景
-		createPhysicsScene();
+
+		//createPhysicsScene();
 	}
 
 	hkpWorld* HavokSystem::getWorld() const

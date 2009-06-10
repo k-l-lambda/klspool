@@ -34,9 +34,11 @@ namespace Billiards
 		float baffleWidth;
 
 		float holeRadius;
+
+		float boardThickness;
 	};
 
-	static const TableParams s_TableParams = {7.2f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f};
+	static const TableParams s_TableParams = {7.2f, 15.45f, 29.3f, 0.45f, 0.7f, 0.6f, 2.0f};
 
 
 	Game::Game(const VisualObjectCreationFunctor& fnCreateVisualObject)
@@ -70,10 +72,13 @@ namespace Billiards
 
 	Game::~Game()
 	{
+		m_table->removeReference();
 		m_table.reset();
+		m_baffles->removeReference();
 		m_baffles.reset();
 
 		m_Balls.clear();
+		m_HolePhantoms.clear();
 		m_MainBall.reset();
 
 		if(m_HavokSystem)
@@ -89,22 +94,68 @@ namespace Billiards
 	{
 		WorldWritingLock wlock(m_HavokSystem->getWorld());
 
-		// create the table shape
-		//
-		hkArray<hkpShape*> shapeArray;
+		std::ifstream inf;
+		inf.open("table.hkm");
+		if(inf.fail())
+			return;
+
+		hkpSimpleMeshShape* table = new hkpSimpleMeshShape();
+
+		std::string tmp;
+		inf>>tmp;
+
+		int vetexCount = 0;
+		inf>>vetexCount;
+
+		for(int i=0 ; i<vetexCount; ++i)
+		{
+			float x, y, z;
+			inf>>x>>y>>z;
+			hkVector4 tmp(x,y,z);
+			table->m_vertices.pushBack(tmp);
+		}
+
+		inf>>tmp;
+		int triangleCount = 0;
+		inf>>triangleCount;
+		for(int i=0 ; i<triangleCount; ++i)
+		{
+			hkpSimpleMeshShape::Triangle tmp;
+			inf>>tmp.m_a>>tmp.m_b>>tmp.m_c;
+
+			table->m_triangles.pushBack(tmp);
+		}
+
+		inf.close();
+
+	
+		{
+			hkpRigidBodyCinfo ci;
+			ci.m_shape = table;
+			ci.m_motionType = hkpMotion::MOTION_FIXED;
+			ci.m_position = Vector(0, 8, 0);
+			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
+			ci.m_friction = 0.01f;
+			ci.m_restitution = 0.92f;
+			ci.m_allowedPenetrationDepth = 1e-2f;
+
+			m_baffles.reset(new hkpRigidBody(ci));
+			m_HavokSystem->getWorld()->addEntity(m_baffles.get());
+		
+			table->removeReference();
+		}
 
 		// tableBoard
-
-		float boardHeight = 2.0f;
-		hkpBoxShape* tableBoard = new hkpBoxShape(Vector(s_TableParams.lenth/2 - s_TableParams.baffleWidth, boardHeight/2, s_TableParams.width/2 - s_TableParams.baffleWidth), 0);
+		//
+		hkpBoxShape* tableBoardS = new hkpBoxShape(Vector(s_TableParams.lenth/2 - s_TableParams.baffleWidth, s_TableParams.boardThickness/2, s_TableParams.width/2 - s_TableParams.baffleWidth));
 
 		// creat rigidBody
 
 		{
 			hkpRigidBodyCinfo ci;
-			ci.m_shape = tableBoard;
+			ci.m_shape = tableBoardS;
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
-			ci.m_position = Vector(0, 0, 0);
+			ci.m_position = Vector(0, s_TableParams.height, 0);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
 			ci.m_friction = 0.2f;
 			ci.m_restitution = 0.2f;
@@ -112,85 +163,111 @@ namespace Billiards
 
 			m_table.reset(new hkpRigidBody(ci));
 			m_HavokSystem->getWorld()->addEntity(m_table.get());
+
+			tableBoardS->removeReference();
 		}
 
-		// vbaffles
-		hkTransform t ;
-		t = t.getIdentity();
-		Vector trans = Vector(0.0f, 0.0f, 0.0f);
+		//creatPhantoms();
+	}
 
-		float vbaffleLenth = s_TableParams.lenth / 2 - 3 * s_TableParams.holeRadius;
+	void Game::creatPhantoms()
+	{
+		// Create hole phatoms
 
-		hkpBoxShape* vbaffle = new hkpBoxShape(Vector(vbaffleLenth/2,
-			s_TableParams.baffleHeight, s_TableParams.baffleWidth/2), 0);
+		// Lock the world for write.
+		WorldWritingLock wlock(m_HavokSystem->getWorld());
 
-		float vX = vbaffleLenth/2 + s_TableParams.holeRadius;
-		float vY = boardHeight/2 + s_TableParams.baffleHeight/2;
-		float vZ = s_TableParams.width/2 - s_TableParams.baffleWidth/2;
-
-		trans = Vector(vX, vY, vZ);
-		t.setTranslation(trans);
-		hkpTransformShape* vbaffleTrans1 = new hkpTransformShape(vbaffle, t);
-		shapeArray.pushBack(vbaffleTrans1);
-
-		trans = Vector(vX, vY, -vZ);
-		t.setTranslation(trans);
-		hkpTransformShape* vbaffleTrans2 = new hkpTransformShape(vbaffle, t);
-		shapeArray.pushBack(vbaffleTrans2);
-
-		trans = Vector(-vX, vY, vZ);
-		t.setTranslation(trans);
-		hkpTransformShape* vbaffleTrans3 = new hkpTransformShape(vbaffle, t);
-		shapeArray.pushBack(vbaffleTrans3);
-
-		trans = Vector(-vX, vY, -vZ);
-		t.setTranslation(trans);
-		hkpTransformShape* vbaffleTrans4 = new hkpTransformShape(vbaffle, t);
-		shapeArray.pushBack(vbaffleTrans4);
-
-		// nbaffles
-
-		float nbaffleLenth = s_TableParams.width - 2*2*s_TableParams.holeRadius;
-		hkpBoxShape* nbaffle = new hkpBoxShape(Vector(s_TableParams.baffleWidth/2, 
-			s_TableParams.baffleHeight, 
-			nbaffleLenth/2), 0);
-
-		float nX = s_TableParams.lenth/2 - s_TableParams.baffleWidth/2;
-		float nY = vY;
-		float nZ = 0;
-
-		trans = Vector(nX, nY, nZ);
-		t.setTranslation(trans);
-		hkpTransformShape* nbaffleTrans1 = new hkpTransformShape(nbaffle ,t);
-		shapeArray.pushBack(nbaffleTrans1);
-
-		trans = Vector(-nX, nY, nZ);
-		t.setTranslation(trans);
-		hkpTransformShape* nbaffleTrans2 = new hkpTransformShape(nbaffle ,t);
-		shapeArray.pushBack(nbaffleTrans2);
-
-		hkpListShape* baffles = new hkpListShape(&shapeArray[0], shapeArray.getSize());
+		HolePhantom::setBallList(&m_Balls);
+		
+		Vector pointA(0.0f,  - 0.7f, 0.0f);
+		Vector pointB(0.0f,  + 0.7f, 0.0f);
+		hkpCylinderShape* holeShape = new hkpCylinderShape(pointA, pointB, 0.3f);
 
 		{
-			hkpRigidBodyCinfo ci;
-			ci.m_shape = baffles;
-			ci.m_motionType = hkpMotion::MOTION_FIXED;
-			ci.m_position = Vector(0, 0, 0);
-			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-			ci.m_friction = 0.01f;
-			ci.m_restitution = 0.92f;
-			ci.m_allowedPenetrationDepth = 1e-4f;
+			hkTransform t ;
+			t = t.getIdentity();
+			Vector trans = Vector(0.0f, 
+				                  s_TableParams.height + s_TableParams.boardThickness/2, 
+								  s_TableParams.width / 2 + 0.2f);
+			t.setTranslation(trans);
 
-			m_baffles.reset(new hkpRigidBody(ci));
-			m_HavokSystem->getWorld()->addEntity(m_baffles.get());
+			HolePhantomPtr p(new HolePhantom(holeShape, t));
+			m_HolePhantoms.push_back(p);
+
+			m_HavokSystem->getWorld()->addPhantom(p.get());
 		}
 
-		// Do some translate according to the real model
-		m_baffles->setPosition(Vector(0, s_TableParams.height, -0.1f));
-		m_table->setPosition(Vector(0, s_TableParams.height, -0.1f));
+		{
+			hkTransform t ;
+			t = t.getIdentity();
+			Vector trans = Vector(0.0f, 
+				                  s_TableParams.height + s_TableParams.boardThickness/2, 
+								  -s_TableParams.width / 2 - 0.4f);
+			t.setTranslation(trans);
 
-		tableBoard->removeReference();
-		baffles->removeReference();
+			HolePhantomPtr p(new HolePhantom(holeShape, t));
+			m_HolePhantoms.push_back(p);
+
+			m_HavokSystem->getWorld()->addPhantom(p.get());
+		}
+
+		{
+			hkTransform t ;
+			t = t.getIdentity();
+			Vector trans = Vector(s_TableParams.lenth/2 /*- s_TableParams.baffleWidth*/, 
+				                  s_TableParams.height + s_TableParams.boardThickness/2, 
+								  -(s_TableParams.width / 2 /*- s_TableParams.baffleWidth*/ + 0.1f));
+			t.setTranslation(trans);
+
+			HolePhantomPtr p(new HolePhantom(holeShape, t));
+			m_HolePhantoms.push_back(p);
+
+			m_HavokSystem->getWorld()->addPhantom(p.get());
+		}
+
+		{
+			hkTransform t ;
+			t = t.getIdentity();
+			Vector trans = Vector(s_TableParams.lenth/2 /*- s_TableParams.baffleWidth*/, 
+				                  s_TableParams.height + s_TableParams.boardThickness/2, 
+								  s_TableParams.width / 2 /*- s_TableParams.baffleWidth*/);
+			t.setTranslation(trans);
+
+			HolePhantomPtr p(new HolePhantom(holeShape, t));
+			m_HolePhantoms.push_back(p);
+
+			m_HavokSystem->getWorld()->addPhantom(p.get());
+		}
+
+		{
+			hkTransform t ;
+			t = t.getIdentity();
+			Vector trans = Vector(-(s_TableParams.lenth/2 /*- s_TableParams.baffleWidth*/), 
+				                  s_TableParams.height + s_TableParams.boardThickness/2, 
+								  -(s_TableParams.width / 2 /*- s_TableParams.baffleWidth*/ + 0.1f));
+			t.setTranslation(trans);
+
+			HolePhantomPtr p(new HolePhantom(holeShape, t));
+			m_HolePhantoms.push_back(p);
+
+			m_HavokSystem->getWorld()->addPhantom(p.get());
+		}
+
+		{
+			hkTransform t ;
+			t = t.getIdentity();
+			Vector trans = Vector(-(s_TableParams.lenth/2 /*- s_TableParams.baffleWidth*/), 
+				                  s_TableParams.height + s_TableParams.boardThickness/2, 
+								  s_TableParams.width / 2 /*- s_TableParams.baffleWidth*/);
+			t.setTranslation(trans);
+
+			HolePhantomPtr p(new HolePhantom(holeShape, t));
+			m_HolePhantoms.push_back(p);
+
+			m_HavokSystem->getWorld()->addPhantom(p.get());
+		}
+
+		holeShape->removeReference();
 	}
 
 	void Game::updateAllBalls()
