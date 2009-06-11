@@ -23,6 +23,7 @@
 // Dynamics includes
 #include <Physics/Collide/hkpCollide.h>										
 #include <Physics/Collide/Agent/ConvexAgent/SphereBox/hkpSphereBoxAgent.h>	
+#include <Physics/Collide/Shape/Convex/ConvexVertices/hkpConvexVerticesShape.h>
 #include <Physics/Collide/Shape/Convex/Box/hkpBoxShape.h>					
 #include <Physics/Collide/Shape/Convex/Sphere/hkpSphereShape.h>		
 #include <Physics/Collide/Shape/Convex/Cylinder/hkpCylinderShape.h>
@@ -44,6 +45,7 @@
 
 #include <Physics/Dynamics/Phantom/hkpSimpleShapePhantom.h>
 
+#include <Common/Internal/ConvexHull/hkGeometryUtility.h>
 #include <Common/Base/Thread/Job/ThreadPool/Cpu/hkCpuJobThreadPool.h>
 #include <Common/Base/Thread/Job/ThreadPool/Spu/hkSpuJobThreadPool.h>
 #include <Common/Base/Thread/JobQueue/hkJobQueue.h>

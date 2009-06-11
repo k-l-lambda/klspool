@@ -38,8 +38,6 @@ namespace Billiards
 
 		void	shot(const Vector& impulse, const Vector& pos);
 
-		//bool	isBallFalling();
-
 		void	loadBallConfigSet(const std::string& setname);
 
 		void	deployLayout(const GameLayout& layout);
@@ -56,6 +54,8 @@ namespace Billiards
 		void	creatPhantoms();
 
 		void	updateAllBalls();
+
+		void	loadMesh(hkpSimpleMeshShape* shap, std::string fileName) const;
 
 		// set the designated ball stilled
 		// void	freezeBall(int number);
