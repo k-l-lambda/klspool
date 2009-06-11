@@ -94,46 +94,15 @@ namespace Billiards
 	{
 		WorldWritingLock wlock(m_HavokSystem->getWorld());
 
-		std::ifstream inf;
-		inf.open("table.hkm");
-		if(inf.fail())
-			return;
-
 		hkpSimpleMeshShape* table = new hkpSimpleMeshShape();
 
-		std::string tmp;
-		inf>>tmp;
-
-		int vetexCount = 0;
-		inf>>vetexCount;
-
-		for(int i=0 ; i<vetexCount; ++i)
-		{
-			float x, y, z;
-			inf>>x>>y>>z;
-			hkVector4 tmp(x,y,z);
-			table->m_vertices.pushBack(tmp);
-		}
-
-		inf>>tmp;
-		int triangleCount = 0;
-		inf>>triangleCount;
-		for(int i=0 ; i<triangleCount; ++i)
-		{
-			hkpSimpleMeshShape::Triangle tmp;
-			inf>>tmp.m_a>>tmp.m_b>>tmp.m_c;
-
-			table->m_triangles.pushBack(tmp);
-		}
-
-		inf.close();
-
+		loadMesh(table, "table.hkm");
 	
 		{
 			hkpRigidBodyCinfo ci;
 			ci.m_shape = table;
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
-			ci.m_position = Vector(0, 8, 0);
+			ci.m_position = Vector(0, 8, -0.15f);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
 			ci.m_friction = 0.01f;
 			ci.m_restitution = 0.92f;
@@ -145,9 +114,54 @@ namespace Billiards
 			table->removeReference();
 		}
 
-		// tableBoard
-		//
-		hkpBoxShape* tableBoardS = new hkpBoxShape(Vector(s_TableParams.lenth/2 - s_TableParams.baffleWidth, s_TableParams.boardThickness/2, s_TableParams.width/2 - s_TableParams.baffleWidth));
+		// Create Table board
+		int numVertices = 16;
+
+		// 16 = 4 (size of "each float group", 3 for x,y,z, 1 for padding) * 4 (size of float)
+		int stride = sizeof(float) * 4;
+
+		float vertices[] = {
+			13.92f, -0.255f, 6.554f, 0.0f,
+			13.54f, -0.255f, 6.928f, 0.0f,
+			13.54f, -0.655f, 6.928f, 0.0f,
+			13.92f, -0.655f, 6.554f, 0.0f,
+				   
+			-13.92f, -0.255f, 6.554f, 0.0f,
+			-13.54f, -0.255f, 6.928f, 0.0f,
+			-13.54f, -0.655f, 6.928f, 0.0f,
+			-13.92f, -0.655f, 6.554f, 0.0f,
+				   
+			-13.92f, -0.255f, -6.554f, 0.0f,
+			-13.54f, -0.255f, -6.928f, 0.0f,
+			-13.54f, -0.655f, -6.928f, 0.0f,
+			-13.92f, -0.655f, -6.554f, 0.0f,
+				   
+			13.92f, -0.255f, -6.554f, 0.0f,
+			13.54f, -0.255f, -6.928f, 0.0f,
+			13.54f, -0.655f, -6.928f, 0.0f,
+			13.92f, -0.655f, -6.554f, 0.0f
+		};
+
+		// Shape construction
+		hkArray<hkVector4> planeEquations;
+		hkGeometry geom;
+
+		hkStridedVertices stridedVerts;
+		{
+			stridedVerts.m_numVertices = numVertices;
+			stridedVerts.m_striding = stride;
+			stridedVerts.m_vertices = vertices;
+		}
+
+		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
+
+		{
+			stridedVerts.m_numVertices = geom.m_vertices.getSize();
+			stridedVerts.m_striding = sizeof(hkVector4);
+			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
+		}
+
+		hkpConvexVerticesShape* tableBoardS = new hkpConvexVerticesShape(stridedVerts, planeEquations);
 
 		// creat rigidBody
 
@@ -155,7 +169,7 @@ namespace Billiards
 			hkpRigidBodyCinfo ci;
 			ci.m_shape = tableBoardS;
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
-			ci.m_position = Vector(0, s_TableParams.height, 0);
+			ci.m_position = Vector(0, s_TableParams.height + 1.2f, -0.03f);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
 			ci.m_friction = 0.2f;
 			ci.m_restitution = 0.2f;
@@ -168,6 +182,41 @@ namespace Billiards
 		}
 
 		//creatPhantoms();
+	}
+
+	void Game::loadMesh(hkpSimpleMeshShape* shap, std::string fileName) const
+	{
+		std::ifstream inf;
+		inf.open(fileName.c_str());
+		if(inf.fail())
+			return;
+
+		std::string tmp;
+		inf>>tmp;
+
+		int vetexCount = 0;
+		inf>>vetexCount;
+
+		for(int i=0 ; i<vetexCount; ++i)
+		{
+			float x, y, z;
+			inf>>x>>y>>z;
+			hkVector4 tmp(x,y,z);
+			shap->m_vertices.pushBack(tmp);
+		}
+
+		inf>>tmp;
+		int triangleCount = 0;
+		inf>>triangleCount;
+		for(int i=0 ; i<triangleCount; ++i)
+		{
+			hkpSimpleMeshShape::Triangle tmp;
+			inf>>tmp.m_a>>tmp.m_b>>tmp.m_c;
+
+			shap->m_triangles.pushBack(tmp);
+		}
+
+		inf.close();
 	}
 
 	void Game::creatPhantoms()
