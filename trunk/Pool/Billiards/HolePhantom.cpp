@@ -22,7 +22,7 @@ namespace Billiards
 		if ( (rb != HK_NULL) && !rb->isFixed() )
 		{
 			hkpSimpleShapePhantom::addOverlappingCollidable( c );
-			AudioSocket::instance().playSound("collide b-b", m_position, 100);
+			AudioSocket::instance().playSound("falling", m_position, 100);
 			
 			if(!m_AllBalls)
 				return;
@@ -60,7 +60,7 @@ namespace Billiards
 		}
 	}
 
-	bool HolePhantom::isBallFalling()
+	/*bool HolePhantom::isBallFalling()
 	{
 		bool result = false;
 
@@ -88,7 +88,7 @@ namespace Billiards
 		}
 
 		return result;
-	}
+	}*/
 
 	void HolePhantom::setBallList(std::vector<BallPtr>* balls)
 	{

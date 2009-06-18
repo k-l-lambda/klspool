@@ -334,10 +334,11 @@ void Frame::createScene()
 
 	{
 		// init audio system
-		PoolAudio::instance().init(3, 3);
+		PoolAudio::instance().init(4, 3);
 		PoolAudio::instance().loadWavFile("Media/sound/collide.wav");
 		PoolAudio::instance().loadWavFile("Media/sound/hit.wav");
 		PoolAudio::instance().loadWavFile("Media/sound/collide2.wav");
+		PoolAudio::instance().loadWavFile("Media/sound/Pocket.wav");
 
 		struct LocalScope
 		{
@@ -347,6 +348,7 @@ void Frame::createScene()
 					("collide b-b", 0)
 					("hit", 1)
 					("bound", 2)
+					("falling", 3)
 					;
 
 				if(!s_SoundMap.count(name))
