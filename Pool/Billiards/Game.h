@@ -51,6 +51,9 @@ namespace Billiards
 
 		void	creatTable();
 
+		hkpShape*	createBaffleShape();
+		hkpConvexVerticesShape*	createConvexVerticesShape(float* vertices, int verticesCount);
+
 		void	creatPhantoms();
 
 		void	updateAllBalls();

@@ -22,7 +22,7 @@ namespace Billiards
 
 	   HolePhantom( const hkpShape *shape, const hkTransform &transform, hkUint32 m_collisionFilterInfo=0 );
 
-	   bool isBallFalling();
+	   //bool isBallFalling();
 	   // Callback implementation
 	   virtual void addOverlappingCollidable( hkpCollidable* c );
 

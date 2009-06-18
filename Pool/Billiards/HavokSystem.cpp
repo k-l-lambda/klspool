@@ -89,7 +89,8 @@ namespace Billiards
 		hkpWorldCinfo worldInfo;
 		worldInfo.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_MULTITHREADED;
 		worldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_FIX_ENTITY;
-		worldInfo.m_collisionTolerance = 0.5;
+		worldInfo.m_collisionTolerance = 0.01f;
+		worldInfo.m_iterativeLinearCastEarlyOutDistance = 0.1f;
 		//…Ë÷√world≥ﬂ¥Á
 		worldInfo.setBroadPhaseWorldSize(worldsize);
 		worldInfo.m_gravity = Vector(0, -98, 0);
