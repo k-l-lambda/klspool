@@ -335,6 +335,7 @@ void Frame::createScene()
 	{
 		// init audio system
 		PoolAudio::instance().init(4, 3);
+
 		PoolAudio::instance().loadWavFile("Media/sound/collide.wav");
 		PoolAudio::instance().loadWavFile("Media/sound/hit.wav");
 		PoolAudio::instance().loadWavFile("Media/sound/collide2.wav");

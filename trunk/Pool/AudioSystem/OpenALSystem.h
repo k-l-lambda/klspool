@@ -30,13 +30,14 @@ public:
 	void playSound(int numOfBuffer, const float* sourcePos, const float* listenerPos, float gain);
 
 private:
-	unsigned int* m_buffers;
-	unsigned int* m_sources;
-	int m_numBuffers;
-	int m_numSources;
+	unsigned int*		m_buffers;
+	unsigned int*		m_sources;
+	int					m_numBuffers;
+	int					m_numSources;
 
-	int m_playingSource;
-	int m_loadedBuffer;
+	int*				m_playingSources;
+	int					m_sourcesPerBuf;
+	int					m_loadedBuffer;
 };
 
 

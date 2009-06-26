@@ -19,7 +19,7 @@ OpenALSystem::OpenALSystem()
 	m_buffers = 0;
 	m_sources = 0;
 
-	m_playingSource = 0;
+	m_playingSources = 0;
 	m_loadedBuffer = 0;
 
 	alutInit(0, 0);
@@ -56,11 +56,16 @@ bool OpenALSystem::loadWavFile(const std::string& fileName)
 	alutLoadWAVFile(filename, &format, &data, &size, &freq, &loop);
 
 	alBufferData(m_buffers[m_loadedBuffer], format, data, size, freq);
-	m_loadedBuffer++;
 
 	alutUnloadWAV(format, data, size, freq);
 
 	delete [] filename;
+
+	// assign buffers to sources.
+	for(int i = m_sourcesPerBuf * m_loadedBuffer; 
+		i < m_sourcesPerBuf *(m_loadedBuffer + 1);++i)
+		alSourcei (m_sources[i], AL_BUFFER, m_buffers[m_loadedBuffer]);
+	m_loadedBuffer++;
 
 	if (alGetError() != AL_NO_ERROR)
 		return false;
@@ -68,11 +73,16 @@ bool OpenALSystem::loadWavFile(const std::string& fileName)
 		return true;
 }
 
-bool OpenALSystem::init(int numBuffers, int numSources)
+bool OpenALSystem::init(int numBuffers, int sourcesPerBuf)
 {
 	// init buffers and sources
 	m_numBuffers = numBuffers;
-	m_numSources = numSources;
+	m_numSources = sourcesPerBuf * numBuffers;
+	m_sourcesPerBuf = sourcesPerBuf;
+
+	m_playingSources = new int[numBuffers];
+	for(int i = 0; i<numBuffers; ++i)
+		m_playingSources[i] = 0;
 
 	m_buffers = new ALuint[m_numBuffers];
 	alGenBuffers(m_numBuffers, m_buffers);
@@ -122,16 +132,16 @@ void OpenALSystem::playSound(int numOfBuffer, const ALfloat* sourcePos, const AL
 {
 	if(numOfBuffer >= m_loadedBuffer)
 		return;
-
-	alSourcei (m_sources[m_playingSource], AL_BUFFER, m_buffers[numOfBuffer]);
-	alSourcef (m_sources[m_playingSource], AL_GAIN,		gain);
-	alSourcefv(m_sources[m_playingSource], AL_POSITION, sourcePos);
+	int sourceNum = m_playingSources[numOfBuffer] + numOfBuffer * m_sourcesPerBuf;
+	alSourcef (m_sources[sourceNum], AL_GAIN,		gain);
+	alSourcefv(m_sources[sourceNum], AL_POSITION, sourcePos);
 
 	alListenerfv(AL_POSITION, listenerPos);
 
-	alSourcePlay(m_sources[m_playingSource]);
+	alSourcePlay(m_sources[sourceNum]);
 
-	m_playingSource++;
-	if(m_playingSource>=m_numSources)
-		m_playingSource = 0;
+	m_playingSources[numOfBuffer]++;
+
+	if(m_playingSources[numOfBuffer] >= m_sourcesPerBuf)
+		m_playingSources[numOfBuffer] = 0;
 }
