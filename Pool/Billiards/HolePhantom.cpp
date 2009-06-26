@@ -22,6 +22,7 @@ namespace Billiards
 		if ( (rb != HK_NULL) && !rb->isFixed() )
 		{
 			hkpSimpleShapePhantom::addOverlappingCollidable( c );
+			std::cout<<rb->getPosition()(0)<<","<<rb->getPosition()(1)<<","<<rb->getPosition()(2)<<std::endl;
 			AudioSocket::instance().playSound("falling", m_position, 100);
 			
 			if(!m_AllBalls)
