@@ -43,6 +43,8 @@
 #include <map>
 #include <stack>
 #include <fstream>
+#include <sstream>
+#include <iostream>
 
 
 #ifdef _MSC_VER

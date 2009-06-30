@@ -611,7 +611,7 @@ bool Frame::mouseMoved(const OIS::MouseEvent& e)
 			Vector3 touchpos = -front * std::sqrt(1 - m_SpinPoint.length()) + right * m_SpinPoint.x + up * m_SpinPoint.y;
 
 			Real power = std::pow(std::abs(-e.state.Y.rel), 0.8) * std::pow(m_AmassMax, 0.4f) * 0.6f;
-			m_Game->shot(ogre2Bld(front * power), ogre2Bld(touchpos));
+			m_Game->shot(ogre2Bld(front * power * 20), ogre2Bld(touchpos));
 
 			m_SpinPoint = Vector2::ZERO;
 			m_PitchingAngle = 0;

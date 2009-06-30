@@ -17,6 +17,8 @@
 
 namespace Billiards
 {
+	//std::vector<const char*> Ball::m_ballnames;
+
 	Ball::Ball(hkpWorld* world, const VisualObjectPtr& vobj)
 		: m_World(world)
 		, m_Radius(0)
@@ -31,9 +33,12 @@ namespace Billiards
 	Ball::~Ball()
 	{
 		releaseRigidBody();
+		
+		//for(int i =0 ; i<m_ballnames.size(); ++i)
+		//	delete [] m_ballnames[i];
 	}
 
-	void Ball::resetRigidBody(const Vector& position, Real mass, Real radius)
+	void Ball::resetRigidBody(const Vector& position, Real mass, Real radius, int number)
 	{
 		m_Radius = radius;
 
@@ -57,13 +62,23 @@ namespace Billiards
 		sphereInfo.m_shape = shape;
 		sphereInfo.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA;
 		sphereInfo.m_position = position;
-		sphereInfo.m_angularDamping = 0.8f;
-		sphereInfo.m_restitution = 0.6f;
+		sphereInfo.m_angularDamping = 2.0f;
+		sphereInfo.m_restitution = 0.25f;
 		sphereInfo.m_allowedPenetrationDepth = 1e-3f;
-		sphereInfo.m_friction = 0.1f;
+		sphereInfo.m_friction = 0.2f;
 
 		//creat Havok hkpRigidBody
 		m_RigidBody.reset(new hkpRigidBody(sphereInfo));
+
+		// create the name
+		std::ostringstream oss;
+		oss<<"BALL_"<<number;
+		char* name = new char[oss.str().size()];
+		strcpy(name, oss.str().c_str());
+		//m_ballnames.push_back(name);
+
+		m_RigidBody->setName(name);
+
 		m_World->addEntity(m_RigidBody.get());
 		//m_RigidBody->deactivate();
 
