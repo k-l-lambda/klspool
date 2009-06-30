@@ -132,13 +132,13 @@ namespace Billiards
 
 		{
 			float vertices[] = {
-				-0.595f - mhr,	0.347f,		-7.076f,	0.0f,
+				-0.595f - mhr,	0.379f,		-7.076f,	0.0f,
 				-0.331f - mhr,	0.560f,		-7.235f,	0.0f,
 				-0.331f - mhr,	0.602f,		-7.717f,	0.0f,
 				-0.331f - mhr,	-0.212f,	-7.702f,	0.0f,
 				-0.331f - mhr,	-0.212f,	-7.185f,	0.0f,
 							    
-				-13.410f + chr,	0.347f,		-7.076f,	0.0f,
+				-13.410f + chr,	0.379f,		-7.076f,	0.0f,
 				-13.802f + chr,	0.56f,		-7.235f,	0.0f,
 				-13.802f + chr,	0.602f,		-7.717f,	0.0f,
 				-13.802f + chr,	-0.212f,	-7.702f,	0.0f,
@@ -150,13 +150,13 @@ namespace Billiards
 
 		{
 			float vertices[] = {
-				0.595f + mhr,	0.347f,		-7.076f,	0.0f,
+				0.595f + mhr,	0.379f,		-7.076f,	0.0f,
 				0.331f + mhr,	0.560f,		-7.235f,	0.0f,
 				0.331f + mhr,	0.602f,		-7.717f,	0.0f,
 				0.331f + mhr,	-0.212f,	-7.702f,	0.0f,
 				0.331f + mhr,	-0.212f,	-7.185f,	0.0f,
 							    
-				13.410f - chr,		0.347f,		-7.076f,	0.0f,
+				13.410f - chr,		0.379f,		-7.076f,	0.0f,
 				13.802f - chr,	0.56f,		-7.235f,	0.0f,
 				13.802f - chr,	0.602f,		-7.717f,	0.0f,
 				13.802f - chr,	-0.212f,	-7.702f,	0.0f,
@@ -168,17 +168,17 @@ namespace Billiards
 
 		{
 			float vertices[] = {
-				-0.595f - mhr,	0.347f,		6.843f,	0.0f,
-				-0.331f - mhr,	0.560f,		7.235f,	0.0f,
-				-0.331f - mhr,	0.602f,		7.717f,	0.0f,
-				-0.331f - mhr,	-0.212f,	7.702f,	0.0f,
-				-0.331f - mhr,	-0.212f,	7.185f,	0.0f,
+				-0.595f - mhr,	0.379f,		7.076f-0.2f,	0.0f,
+				-0.331f - mhr,	0.560f,		7.235f-0.2f,	0.0f,
+				-0.331f - mhr,	0.602f,		7.717f-0.2f,	0.0f,
+				-0.331f - mhr,	-0.212f,	7.702f-0.2f,	0.0f,
+				-0.331f - mhr,	-0.212f,	7.185f-0.2f,	0.0f,
 							    
-				-13.410f + chr,	0.347f,		6.843f, 0.0f,
-				-13.802f + chr,	0.56f,		7.235f, 0.0f,
-				-13.802f + chr,	0.602f,		7.717f, 0.0f,
-				-13.802f + chr,	-0.212f,	7.702f,	0.0f,
-				-13.781f + chr,	-0.212f,	7.185f,	0.0f
+				-13.410f + chr,	0.379f,		7.076f-0.2f, 0.0f,
+				-13.802f + chr,	0.56f,		7.235f-0.2f, 0.0f,
+				-13.802f + chr,	0.602f,		7.717f-0.2f, 0.0f,
+				-13.802f + chr,	-0.212f,	7.702f-0.2f,	0.0f,
+				-13.781f + chr,	-0.212f,	7.185f-0.2f,	0.0f
 			};
 			
 			shapeArray.pushBack(createConvexVerticesShape(vertices, verticesCount));
@@ -186,17 +186,17 @@ namespace Billiards
 
 		{
 			float vertices[] = {
-				0.595f + mhr,	0.347f,		6.843f,	0.0f,
-				0.331f + mhr,	0.560f,		7.235f,	0.0f,
-				0.331f + mhr,	0.602f,		7.717f,	0.0f,
-				0.331f + mhr,	-0.212f,	7.702f,	0.0f,
-				0.331f + mhr,	-0.212f,	7.185f,	0.0f,
+				0.595f + mhr,	0.379f,		7.076f-0.2f,	0.0f,
+				0.331f + mhr,	0.560f,		7.235f-0.2f,	0.0f,
+				0.331f + mhr,	0.602f,		7.717f-0.2f,	0.0f,
+				0.331f + mhr,	-0.212f,	7.702f-0.2f,	0.0f,
+				0.331f + mhr,	-0.212f,	7.185f-0.2f,	0.0f,
 							    
-				13.410f - chr,		0.347f,		6.843f, 0.0f,
-				13.802f - chr,	0.56f,		7.235f, 0.0f,
-				13.802f - chr,	0.602f,		7.717f, 0.0f,
-				13.802f - chr,	-0.212f,	7.702f,	0.0f,
-				13.781f - chr,	-0.212f,	7.185f,	0.0f
+				13.410f - chr,		0.379f,		7.076f-0.2f, 0.0f,
+				13.802f - chr,	0.56f,		7.235f-0.2f, 0.0f,
+				13.802f - chr,	0.602f,		7.717f-0.2f, 0.0f,
+				13.802f - chr,	-0.212f,	7.702f-0.2f,	0.0f,
+				13.781f - chr,	-0.212f,	7.185f-0.2f,	0.0f
 			};
 			
 			shapeArray.pushBack(createConvexVerticesShape(vertices, verticesCount));
@@ -205,16 +205,16 @@ namespace Billiards
 		{
 			float vertices[] = {
 				-13.90f,	0.379f,		-6.444f + chr,	0.0f,
-				-14.29f,	0.602f,		-6.738f + chr,	0.0f,
+				-14.10f,	0.602f,		-6.738f + chr,	0.0f,
 				-14.77f,	0.602f,		-6.738f + chr,	0.0f,
 				-14.77f,	-0.212f,	-6.738f + chr,	0.0f,
-				-14.29f,	-0.212f,	-6.738f + chr,	0.0f,
+				-14.10f,	-0.212f,	-6.738f + chr,	0.0f,
 							    
 				-13.90f,	0.379f,		6.594f - chr,		0.0f,
-				-14.29f,	0.602f,		6.868f - chr,		0.0f,
+				-14.10f,	0.602f,		6.868f - chr,		0.0f,
 				-14.77f,	0.602f,		6.868f - chr,		0.0f,
 				-14.77f,	-0.212f,	6.868f - chr,		0.0f,
-				-14.29f,	-0.212f,	6.868f - chr,		0.0f
+				-14.10f,	-0.212f,	6.868f - chr,		0.0f
 			};
 			
 			shapeArray.pushBack(createConvexVerticesShape(vertices, verticesCount));
@@ -223,16 +223,16 @@ namespace Billiards
 		{
 			float vertices[] = {
 				13.90f,		0.379f,		-6.444f + chr,	0.0f,
-				14.29f,		0.602f,		-6.738f + chr,	0.0f,
+				14.10f,		0.602f,		-6.738f + chr,	0.0f,
 				14.77f,		0.602f,		-6.738f + chr,	0.0f,
 				14.77f,		-0.212f,	-6.738f + chr,	0.0f,
-				14.29f,		-0.212f,	-6.738f + chr,	0.0f,
+				14.10f,		-0.212f,	-6.738f + chr,	0.0f,
 						    
 				13.90f,		0.379f,		6.594f - chr,		0.0f,
-				14.29f,		0.602f,		6.868f - chr,		0.0f,
+				14.10f,		0.602f,		6.868f - chr,		0.0f,
 				14.77f,		0.602f,		6.868f - chr,		0.0f,
 				14.77f,		-0.212f,	6.868f - chr,		0.0f,
-				14.29f,		-0.212f,	6.868f - chr,		0.0f
+				14.10f,		-0.212f,	6.868f - chr,		0.0f
 			};
 			
 			shapeArray.pushBack(createConvexVerticesShape(vertices, verticesCount));
@@ -350,13 +350,14 @@ namespace Billiards
 			ci.m_shape = baffles;
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
 			// a little upgrade
-			ci.m_position = Vector(0, 8.2f, 0);
+			ci.m_position = Vector(0, 8.3f, 0);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-			ci.m_friction = 0.2f;
-			ci.m_restitution = 0.92f;
+			ci.m_friction = 0.4f;
+			ci.m_restitution = 1.0f;
 			ci.m_allowedPenetrationDepth = 1e-2f;
 
 			m_baffles.reset(new hkpRigidBody(ci));
+			m_baffles->setName("BAFFLES");
 			m_HavokSystem->getWorld()->addEntity(m_baffles.get());
 		
 			baffles->removeReference();
@@ -397,11 +398,12 @@ namespace Billiards
 			ci.m_motionType = hkpMotion::MOTION_FIXED;
 			ci.m_position = Vector(0, s_TableParams.height + 1.2f, -0.03f);
 			ci.m_qualityType = HK_COLLIDABLE_QUALITY_FIXED;
-			ci.m_friction = 0.2f;
-			ci.m_restitution = 0.2f;
+			ci.m_friction = 1.0f;
+			ci.m_restitution = 0.1f;
 			ci.m_allowedPenetrationDepth = 1e-2f;
 
 			m_table.reset(new hkpRigidBody(ci));
+			m_table->setName("TABLEBOARD");
 			m_HavokSystem->getWorld()->addEntity(m_table.get());
 
 			tableBoardS->removeReference();
@@ -623,7 +625,7 @@ namespace Billiards
 			VisualObjectPtr vobj = m_fnCreateVisualObject(param);
 			BallPtr ball(new Ball(m_HavokSystem->getWorld(), vobj));
 
-			ball->resetRigidBody(ballinfo.Position + Vector(0, s_TableParams.height + 1.f, 0), config.Mass ,config.Redius);
+			ball->resetRigidBody(ballinfo.Position + Vector(0, s_TableParams.height + 1.f, 0), config.Mass ,config.Redius,(int)i);
 
 			m_Balls.push_back(ball);
 		}

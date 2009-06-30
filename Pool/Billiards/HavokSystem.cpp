@@ -87,13 +87,15 @@ namespace Billiards
 	bool HavokSystem::createHavokWorld(Real worldsize)
 	{
 		hkpWorldCinfo worldInfo;
+		worldInfo.setupSolverInfo(hkpWorldCinfo::SOLVER_TYPE_8ITERS_HARD);
+		worldInfo.m_contactPointGeneration = hkpWorldCinfo::CONTACT_POINT_ACCEPT_ALWAYS;
 		worldInfo.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_MULTITHREADED;
 		worldInfo.m_broadPhaseBorderBehaviour = hkpWorldCinfo::BROADPHASE_BORDER_FIX_ENTITY;
 		worldInfo.m_collisionTolerance = 0.01f;
 		worldInfo.m_iterativeLinearCastEarlyOutDistance = 0.1f;
 		//ÉèÖÃworld³ß´ç
 		worldInfo.setBroadPhaseWorldSize(worldsize);
-		worldInfo.m_gravity = Vector(0, -98, 0);
+		worldInfo.m_gravity = Vector(0, -49, 0);
 
 		m_World = new hkpWorld(worldInfo);
 		m_World->m_wantDeactivation = false;

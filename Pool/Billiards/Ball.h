@@ -26,7 +26,7 @@ namespace Billiards
 		Ball(hkpWorld* world, const VisualObjectPtr& vobj);
 		~Ball();
 
-		void	resetRigidBody(const Vector& position, Real mass, Real radius);
+		void	resetRigidBody(const Vector& position, Real mass, Real radius, int number);
 		void	releaseRigidBody();
 
 		void	applyForce(const Vector& force, const Vector& pos, Real deltaTime);
@@ -59,6 +59,8 @@ namespace Billiards
 
 #pragma warning(suppress: 4251)	// 'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		VisualObjectPtr	m_VisualObject;
+
+		//static std::vector<const char *>	m_ballnames;
 	};
 }
 
