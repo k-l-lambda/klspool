@@ -1,5 +1,5 @@
 /*
-**	This source file is part of Pool.
+**	This source file is part of FrameTemplate.
 **
 **	Copyright (c) 2009	K.L.<xxxk.l.xxx@gmail.com>, Lazy<yinxiaozhou@gmail.com>
 **	This program is free software without any warranty.
@@ -63,8 +63,6 @@ std::string macBundlePath()
 
 using namespace Ogre;
 
-static const char* s_GuiConfigSectionName = "MagicCubeGui";
-
 
 /** Base class which manages the standard startup of an Ogre application.
 Designed to be subclassed for specific examples if required.
@@ -74,9 +72,6 @@ class ExampleApplication
 public:
 	/// Standard constructor
 	ExampleApplication()
-		: m_OpenMirrorEffect(true)
-		, m_OpenShininess(true)
-		, m_CurrentCubMap(0)
 	{
 		mFrameListener = 0;
 		mRoot = 0;
@@ -119,13 +114,6 @@ public:
 	ExampleFrameListener* mFrameListener;
 	RenderWindow* mWindow;
 	Ogre::String mResourcePath;
-
-	bool	m_OpenMirrorEffect;
-	bool	m_OpenShininess;
-
-	size_t		m_CurrentCubMap;
-
-	std::string	m_CubeCode;
 
 	// These internal methods package up the stages in the startup process
 	/** Sets up the application - returns false if the user chooses to abandon configuration. */
@@ -198,7 +186,7 @@ public:
 		{
 			// If returned true, user clicked OK so initialise
 			// Here we choose to let the system create a default rendering window by passing 'true'
-			mWindow = mRoot->initialise(true, "Trigo");
+			mWindow = mRoot->initialise(true, "FrameTemplate");
 		}
 		return true;
 	}
@@ -297,13 +285,13 @@ private:
 	{
 		ConfigFile cfg;
 		cfg.load("ogre.cfg"/*, "\t:=", false*/);
-		std::string s = cfg.getSetting("OpenMirrorEffect", s_GuiConfigSectionName);
+		/*std::string s = cfg.getSetting("OpenMirrorEffect", s_GuiConfigSectionName);
 		m_OpenMirrorEffect = boost::lexical_cast<bool>(s.empty() ? "1" : s);
 		s = cfg.getSetting("OpenShininess", s_GuiConfigSectionName);
 		m_OpenShininess = boost::lexical_cast<bool>(s.empty() ? "1" : s);
 		s = cfg.getSetting("CurrentCubMap", s_GuiConfigSectionName);
 		m_CurrentCubMap = boost::lexical_cast<size_t>(s.empty() ? "0" : s);
-		m_CubeCode = cfg.getSetting("CubeCode", s_GuiConfigSectionName);
+		m_CubeCode = cfg.getSetting("CubeCode", s_GuiConfigSectionName);*/
 	};
 
 	void	saveGuiConfig()
@@ -311,16 +299,12 @@ private:
 		std::ifstream cfg("ogre.cfg", std::ios::in);
 		if(cfg.is_open())
 		{
-			//bool found = false;
-
-			std::stringstream ss;
+			/*std::stringstream ss;
 
 			// find begin position of the GUI config section
 			char buffer[128];
 			while(!cfg.eof() && !cfg.fail())
 			{
-				//std::cout << "g:\t" << cfg.tellg() << std::endl;
-				//std::cout << "p:\t" << cfg.tellp() << std::endl;
 				cfg.getline(buffer, 128);
 				if(std::string(buffer) == std::string("[") + s_GuiConfigSectionName + "]")
 				{
@@ -337,9 +321,7 @@ private:
 			{
 				ocfg << ss.str();
 
-				//if(!found)
 				{
-					//ocfg << std::endl;
 					ocfg << "[" << s_GuiConfigSectionName << "]" << std::endl;
 				}
 
@@ -347,7 +329,7 @@ private:
 				ocfg << "OpenShininess=" << boost::lexical_cast<std::string>(m_OpenShininess) << std::endl;
 				ocfg << "CurrentCubMap=" << boost::lexical_cast<std::string>(m_CurrentCubMap) << std::endl;
 				ocfg << "CubeCode=" << m_CubeCode << std::endl;
-			}
+			}*/
 		}
 	};
 

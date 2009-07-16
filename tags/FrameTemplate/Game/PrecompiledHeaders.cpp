@@ -1,12 +1,12 @@
 /*
-**	This source file is part of Pool.
+**	This source file is part of FrameTemplate.
 **
 **	Copyright (c) 2009	K.L.<xxxk.l.xxx@gmail.com>, Lazy<yinxiaozhou@gmail.com>
 **	This program is free software without any warranty.
 */
 
 // PrecompiledHeaders.cpp : 只包括标准包含文件的源文件
-// Pool.pch 将成为预编译头
+// FrameTemplate.pch 将成为预编译头
 // PrecompiledHeaders.obj 将包含预编译类型信息
 
 #include "StableHeaders.h"
