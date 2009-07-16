@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(SDKDIR_BOOST)\bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)\lib\vc_lib&quot;;&quot;$(SDKDIR_OGRE)\lib&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\lib\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(SDKDIR_BOOST)\bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_WXWIDGETS)\lib\vc_lib&quot;;&quot;$(SDKDIR_OGRE)\lib&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(SDKDIR_BOOST)\bin\$(ConfigurationName)&quot;;&quot;$(SDKDIR_WXWIDGETS)\lib\vc_lib&quot;;&quot;$(SDKDIR_OGRE)\lib&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\lib\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(SDKDIR_BOOST)\bin\$(ConfigurationName)\lib&quot;;&quot;$(SDKDIR_WXWIDGETS)\lib\vc_lib&quot;;&quot;$(SDKDIR_OGRE)\lib&quot;;&quot;$(SDKDIR_OGRE)\Dependencies\lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"

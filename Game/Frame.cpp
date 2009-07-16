@@ -1,5 +1,5 @@
 /*
-**	This source file is part of Pool.
+**	This source file is part of FrameTemplate.
 **
 **	Copyright (c) 2009	K.L.<xxxk.l.xxx@gmail.com>, Lazy<yinxiaozhou@gmail.com>
 **	This program is free software without any warranty.
@@ -173,7 +173,7 @@ END_EVENT_TABLE()
 
 
 Frame::Frame(const OnCloseFunctor& fnOnClose)
-	: wxFrame(NULL, -1, "Pool", wxDefaultPosition, wxSize(800, 640), wxDEFAULT_FRAME_STYLE)
+	: wxFrame(NULL, -1, "FrameTemplate", wxDefaultPosition, wxSize(800, 640), wxDEFAULT_FRAME_STYLE)
 	, m_nodeLight(NULL)
 	, m_nodeLight2(NULL)
 	, m_nodeGame(NULL)
@@ -201,7 +201,7 @@ void Frame::createScene()
 {
 	{
 #pragma message("Update version info: file:"__FILE__" date:"__DATE__" time:"__TIME__)
-		static const char* const VERSIONINFO = "[VERSION] Pool version: File:"__FILE__", Date:"__DATE__", Time:"__TIME__;
+		static const char* const VERSIONINFO = "[VERSION] FrameTemplate version: File:"__FILE__", Date:"__DATE__", Time:"__TIME__;
 		LogManager::getSingleton().logMessage(VERSIONINFO, LML_CRITICAL);
 	}
 
@@ -229,7 +229,7 @@ void Frame::createScene()
 	mCamera->setPosition(m_nodeCamera->_getDerivedPosition());
 	mCamera->lookAt(0,0,0);
 
-	mSceneMgr->setSkyBox(true, "Pool/SkyBox");
+	mSceneMgr->setSkyBox(true, "FrameTemplate/SkyBox");
 
 	mWindow->getViewport(0)->setBackgroundColour(ColourValue(0.2, 0.2, 0.2));
 }
@@ -369,12 +369,12 @@ void Frame::setupGui()
 	m_GuiSystem->setDefaultFont((CEGUI::utf8*)"BlueHighway-12");
 	m_GuiSystem->setDefaultTooltip("TaharezLook/Tooltip");
 
-	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().loadWindowLayout((CEGUI::utf8*)"Pool.layout"); 
+	CEGUI::Window* sheet = CEGUI::WindowManager::getSingleton().loadWindowLayout((CEGUI::utf8*)"FrameTemplate.layout"); 
 	m_GuiSystem->setGUISheet(sheet);
 
 	CEGUI::Window* root = CEGUI::WindowManager::getSingleton().getWindow("root");
 
-	CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"Pool/Shut")
+	CEGUI::WindowManager::getSingleton().getWindow((CEGUI::utf8*)"FrameTemplate/Shut")
 		->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Frame::onGuiShut, this));
 }
 
