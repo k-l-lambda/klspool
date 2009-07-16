@@ -1,8 +1,0 @@
-<?xml version="1.0" ?>
-<Imageset Name="PoolGame" Imagefile="PoolGame.dds" NativeHorzRes="800" NativeVertRes="600" AutoScaled="true">
-	<Image Name="SpinBackground" XPos="0" YPos="0" Width="64" Height="64" />
-	<Image Name="SpinPoint" XPos="64" YPos="0" Width="47" Height="48" />
-	<Image Name="PowerSlot" XPos="0" YPos="64" Width="19" Height="359" />
-  <Image Name="PowerSlotSurface" XPos="0" YPos="424" Width="19" Height="1" />
-  <Image Name="RedColumn" XPos="0" YPos="427" Width="16" Height="1" />
-</Imageset>
