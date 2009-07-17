@@ -1,7 +1,7 @@
 /*
 **	This source file is part of FrameTemplate.
 **
-**	Copyright (c) 2009	K.L.<xxxk.l.xxx@gmail.com>, Lazy<yinxiaozhou@gmail.com>
+**	Copyright (c) 2009	K.L.<xxxk.l.xxx@gmail.com>
 **	This program is free software without any warranty.
 */
 
