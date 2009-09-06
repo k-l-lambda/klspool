@@ -201,6 +201,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\HolePhantom.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LuaSymbols.cpp"
 				>
 			</File>
@@ -264,6 +268,10 @@
 			</File>
 			<File
 				RelativePath=".\HavokSystem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HolePhantom.h"
 				>
 			</File>
 			<File
