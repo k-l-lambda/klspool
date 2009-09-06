@@ -28,7 +28,7 @@ namespace Billiards
 	{
 		float height;
 		float width;
-		float lenth;
+		float length;
 
 		float baffleHeight;
 		float baffleWidth;
@@ -494,7 +494,7 @@ namespace Billiards
 		{
 			hkTransform t ;
 			t = t.getIdentity();
-			Vector trans = Vector(s_TableParams.lenth/2 /*- s_TableParams.baffleWidth*/, 
+			Vector trans = Vector(s_TableParams.length/2 /*- s_TableParams.baffleWidth*/, 
 				                  s_TableParams.height, 
 								  -(s_TableParams.width / 2 /*- s_TableParams.baffleWidth*/ + 0.1f));
 			t.setTranslation(trans);
@@ -508,7 +508,7 @@ namespace Billiards
 		{
 			hkTransform t ;
 			t = t.getIdentity();
-			Vector trans = Vector(s_TableParams.lenth/2 /*- s_TableParams.baffleWidth*/, 
+			Vector trans = Vector(s_TableParams.length/2 /*- s_TableParams.baffleWidth*/, 
 				                  s_TableParams.height, 
 								  s_TableParams.width / 2 /*- s_TableParams.baffleWidth*/);
 			t.setTranslation(trans);
@@ -522,7 +522,7 @@ namespace Billiards
 		{
 			hkTransform t ;
 			t = t.getIdentity();
-			Vector trans = Vector(-(s_TableParams.lenth/2 /*- s_TableParams.baffleWidth*/), 
+			Vector trans = Vector(-(s_TableParams.length/2 /*- s_TableParams.baffleWidth*/), 
 				                  s_TableParams.height, 
 								  -(s_TableParams.width / 2 /*- s_TableParams.baffleWidth*/ + 0.1f));
 			t.setTranslation(trans);
@@ -536,7 +536,7 @@ namespace Billiards
 		{
 			hkTransform t ;
 			t = t.getIdentity();
-			Vector trans = Vector(-(s_TableParams.lenth/2 /*- s_TableParams.baffleWidth*/), 
+			Vector trans = Vector(-(s_TableParams.length/2 /*- s_TableParams.baffleWidth*/), 
 				                  s_TableParams.height, 
 								  s_TableParams.width / 2 /*- s_TableParams.baffleWidth*/);
 			t.setTranslation(trans);
